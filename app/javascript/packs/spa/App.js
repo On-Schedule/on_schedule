@@ -5,6 +5,8 @@ import LoginPage from './components/LoginPage';
 
 
 function App() {
+  const user = useSelector((state) => state.user);
+
   return (
     <div>
       <Routes>

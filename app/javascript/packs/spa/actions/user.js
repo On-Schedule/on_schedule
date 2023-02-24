@@ -5,6 +5,7 @@ export function loadUser() {
     return user;
   }
 }
+
 export function updateUser(fields) {
   return async (dispatch, getState, api) => {
     const {data:user} = await api.put('user', {user: fields});
