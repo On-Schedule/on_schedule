@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOMClient from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from "react-router-dom";
 // import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
@@ -20,14 +20,15 @@ store.dispatch(init());
 //   accessToken: process.env.ROLLBAR_CLIENT_TOKEN,
 //   environment: 'production',
 // };
+const container = document.getElementById('root');
+const root = ReactDOMClient.createRoot(container);
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );

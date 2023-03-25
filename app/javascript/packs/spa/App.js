@@ -3,10 +3,11 @@ import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-do
 import { useSelector } from 'react-redux'
 
 import UserDashboard from './components/UserDashboard';
+import NewProjectForm from './components/NewProjectForm';
 
 function App() {
   const user = useSelector((state) => state.user);
-
+  console.log(user);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -35,7 +36,8 @@ function App() {
         </div>
       </nav>
       <Routes>
-        <Route index element={<UserDashboard />}/>
+        <Route index element={<UserDashboard />} />
+        <Route path="/new_project" element={<NewProjectForm />} />
       </Routes>
     </div>
   );
