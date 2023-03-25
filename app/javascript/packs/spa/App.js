@@ -7,7 +7,6 @@ import NewProjectForm from './components/NewProjectForm';
 
 function App() {
   const user = useSelector((state) => state.user);
-  console.log(user);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
