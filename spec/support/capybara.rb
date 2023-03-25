@@ -4,8 +4,8 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    "goog:chromeOptions": {
-      args: %w[headless enable-features=NetworkService,NetworkServiceInProcess]
+    'goog:chromeOptions': {
+      args: ['headless', 'enable-features=NetworkService,NetworkServiceInProcess']
     }
   )
 

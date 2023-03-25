@@ -2,4 +2,5 @@
     display: flex;
     width: 95%;
     flex-direction: row;
+    padding: 2%;
   }
