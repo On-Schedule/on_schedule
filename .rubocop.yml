@@ -1,0 +1,74 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "bin/**/*"
+    - "config.ru"
+    - "config/**/*"
+    - "db/**/*"
+    - "Gemfile"
+    - "Guardfile"
+    - "lib/tasks/webpacker.rake"
+    - "node_modules/**/*"
+    - "Rakefile"
+    - "script/**/*"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+
+Lint/AmbiguousOperator:
+  Enabled: false
+Layout/ArgumentAlignment:
+  Enabled: false
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+Layout/LineLength:
+  Max: 150
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*"
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Max: 7
+Metrics/MethodLength:
+  Enabled: false
+Style/Alias:
+  Enabled: false
+Style/AndOr:
+  EnforcedStyle: conditionals
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/Lambda:
+  EnforcedStyle: literal
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses_except_multiline
+Style/MultilineBlockChain:
+  Enabled: false
+Style/Next:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Style/SymbolArray:
+  EnforcedStyle: brackets
+Style/WordArray:
+  EnforcedStyle: brackets
