@@ -1,7 +1,7 @@
 export function loadUser() {
   return async (dispatch, getState, api) => {
-    const {data:user} = await api.get('users');
-    dispatch({type: 'user/recieved'});
+    const {data:user} = await api.get('user');
+    dispatch({type: 'user/recieved', user});
     return user;
   }
 }
@@ -11,13 +11,6 @@ export function updateUser(fields) {
     const {data:user} = await api.put('user', {user: fields});
     dispatch({type: 'user/recieved', user});
     return user;
-  }
-}
-
-export function Login() {
-  return async (dispatch, getState, api) => {
-    const response = await api.post('user');
-    dispatch({type: 'user/login'});
   }
 }
 
