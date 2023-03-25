@@ -62,6 +62,7 @@ end
 group :test do
   gem 'webmock'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
+  gem 'capybara-selenium'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
