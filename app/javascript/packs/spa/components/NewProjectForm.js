@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { newProject } from 'actions/projects'
 
 const fiveEights = {
   days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
@@ -23,6 +26,7 @@ const defaultProject = {
 }
 
 export default function NewProjectForm({project=defaultProject}) {
+  const dispatch = useDispatch();
   const [details, setDetails] = useState(project)
   const [schedule, setSchedule] = useState(details.schedule)
   const [custom, setCustom] = useState(true)
@@ -31,7 +35,6 @@ export default function NewProjectForm({project=defaultProject}) {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
   }
 
-  console.log(details.name);
   useEffect(() => {
     setDetails({...details, schedule: schedule})
   }, [schedule])
@@ -67,12 +70,15 @@ export default function NewProjectForm({project=defaultProject}) {
     setSchedule((schedule) => ({...schedule, hours: e.target.value}))
   }
 
-  const saveProject = async () => {
+  const saveProject = () => async () => {
+    console.log('You are here');
     if(!valid()) {
-      return
-    } else {
-      // add POST request to backend, and redirect to project show page
+      return;
     }
+    // add POST request to backend, and redirect to project show page
+    await dispatch(newProject(details))
+    project = tihs.state.currentProject
+    navagate('/')
   }
   const valid = () => {
     // need to add validations for
@@ -81,6 +87,9 @@ export default function NewProjectForm({project=defaultProject}) {
     // - start_date is before end_date
     // - hours are between 1 & 24
     // - at least on day selected
+    if(details.name.length < 1) {
+      return false
+    }
     return true
   }
 
@@ -168,7 +177,7 @@ export default function NewProjectForm({project=defaultProject}) {
       ) : ("")}
       {/* Add team members (with check for read only) */}
       <div className="card-body text-center">
-        <button className="btn btn-primary" onClick={saveProject()}>Save</button>
+        <button type="button" className="btn btn-primary" onClick={saveProject()}>Save</button>
       </div>
     </form>
   </div>
