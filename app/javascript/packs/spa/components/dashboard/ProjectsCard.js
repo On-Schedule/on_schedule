@@ -9,7 +9,7 @@ export default function ProjectsCard() {
     <div className="card border-primary mb-3">
       <div className="card-header navbar">
         <h4>Projects</h4>
-        <Link to="/new_project" className="btn btn-info btn-sm d-flex">+ Add New Project</ Link>
+        <Link to="/projects/new" className="btn btn-info btn-sm d-flex">+ Add New Project</ Link>
       </div>
       <div className="card-body">
         {projects ? (
