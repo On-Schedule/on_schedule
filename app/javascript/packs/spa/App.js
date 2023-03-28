@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
+import ProjectPage from './components/ProjectPage';
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -36,7 +37,8 @@ function App() {
       </nav>
       <Routes>
         <Route index element={<UserDashboard />} />
-        <Route path="/new_project" element={<NewProjectForm />} />
+        <Route path="/projects/new" element={<NewProjectForm />} />
+        <Route path="/projects/:id" element={<ProjectPage />} />
       </Routes>
     </div>
   );

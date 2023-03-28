@@ -12,7 +12,11 @@
   company: @company1,
   name: "Project 1",
   start_date: Date.parse("10/10/2022"),
-  end_date: Date.parse("10/10/2025")
+  end_date: Date.parse("10/10/2025"),
+  schedule: {
+    days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
+    hours: 8
+  }
 })
 
 ProjectUser.create!({

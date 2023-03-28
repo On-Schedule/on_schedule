@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, path: '/v1' do
       resource :user, only: [:show]
-      resource :projects, only: [:create]
+      resource :projects, only: [:create, :show]
     end
   end
 

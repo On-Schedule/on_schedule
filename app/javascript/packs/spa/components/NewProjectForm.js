@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { newProject } from 'actions/projects'
 
@@ -27,6 +28,7 @@ const defaultProject = {
 
 export default function NewProjectForm({project=defaultProject}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [details, setDetails] = useState(project)
   const [schedule, setSchedule] = useState(details.schedule)
   const [custom, setCustom] = useState(true)
@@ -71,15 +73,14 @@ export default function NewProjectForm({project=defaultProject}) {
   }
 
   const saveProject = () => async () => {
-    console.log('You are here');
     if(!valid()) {
       return;
     }
-    // add POST request to backend, and redirect to project show page
-    await dispatch(newProject(details))
-    project = tihs.state.currentProject
-    navagate('/')
+
+    project = await dispatch(newProject(details));
+    navigate(`/projects/${project.id}`)
   }
+
   const valid = () => {
     // need to add validations for
     // - name present
