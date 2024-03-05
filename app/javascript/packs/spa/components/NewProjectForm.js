@@ -31,7 +31,7 @@ export default function NewProjectForm({project=defaultProject}) {
   const navigate = useNavigate();
   const [details, setDetails] = useState(project)
   const [schedule, setSchedule] = useState(details.schedule)
-  const [custom, setCustom] = useState(true)
+  const [custom, setCustom] = useState(false)
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
@@ -82,12 +82,28 @@ export default function NewProjectForm({project=defaultProject}) {
   }
 
   const valid = () => {
-    // need to add validations for
-    // - name present
+    console.log('details', details);
     // - start_date & end_date present
+    if (!details.start_date || !details.end_date) {
+      return false
+    }
+
     // - start_date is before end_date
+    if (details.end_date < details.start_date) {
+      return false
+    }
+
     // - hours are between 1 & 24
-    // - at least on day selected
+    if (details.schedule.hours < 1 || details.schedule.hours > 24) {
+      return false
+    }
+
+    // - at least one day selected
+    if (details.schedule.days.length < 1) {
+      return false
+    }
+
+    // - name present
     if(details.name.length < 1) {
       return false
     }
@@ -138,7 +154,7 @@ export default function NewProjectForm({project=defaultProject}) {
               value={preSet}
               type="radio"
               name="workWeek"
-              defaultChecked={preSet === "Custom schedule"}
+              defaultChecked={preSet === "5x8 (M-F)"}
             />
             <label className="form-label">{preSet}</label>
           </div>
