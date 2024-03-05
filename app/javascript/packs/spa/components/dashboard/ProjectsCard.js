@@ -14,7 +14,11 @@ export default function ProjectsCard() {
       <div className="card-body">
         {projects ? (
           _.map(projects, (project) => (
-            <h4 key={project.id}>{project.name}</h4>
+            <h4 key={project.id}>
+              <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-lg d-flex">
+                {project.name}
+              </ Link>
+            </h4>
           ))
         ) : (
           <h4 className="card-title">No Current Projects</h4>
