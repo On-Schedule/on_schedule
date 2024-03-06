@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux'
 
 import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
+import ProjectPage from './components/ProjectPage';
 
 function App() {
   const user = useSelector((state) => state.user);
-  console.log(user);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,8 +19,7 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
-                <a className="nav-link active">Home
-                </a>
+                <Link to={""} className="nav-link active">Home</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link">Features</a>
@@ -37,7 +36,8 @@ function App() {
       </nav>
       <Routes>
         <Route index element={<UserDashboard />} />
-        <Route path="/new_project" element={<NewProjectForm />} />
+        <Route path="/projects/new" element={<NewProjectForm />} />
+        <Route path="/projects/:id" element={<ProjectPage />} />
       </Routes>
     </div>
   );

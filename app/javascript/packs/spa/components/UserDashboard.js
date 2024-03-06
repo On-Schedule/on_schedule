@@ -4,7 +4,7 @@ import CurrentTasksCard from './dashboard/CurrentTasksCard';
 
 export default function UserDashboard() {
   return <>
-  <div className='dashboard-wrapper'>
+  <div className='dashboard-wrapper row-cols-4'>
     <ProjectsCard />
     <CurrentTasksCard />
   </div>
