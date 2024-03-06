@@ -2,12 +2,12 @@ class Api::V1::ProjectsController < ApplicationController
   respond_to :json
 
   def create
-   @project = Project.new(project_params)
+    @project = Project.new(project_params)
 
-   if @project.save!
-    ProjectUser.create({project: @project, user: current_user})
-    render :show, status: :created
-   end
+    if @project.save!
+      ProjectUser.create({project: @project, user: current_user})
+      render :show, status: :created
+    end
   end
 
   def show
