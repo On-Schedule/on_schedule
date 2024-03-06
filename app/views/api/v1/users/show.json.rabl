@@ -8,6 +8,9 @@ end
 
 child :tasks do
   attributes :id, :name
+  child :project do
+    attributes :id, :name
+  end
 end
 
 child :company do
