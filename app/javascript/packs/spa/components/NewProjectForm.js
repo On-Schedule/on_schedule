@@ -69,7 +69,7 @@ export default function NewProjectForm({project=defaultProject}) {
   }
 
   const setHours = () => (e) => {
-    setSchedule((schedule) => ({...schedule, hours: e.target.value}))
+    setSchedule((schedule) => ({...schedule, hours: e.target.valueAsNumber}))
   }
 
   const saveProject = () => async () => {
@@ -82,7 +82,6 @@ export default function NewProjectForm({project=defaultProject}) {
   }
 
   const valid = () => {
-    console.log('details', details);
     // - start_date & end_date present
     if (!details.start_date || !details.end_date) {
       return false
@@ -194,7 +193,7 @@ export default function NewProjectForm({project=defaultProject}) {
       ) : ("")}
       {/* Add team members (with check for read only) */}
       <div className="card-body text-center">
-        <button type="button" className="btn btn-primary" onClick={saveProject()}>Save</button>
+        <button type="button" className="btn btn-primary" onClick={saveProject()} disabled={!valid()}>Save</button>
       </div>
     </form>
   </div>
