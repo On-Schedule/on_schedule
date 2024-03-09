@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
-import { useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from 'actions/user'
 import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
