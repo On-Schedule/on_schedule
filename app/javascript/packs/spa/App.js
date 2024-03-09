@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux'
-import { useNavigate } from 'react-router-dom';
 import { signOut } from 'actions/user'
 import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
@@ -9,12 +8,10 @@ import ProjectPage from './components/ProjectPage';
 
 function App() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
   const signOutUser = async () => {
     await dispatch(signOut());
-    navigate('/');
     window.location.reload()
   };
 
@@ -40,8 +37,8 @@ function App() {
               <li className="nav-item">
                 <a className="nav-link">About</a>
               </li>
-              </ul>
-              <ul className="navbar-nav">
+            </ul>
+            <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="nav-link" onClick={signOutUser}>Log Out</a>
               </li>
