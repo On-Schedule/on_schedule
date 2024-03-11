@@ -43,7 +43,11 @@ export default function AddUsersFormSection(details) {
       <div className="card-body bg-dark user-card">
         {_.map(selectedUsers, (selectedUser) => (
           <div key={selectedUser.id}>
-            <button className="btn btn-outline-danger btn-sm list-inline-item" onClick={() => removeFromList(selectedUser)} disabled={selectedUser.id === currentUser.id}>
+            <button
+              className="btn btn-outline-danger btn-sm list-inline-item"
+              onClick={() => removeFromList(selectedUser)}
+              disabled={selectedUser.id === currentUser.id}
+            >
               - {selectedUser.full_name} {selectedUser.read_only ? "(Read Only)": ""}
             </button>
           </div>
@@ -55,10 +59,16 @@ export default function AddUsersFormSection(details) {
       <div className="card-body bg-dark user-card">
         {_.map(nonSelectedUsers, (user) => (
           <div key={user.id}>
-            <button className="btn btn-outline-success btn-sm list-inline-item" onClick={() => addToList(user, false)}>
+            <button
+              className="btn btn-outline-success btn-sm list-inline-item"
+              onClick={() => addToList(user, false)}
+            >
               + {user.full_name}
             </button>
-            <button className="btn btn-outline-info btn-sm list-inline-item" onClick={() => addToList(user, true)}>
+            <button
+              className="btn btn-outline-info btn-sm list-inline-item"
+              onClick={() => addToList(user, true)}
+            >
               + Read only
             </button>
           </div>
