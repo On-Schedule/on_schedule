@@ -20,7 +20,8 @@ export default function AddUsersFormSection(details) {
   }, [currentUser])
 
   useEffect(() => {
-    setNonSelectedUsers(_.differenceWith(users, selectedUsers, _.isEqual))
+    const usersWithReadOnly = _.map(users, (user) => ({...user, read_only: false}))
+    setNonSelectedUsers(_.differenceWith(usersWithReadOnly, selectedUsers, _.isEqual))
   }, [users])
 
   useEffect(() => {
