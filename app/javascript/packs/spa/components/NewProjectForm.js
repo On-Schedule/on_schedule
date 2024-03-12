@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newProject } from 'actions/projects'
+import AddUsersFormSection from './newProjectForm/AddUsersFormSection';
 
 const fiveEights = {
   days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
@@ -39,6 +40,10 @@ export default function NewProjectForm({project=defaultProject}) {
   useEffect(() => {
     setDetails({...details, schedule: schedule})
   }, [schedule])
+
+  const updateDetails = (projectUsers) => {
+    setDetails({...details, project_users: projectUsers})
+  }
 
   const updateSchedule = () => (e) => {
     setCustom(false);
@@ -206,7 +211,7 @@ export default function NewProjectForm({project=defaultProject}) {
           </div>
         </div>
       ) : ("")}
-      {/* Add team members (with check for read only) */}
+      <AddUsersFormSection updateDetails={updateDetails} />
       {!isValid() ? <div className="card-body">
         <div className="card-body bg-dark">
           {nameIsValid() ? "" : <div className="text-danger">- Name is required</div>}

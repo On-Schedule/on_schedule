@@ -5,7 +5,9 @@ class Api::V1::ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     if @project.save!
-      ProjectUser.create({project: @project, user: current_user})
+      params[:project][:project_users].each do |user|
+        ProjectUser.create({project: @project, user_id: user[:id], user_level: user[:read_only] ? "read" : "full"})
+      end
       render :show, status: :created
     end
   end

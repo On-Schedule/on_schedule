@@ -11,3 +11,8 @@
   align-items: center;
   text-align: center;
 }
+
+.user-card {
+  height: 25em;
+  overflow-y: auto;
+}

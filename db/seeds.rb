@@ -1,3 +1,5 @@
+require 'factory_bot'
+
 @skyward = Company.create!({name: "Skyward Construction"})
 
 @sam_hill = User.create!({
@@ -7,6 +9,8 @@
   first_name: "Sam",
   last_name: "Hill"
 })
+
+FactoryBot.create_list(:user, 25)
 
 @red_fields_lodge = Project.create!({
   company: @skyward,
