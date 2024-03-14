@@ -16,3 +16,22 @@
   height: 25em;
   overflow-y: auto;
 }
+
+.schedule-grid {
+  display: grid;
+  width: auto;
+  max-height: 1000px;
+  overflow: auto;
+}
+
+.grid-0 {
+  background-color: rgb(68, 45, 87);
+}
+
+.grid-1 {
+  background-color: rgb(45, 48, 87);
+}
+
+.grid-2 {
+  background-color: rgb(87, 45, 49);
+}

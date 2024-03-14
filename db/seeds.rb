@@ -16,7 +16,7 @@ FactoryBot.create_list(:user, 25)
   company: @skyward,
   name: "Red Fields Lodge",
   start_date: Date.parse("10/10/2022"),
-  end_date: Date.parse("10/10/2025"),
+  end_date: Date.parse("1/1/2023"),
   schedule: {
     days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
     hours: 8
@@ -38,25 +38,32 @@ Task.create!({
   project: @red_fields_lodge,
   name: "Set pads",
   start_date: Date.parse("15/10/2022"),
-  end_date: Date.parse("31/10/2022")
+  end_date: Date.parse("29/10/2022")
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Rough-in - Building 1",
-  start_date: Date.parse("01/11/2022"),
+  start_date: Date.parse("18/10/2022"),
   end_date: Date.parse("23/12/2022")
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Trim - Building 1",
-  start_date: Date.parse("19/12/2022"),
-  end_date: Date.parse("25/02/2023")
+  start_date: Date.parse("1/11/2022"),
+  end_date: Date.parse("23/12/2022")
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Lighting - building 2",
-  start_date: Date.parse("14/07/2023"),
-  end_date: Date.parse("25/09/2024")
+  start_date: Date.parse("7/11/2022"),
+  end_date: Date.parse("17/11/2022")
+})
+
+Task.create!({
+  project: @red_fields_lodge,
+  name: "Trim - Building 2",
+  start_date: Date.parse("7/12/2022"),
+  end_date: Date.parse("17/12/2022")
 })
 
 @kpr_hq = Project.create!({
