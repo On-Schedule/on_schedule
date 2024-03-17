@@ -10,13 +10,11 @@ export default function DateBar() {
   const [projectMonths, setProjectMonths] = useState([])
 
   const calculateDays = (date) => {
-    const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-    const dtDate = DateTime.fromJSDate(date)
-    const dtEndOfMonth = DateTime.fromJSDate(endOfMonth)
+    const endOfMonth = date.endOf('month').startOf('day')
     const EndDate = DateTime.fromJSDate(end_date)
-    var diffInDaysToMonth = dtEndOfMonth.diff(dtDate, 'days').as("days");
-    var diffInDaysToEndDate = EndDate.diff(dtDate, 'days').as("days");
-    return diffInDaysToEndDate > diffInDaysToMonth ? diffInDaysToMonth + 1 : diffInDaysToEndDate + 1
+    const endOfMonthDiff = endOfMonth.diff(date, 'days').as("days");
+    const endDateDiff = EndDate.diff(date, 'days').as("days");
+    return endDateDiff > endOfMonthDiff ? endOfMonthDiff + 1 : endDateDiff + 1
   }
 
   useEffect(() => {
@@ -34,9 +32,13 @@ export default function DateBar() {
       var month = DateTime.fromJSDate(d).toFormat('LLLL')
 
       if (month != currentMonth) {
-        var days = calculateDays(d)
+        var days = calculateDays(DateTime.fromJSDate(d))
         currentMonth = month
-        projectMonths.push({month: month, days: days, offset: offset})
+        var monthObject = {month: month, days: days, offset: offset}
+        if (days <= 3) {
+          monthObject = {...monthObject, month: DateTime.fromJSDate(d).toFormat('LLL')}
+        }
+        projectMonths.push(monthObject)
         offset += days
       }
     }

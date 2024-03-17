@@ -10,9 +10,7 @@ export default function TaskList() {
 
   return <div className="card-body">
     <div className="schedule-grid" style={{gridTemplate: `repeat(${project?.tasks.length + offsetRow}, 1fr)`}}>
-      <div className="sub-grid" style={{gridRow: "1"}}>
-        <DateBar />
-      </div>
+      <DateBar />
       {tasks?.length > 0 ? (
         _.map(tasks, (task, index) => (
           <div key={task.id} className="sub-grid" style={{gridRow: `${index + 1 + offsetRow}`, gridTemplateColumns: `200px repeat(${project?.duration}, 50px)`}}>
