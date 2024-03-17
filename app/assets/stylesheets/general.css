@@ -24,6 +24,11 @@
   overflow: auto;
 }
 
+.sub-grid {
+  display: grid;
+  width: 100%;
+}
+
 .grid-0 {
   background-color: rgb(68, 45, 87);
 }
@@ -34,4 +39,10 @@
 
 .grid-2 {
   background-color: rgb(87, 45, 49);
+}
+
+.border-1 {
+  border-left-style: solid;
+  border-right-style: solid;
+  text-align: center;
 }
