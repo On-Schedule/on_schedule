@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :task do
     project
     name { FFaker::AnimalUS.common_name }
-    start_date { Date.tomorrow }
-    end_date { start_date + 2.weeks }
+    start_date { (project.start_date...project.end_date).to_a.sample() }
+    end_date { (start_date...project.end_date).to_a.sample() }
   end
 end

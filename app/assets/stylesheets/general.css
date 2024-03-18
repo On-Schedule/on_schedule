@@ -17,27 +17,35 @@
   overflow-y: auto;
 }
 
-.schedule-grid {
-  display: grid;
+.schedule-body {
   width: auto;
-  max-height: 1000px;
+  max-height: 750px;
   overflow: auto;
 }
 
-.sub-grid {
+.grid {
   display: grid;
   width: 100%;
 }
 
-.grid-0 {
+.schedule_bar {
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.color-0 {
   background-color: rgb(68, 45, 87);
 }
 
-.grid-1 {
+.color-1 {
   background-color: rgb(45, 48, 87);
 }
 
-.grid-2 {
+.color-2 {
   background-color: rgb(87, 45, 49);
 }
 

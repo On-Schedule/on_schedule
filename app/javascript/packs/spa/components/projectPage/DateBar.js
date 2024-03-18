@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DateTime } from "luxon"
 
-export default function DateBar() {
+export default function DateBar({gridTemp}) {
   const project = useSelector((state) => state.project)
   const start_date = new Date(DateTime.fromISO(project?.start_date))
   const end_date = new Date(DateTime.fromISO(project?.end_date))
@@ -47,7 +47,7 @@ export default function DateBar() {
   }
 
 
-  return <div className="sub-grid" style={{gridTemplateColumns: `200px repeat(${project?.duration}, 50px)`}}>
+  return <div className="grid sticky-top" style={{...gridTemp, backgroundColor: "#32383e"}}>
     {_.map(projectMonths, (month, index) => (
       <div key={index} className="border-1" style={{gridColumn: `${month["offset"] + 2} / span ${month["days"]}`}} >{month["month"]}</div>
     ))}
