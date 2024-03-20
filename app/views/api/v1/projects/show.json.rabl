@@ -9,7 +9,7 @@ end
 child :tasks do
   attributes :id, :name, :start_date, :end_date, :hours
 
-  node :chart_index_values do |task|
-    task.chart_index_values
+  node :date_index do |task|
+    task.date_index
   end
 end

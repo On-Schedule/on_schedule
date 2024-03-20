@@ -5,7 +5,7 @@ import DateBar from "./DateBar";
 export default function TaskList() {
   const project = useSelector((state) => state.project)
   const tasks = useSelector((state) => state.project?.tasks)
-  const offsetColumn = 1
+  const offset = 1
   const duration = project?.duration
   const cellSize = 50
   const gridTemp = {
@@ -20,8 +20,8 @@ export default function TaskList() {
         {tasks?.length > 0 ? (
           _.map(_.sortBy(tasks, 'start_date'), (task, index) => (
             <div key={task.id} className="grid" style={gridTemp}>
-              <div className="sticky-left" style={{backgroundColor: "#32383e"}}>{task.name}</div>
-              <h4 className={`schedule_bar color-${index % 3}`} style={{gridColumn: `${task.chart_index_values["start"] + offsetColumn} / span ${task.chart_index_values["stop"] + offsetColumn}`}} />
+              <div className="sticky-left" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
+              <h4 className={`schedule_bar color-${index % 3}`} style={{gridColumn: `${task.date_index["start"] + offset} / span ${task.date_index["stop"] + offset}`}} />
             </div>
           ))
         ) : (
