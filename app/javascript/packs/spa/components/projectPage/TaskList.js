@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 
 export default function TaskList() {
-  const project = useSelector((state) => state.project)
   const tasks = useSelector((state) => state.project?.tasks)
-  const offset = 1
-  const duration = project?.duration
+  const duration = useSelector((state) => state.project?.duration)
+  const columnOffset = 1
   const cellSize = 50
   const gridTemp = {
     gridTemplateColumns: `250px repeat(${duration}, ${cellSize}px)`,
@@ -14,8 +13,8 @@ export default function TaskList() {
   }
 
   const taskIndexes = (task) => {
-    var start = task.date_index["start"] + offset
-    var stop = task.date_index["stop"] + offset
+    var start = task.date_index["start"] + columnOffset
+    var stop = task.date_index["stop"] + columnOffset
     return {"--start": start, "--stop": stop}
   }
 

@@ -11,9 +11,9 @@ export default function DateBar({gridTemp}) {
 
   const calculateDays = (date) => {
     const endOfMonth = date.endOf('month').startOf('day')
-    const EndDate = DateTime.fromJSDate(end_date)
+    const endDate = DateTime.fromJSDate(end_date)
     const endOfMonthDiff = endOfMonth.diff(date, 'days').as("days");
-    const endDateDiff = EndDate.diff(date, 'days').as("days");
+    const endDateDiff = endDate.diff(date, 'days').as("days");
     return endDateDiff > endOfMonthDiff ? endOfMonthDiff + 1 : endDateDiff + 1
   }
 
