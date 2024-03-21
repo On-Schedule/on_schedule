@@ -13,6 +13,12 @@ export default function TaskList() {
     width: `${(duration * cellSize) + 250}px`
   }
 
+  const taskIndexes = (task) => {
+    var start = task.date_index["start"] + offset
+    var stop = task.date_index["stop"] + offset
+    return {"--start": start, "--stop": stop}
+  }
+
   return <div className="card-body">
     <div className="schedule-body">
       <DateBar gridTemp={gridTemp} />
@@ -21,7 +27,7 @@ export default function TaskList() {
           _.map(_.sortBy(tasks, 'start_date'), (task, index) => (
             <div key={task.id} className="grid" style={gridTemp}>
               <div className="sticky-left" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
-              <h4 className={`schedule_bar color-${index % 3}`} style={{gridColumn: `${task.date_index["start"] + offset} / span ${task.date_index["stop"] + offset}`}} />
+              <h4 className={`schedule_bar color-${index % 3}`} style={taskIndexes(task)} />
             </div>
           ))
         ) : (

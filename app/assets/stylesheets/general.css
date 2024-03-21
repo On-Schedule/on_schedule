@@ -35,6 +35,7 @@
   border-color: black;
   padding-left: 0;
   margin-left: 0;
+  grid-column: var(--start) / span var(--stop);
 }
 
 .color-0 {
