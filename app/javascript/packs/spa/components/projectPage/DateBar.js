@@ -49,10 +49,10 @@ export default function DateBar({gridTemp}) {
 
   return <div className="grid sticky-top" style={{...gridTemp, backgroundColor: "var(--bs-card-bg)"}}>
     {_.map(projectMonths, (month, index) => (
-      <div key={index} className="border-1" style={{gridColumn: `${month["offset"] + 2} / span ${month["days"]}`}} >{month["month"]}</div>
+      <div key={index} className="date-bar" style={{gridColumn: `${month["offset"] + 2} / span ${month["days"]}`}} >{month["month"]}</div>
     ))}
     {_.map(projectDays, (day, index) => (
-      <div key={index} className="border-1" style={{gridColumn: `${index + 2}`}} >{day}</div>
+      <div key={index} className="date-bar" style={{gridColumn: `${index + 2}`}} >{day}</div>
     ))}
   </div>
 }

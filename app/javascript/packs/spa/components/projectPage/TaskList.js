@@ -19,6 +19,16 @@ export default function TaskList() {
     return {"--start": start, "--stop": stop}
   }
 
+  // temp custom color place holder
+  const color = (val) => {
+    const colors = {
+      0: "rgb(68, 45, 87)",
+      1: "rgb(45, 48, 87)",
+      2: "rgb(87, 45, 49)"
+    }
+    return {"--bar-color": colors[val % 3]}
+  }
+
   return <div className="card-body">
     <div className="schedule-body">
       <DateBar gridTemp={gridTemp} />
@@ -27,7 +37,7 @@ export default function TaskList() {
           _.map(_.sortBy(tasks, 'start_date'), (task, index) => (
             <div key={task.id} className="grid" style={gridTemp}>
               <div className="sticky-left" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
-              <h4 className={`schedule_bar color-${index % 3}`} style={taskIndexes(task)} />
+              <h4 className={`schedule_bar`} style={{...taskIndexes(task), ...color(index)}} />
             </div>
           ))
         ) : (
