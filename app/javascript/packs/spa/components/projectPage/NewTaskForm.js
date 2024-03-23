@@ -70,67 +70,65 @@ export default function NewTaskForm({projectID}) {
     return false
   }
 
-  return <div>
-    <form>
-      <div className="card-body">
-        <div className="form_group list-inline-item">
-          <label className="col-form-label">New Task</label>
-          <input
-            className="form-control form-control-sm"
-            name="name"
-            placeholder="Task"
-            value={details?.name}
-            onChange={updateDetail('name')}
-          />
-        </div>
-        <div className="form_group list-inline-item">
-          <label className="col-form-label">Start Date</label>
-          <input
-            className="form-control form-control-sm"
-            name="startDate"
-            type="date"
-            lable="Start Date"
-            min={project?.start_date}
-            max={project?.end_date}
-            value={details?.start_date}
-            onChange={updateDetail('start_date')}
-          />
-        </div>
-        <div className="form_group list-inline-item">
-          <label className="col-form-label">End Date</label>
-          <input
-            className="form-control form-control-sm"
-            name="endDate"
-            type="date"
-            lable="End Date"
-            min={project?.start_date}
-            max={project?.end_date}
-            value={details?.end_date}
-            onChange={updateDetail('end_date')}
-          />
-        </div>
-        <div className="form_group list-inline-item">
-          <label className="col-form-label">Hours</label>
-          <input
-            className="form-control form-control-sm"
-            placeholder="Hours"
-            name="hours"
-            type="number"
-            lable="Hours"
-            value={details?.hours}
-            onChange={updateDetail('hours')}
-          />
-        </div>
-        {/*
-          description
-          cost code
-          event
-          responsability
-        */}
-        <button type="button" className="btn btn-primary btn-sm" onClick={saveTask()} disabled={!isValid()}>Save</button>
+  return <form>
+    <div className="card-body">
+      <div className="form_group list-inline-item">
+        <label className="col-form-label">New Task</label>
+        <input
+          className="form-control form-control-sm"
+          name="name"
+          placeholder="Task"
+          value={details?.name}
+          onChange={updateDetail('name')}
+        />
       </div>
-    </form>
-  </div>
+      <div className="form_group list-inline-item">
+        <label className="col-form-label">Start Date</label>
+        <input
+          className="form-control form-control-sm"
+          name="startDate"
+          type="date"
+          lable="Start Date"
+          min={project?.start_date}
+          max={project?.end_date}
+          value={details?.start_date}
+          onChange={updateDetail('start_date')}
+        />
+      </div>
+      <div className="form_group list-inline-item">
+        <label className="col-form-label">End Date</label>
+        <input
+          className="form-control form-control-sm"
+          name="endDate"
+          type="date"
+          lable="End Date"
+          min={project?.start_date}
+          max={project?.end_date}
+          value={details?.end_date}
+          onChange={updateDetail('end_date')}
+        />
+      </div>
+      <div className="form_group list-inline-item">
+        <label className="col-form-label">Hours</label>
+        <input
+          className="form-control form-control-sm"
+          placeholder="Hours"
+          name="hours"
+          type="number"
+          lable="Hours"
+          value={details?.hours}
+          onChange={updateDetail('hours')}
+        />
+      </div>
+      {/*
+        description
+        cost code
+        event
+        responsability
+      */}
+      <button type="button" className="btn btn-primary btn-sm" onClick={saveTask()} disabled={!isValid()}>Save</button>
+    </div>
+  </form>
 }
 
 
