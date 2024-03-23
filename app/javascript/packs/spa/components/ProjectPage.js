@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TaskList from './projectPage/TaskList';
+import NewTaskForm from './projectPage/NewTaskForm';
 import { useParams } from 'react-router-dom';
-
 import { getProject } from 'actions/projects'
 
 export default function ProjectPage() {
@@ -19,6 +19,7 @@ export default function ProjectPage() {
       <div className="card-header navbar">
         <h2>{project?.name} Schedule</h2>
       </div>
+      <NewTaskForm projectID={project_id} />
       <TaskList />
     </div>
   </div>
