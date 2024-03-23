@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 
 export default function TaskList() {
-  const tasks = useSelector((state) => state.project?.tasks)
+  const tasks = useSelector((state) => state.tasks)
   const duration = useSelector((state) => state.project?.duration)
   const columnOffset = 1
   const cellSize = 50
@@ -33,10 +33,10 @@ export default function TaskList() {
       <DateBar gridTemp={gridTemp} />
       <div style={{marginTop: "10px"}}>
         {tasks?.length > 0 ? (
-          _.map(_.sortBy(tasks, 'start_date'), (task, index) => (
+          _.map(_.sortBy(tasks, "start_date"), (task, index) => (
             <div key={task.id} className="grid" style={gridTemp}>
               <div className="sticky-left" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
-              <h4 className={`schedule_bar`} style={{...taskIndexes(task), ...color(index)}} />
+              <h4 className={"schedule_bar"} style={{...taskIndexes(task), ...color(index)}} />
             </div>
           ))
         ) : (
