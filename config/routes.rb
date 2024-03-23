@@ -11,7 +11,9 @@ Rails.application.routes.draw do
       resource :company, only: [] do
         resources :users, only: [:index]
       end
-      resources :projects, only: [:create, :show]
+      resources :projects, only: [:create, :show] do
+        resources :tasks, only: [:index, :create]
+      end
     end
   end
 
