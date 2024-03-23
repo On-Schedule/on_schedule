@@ -2,14 +2,12 @@ class Api::V1::TasksController < ApplicationController
   respond_to :json
 
   def index
-    project = Project.find(params[:project_id])
-    @tasks = project.tasks
+    @tasks = Project.find(params[:project_id]).tasks
     respond_with @tasks
   end
 
   def create
     @task = Task.new(task_params)
-
     if @task.save
       render :show, status: :created
     end
