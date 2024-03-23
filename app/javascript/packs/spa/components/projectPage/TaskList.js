@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 
 export default function TaskList() {
-  const project = useSelector((state) => state.project)
-  const tasks = useSelector((state) => state.project?.tasks)
-  const offset = 1
-  const duration = project?.duration
+  const tasks = useSelector((state) => state.tasks)
+  const duration = useSelector((state) => state.project?.duration)
+  const columnOffset = 1
   const cellSize = 50
   const gridTemp = {
     gridTemplateColumns: `250px repeat(${duration}, ${cellSize}px)`,
@@ -14,8 +13,8 @@ export default function TaskList() {
   }
 
   const taskIndexes = (task) => {
-    var start = task.date_index["start"] + offset
-    var stop = task.date_index["stop"] + offset
+    var start = task.date_index["start"] + columnOffset
+    var stop = task.date_index["stop"] + columnOffset
     return {"--start": start, "--stop": stop}
   }
 
@@ -34,10 +33,10 @@ export default function TaskList() {
       <DateBar gridTemp={gridTemp} />
       <div style={{marginTop: "10px"}}>
         {tasks?.length > 0 ? (
-          _.map(_.sortBy(tasks, 'start_date'), (task, index) => (
+          _.map(_.sortBy(tasks, "start_date"), (task, index) => (
             <div key={task.id} className="grid" style={gridTemp}>
               <div className="sticky-left" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
-              <h4 className={`schedule_bar`} style={{...taskIndexes(task), ...color(index)}} />
+              <h4 className={"schedule_bar"} style={{...taskIndexes(task), ...color(index)}} />
             </div>
           ))
         ) : (
