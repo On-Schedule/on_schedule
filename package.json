@@ -30,7 +30,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "babel-preset-react-app": "^10.0.1",
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^5"
   },
   "babel": {
     "presets": [
