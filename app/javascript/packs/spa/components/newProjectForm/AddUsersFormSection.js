@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../actions/users";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquarePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 export default function AddUsersFormSection(details) {
   const dispatch = useDispatch()
@@ -49,7 +51,7 @@ export default function AddUsersFormSection(details) {
               onClick={() => removeFromList(selectedUser)}
               disabled={selectedUser.id === currentUser.id}
             >
-              - {selectedUser.full_name} {selectedUser.read_only ? "(Read Only)": ""}
+              <FontAwesomeIcon icon={faTrashCan} /> {selectedUser.full_name} {selectedUser.read_only ? "(Read Only)": ""}
             </button>
           </div>
         ))}
@@ -64,13 +66,13 @@ export default function AddUsersFormSection(details) {
               className="btn btn-outline-success btn-sm list-inline-item"
               onClick={() => addToList(user, false)}
             >
-              + {user.full_name}
+              <FontAwesomeIcon icon={faSquarePlus} /> {user.full_name}
             </button>
             <button
               className="btn btn-outline-info btn-sm list-inline-item"
               onClick={() => addToList(user, true)}
             >
-              + Read only
+              <FontAwesomeIcon icon={faSquarePlus} /> Read only
             </button>
           </div>
         ))}
