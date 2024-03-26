@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
+
+const projectScale = {
+  "day": 40,
+  "Week": 10,
+  "month": 5,
+  "year": .75
+}
+// const projectScaleEM = {
+//   "day": "2.5em",
+//   "Week": ".625em",
+//   "month": ".3175em",
+//   "Year": ".0635em"
+// }
 
 export default function TaskList() {
   const tasks = useSelector((state) => state.tasks)
   const duration = useSelector((state) => state.project?.duration)
-  const columnOffset = 1
-  const cellSize = 50
+  const taskCardWidth = 250
+  const [cellSize, setCellSize] = useState(projectScale["day"])
+  const [scale, setScale] = useState("day")
   const gridTemp = {
-    gridTemplateColumns: `250px repeat(${duration}, ${cellSize}px)`,
-    width: `${(duration * cellSize) + 250}px`
+    gridTemplateColumns: `${taskCardWidth}px repeat(${duration}, ${cellSize}px)`,
+    width: `${(duration * cellSize) + taskCardWidth}px`
+  }
+
+  const changeScale = (newScale) => {
+    setCellSize(projectScale[newScale])
+    setScale(newScale)
   }
 
   const taskIndexes = (task) => {
-    var start = task.date_index["start"] + columnOffset
-    var stop = task.date_index["stop"] + columnOffset
+    var start = task.date_index["start"] + 1
+    var stop = task.date_index["stop"] + 1
     return {"--start": start, "--stop": stop}
   }
 
@@ -30,7 +49,7 @@ export default function TaskList() {
 
   return <div className="card-body">
     <div className="schedule-body">
-      <DateBar gridTemp={gridTemp} />
+      <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
       <div style={{marginTop: "10px"}}>
         {tasks?.length > 0 ? (
           _.map(_.sortBy(tasks, "start_date"), (task, index) => (
@@ -43,6 +62,11 @@ export default function TaskList() {
           <h4 className="card-title">No tasks for this project</h4>
         )}
       </div>
+    </div>
+    <div className="card-body text-center">
+      <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("day"))} > Day </button>
+      <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("month"))} > Month </button>
+      {/* <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("year"))} > Year </button> */}
     </div>
   </div>
 }
