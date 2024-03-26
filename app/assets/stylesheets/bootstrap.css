@@ -6859,9 +6859,18 @@ textarea.form-control-lg {
 }
 
 .sticky-left {
+  --stick-l: 0;
   position: -webkit-sticky;
   position: sticky;
-  left: 0;
+  left: var(--stick-l);
+  z-index: 1020;
+}
+
+.sticky-right {
+  --stick-r: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  right: var(--stick-r);
   z-index: 1020;
 }
 

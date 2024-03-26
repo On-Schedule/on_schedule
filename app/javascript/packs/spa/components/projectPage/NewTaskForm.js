@@ -73,7 +73,7 @@ export default function NewTaskForm({projectID}) {
   return <form>
     <div className="card-body">
       <div className="form_group list-inline-item">
-        <label className="col-form-label">New Task</label>
+        <label>New Task</label>
         <input
           className="form-control form-control-sm"
           name="name"
@@ -83,7 +83,7 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
-        <label className="col-form-label">Start Date</label>
+        <label>Start Date</label>
         <input
           className="form-control form-control-sm"
           name="startDate"
@@ -96,7 +96,7 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
-        <label className="col-form-label">End Date</label>
+        <label>End Date</label>
         <input
           className="form-control form-control-sm"
           name="endDate"
@@ -109,7 +109,7 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
-        <label className="col-form-label">Hours</label>
+        <label>Hours</label>
         <input
           className="form-control form-control-sm"
           placeholder="Hours"
