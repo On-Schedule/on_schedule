@@ -18,12 +18,12 @@ const projectScale = {
 export default function TaskList() {
   const tasks = useSelector((state) => state.tasks)
   const duration = useSelector((state) => state.project?.duration)
-  const columnOffset = 1
+  const taskCardWidth = 250
   const [cellSize, setCellSize] = useState(projectScale["day"])
   const [scale, setScale] = useState("day")
   const gridTemp = {
-    gridTemplateColumns: `250px repeat(${duration}, ${cellSize}px)`,
-    width: `${(duration * cellSize) + 250}px`
+    gridTemplateColumns: `${taskCardWidth}px repeat(${duration}, ${cellSize}px)`,
+    width: `${(duration * cellSize) + taskCardWidth}px`
   }
 
   const changeScale = (newScale) => {
@@ -32,8 +32,8 @@ export default function TaskList() {
   }
 
   const taskIndexes = (task) => {
-    var start = task.date_index["start"] + columnOffset
-    var stop = task.date_index["stop"] + columnOffset
+    var start = task.date_index["start"] + 1
+    var stop = task.date_index["stop"] + 1
     return {"--start": start, "--stop": stop}
   }
 
@@ -49,7 +49,7 @@ export default function TaskList() {
 
   return <div className="card-body">
     <div className="schedule-body">
-      <DateBar gridTemp={gridTemp} scale={scale} />
+      <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
       <div style={{marginTop: "10px"}}>
         {tasks?.length > 0 ? (
           _.map(_.sortBy(tasks, "start_date"), (task, index) => (

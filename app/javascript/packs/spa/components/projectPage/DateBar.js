@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DateTime } from "luxon"
 
-export default function DateBar({gridTemp, scale}) {
+export default function DateBar({gridTemp, scale, taskCardOffset}) {
   const project = useSelector((state) => state.project)
   const startDate = DateTime.fromISO(project?.start_date)
   const endDate = DateTime.fromISO(project?.end_date)
@@ -16,7 +16,7 @@ export default function DateBar({gridTemp, scale}) {
   }
 
   useEffect(() => {
-    createDateBar();
+    generateDateBarInfo();
   }, [project]);
 
   const monthValues = (date, days) => {
@@ -33,7 +33,7 @@ export default function DateBar({gridTemp, scale}) {
       return {"month": month, "day": day, "year": shortMonth}
   }
 
-  const createDateBar = () => {
+  const generateDateBarInfo = () => {
     var offset = 0
     var months = []
 
@@ -49,11 +49,15 @@ export default function DateBar({gridTemp, scale}) {
 
   return <div className="grid sticky-top" style={{...gridTemp, backgroundColor: "var(--bs-card-bg)"}}>
     {_.map(dateBarInfo, (month, indexM) => (
-      <div key={indexM} className="date-bar" style={{gridColumn: `${month.offset + 2} / span ${month.days}`, gridRow: "1"}} ><span className=" sticky-left sticky-right" style={{"--stick-l": "250px"}}>{month.month[scale]}</span></div>
+      <div key={indexM} className="date-bar" style={{gridColumn: `${month.offset + 2} / span ${month.days}`}} >
+        <span className=" sticky-left sticky-right" style={{"--stick-l": `${taskCardOffset}px`}}>
+          {month.month[scale]}
+        </span>
+      </div>
     ))}
     {scale === "day" ? _.map(dateBarInfo, (month, indexM) => (
       _.map(_.range(month.startRange, month.endRange), (day, indexD) => (
-        <div key={`${indexM}-${indexD}`} className="date-bar" style={{gridColumn: `${month.offset + indexD + 2}`, gridRow: "2"}} >{day}</div>
+        <div key={`${indexM}-${indexD}`} className="date-bar" style={{gridColumn: `${month.offset + indexD + 2}`}} >{day}</div>
     )))) : "" }
   </div>
 }
