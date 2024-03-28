@@ -43,3 +43,32 @@
   border-right-style: solid;
   text-align: center;
 }
+
+/* boot strap changes (in case of style change) */
+
+/* #### Modified #### */
+/* .dropdown-menu {
+  --bs-dropdown-zindex: 1000; (changed to 1050)
+  display: none; (removed)
+} */
+
+/* .row-cols-2>* {
+  width: 50%; (changed to 49%)
+} */
+
+/* #### Added #### */
+/* .sticky-left {
+  --stick-l: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  left: var(--stick-l);
+  z-index: 1020;
+} */
+
+/* .sticky-right {
+  --stick-r: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  right: var(--stick-r);
+  z-index: 1020;
+} */
