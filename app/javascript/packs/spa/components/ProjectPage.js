@@ -12,7 +12,7 @@ export default function ProjectPage() {
 
   useEffect(() => {
     dispatch(getProject(project_id));
-  }, []);
+  }, [project_id]);
 
   return <div className='dashboard-wrapper'>
     <div className="card border-primary mb-3">

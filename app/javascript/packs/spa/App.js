@@ -9,6 +9,7 @@ import ProjectPage from './components/ProjectPage';
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false)
 
   const signOutUser = async () => {
     await dispatch(signOut());
@@ -27,6 +28,21 @@ function App() {
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
                 <Link to={""} className="nav-link">Home</Link>
+              </li>
+              <li className="nav-item">
+                <div
+                  onMouseEnter={() => {setOpen(true)}}
+                  onMouseLeave={() => {setOpen(false)}}
+                >
+                  <a className="nav-link dropdown">Projects</a>
+                  {open ? <div className="dropdown-menu" >
+                    <div className="card-body" style={{marginLeft: "10px", marginRight: "10px"}} >
+                      {_.map(user.projects, (project, index) => (
+                        <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-lg d-flex" key={index} >{project.name}</Link>
+                      ))}
+                    </div>
+                  </div> : ""}
+                </div>
               </li>
               <li className="nav-item">
                 <a className="nav-link">Features</a>
