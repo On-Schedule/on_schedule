@@ -57,7 +57,7 @@ export default function NewTaskForm({projectID}) {
   }
 
   const datesAreValid = () => {
-    if (details.start_date < details.end_date) {
+    if (details.start_date <= details.end_date) {
       return true
     }
     return false

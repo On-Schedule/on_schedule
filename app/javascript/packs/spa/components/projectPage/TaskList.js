@@ -33,7 +33,7 @@ export default function TaskList() {
 
   const taskIndexes = (task) => {
     var start = task.date_index["start"] + 1
-    var stop = task.date_index["stop"] + 1
+    var stop = task.date_index["stop"]
     return {"--start": start, "--stop": stop}
   }
 
