@@ -4,7 +4,7 @@ export default function SearchBar(spec) {
   const updateSearch = (e) => {
     var searchValue = e.target.value.toLowerCase()
     const search = _.filter(spec.unfilteredArray, (item) => (
-     item[spec.searchKey].toLowerCase().match(searchValue)
+      item[spec.searchKey].toLowerCase().match(searchValue)
     ));
     spec.setFilteredArray(search);
   }
@@ -24,9 +24,9 @@ export default function SearchBar(spec) {
 // const [searchedItem, setSearchedItem] = useState([])
 
 // useEffect(() => {
-//     setSearchedItem(itemsArray)
-// }, [projects])
+//     setSearchedItem(ITEMS_ARRAY)
+// }, [ITEMS_ARRAY])
 
-// <SearchBar unfilteredArray={itemsArray} searchKey={"key"} setFilteredArray={setSearchedItem} />
+// <SearchBar unfilteredArray={ITEMS_ARRAY} searchKey={"KEY"} setFilteredArray={setSearchedItem} />
 
 // ##################################################################################################
