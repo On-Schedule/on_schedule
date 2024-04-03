@@ -23,7 +23,6 @@ class Api::V1::TasksController < ApplicationController
       :hours,
       :project_id,
       :description,
-      :event,
       :responsibility
     )
   end

@@ -47,7 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_194405) do
     t.date "start_date"
     t.date "end_date"
     t.integer "hours"
-    t.boolean "event"
     t.string "description"
     t.string "responsibility", default: "internal"
     t.datetime "created_at", null: false

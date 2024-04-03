@@ -15,7 +15,6 @@ export default function NewTaskForm({projectID}) {
     hours: "",
     description: "",
     cost_code: "",
-    event: false,
     responsibility: "internal"
   }
 
@@ -55,14 +54,14 @@ export default function NewTaskForm({projectID}) {
   }
 
   const datesExsist = () => {
-    if ((details.start_date && details.end_date) || (details.start_date && details.event)) {
+    if (details.start_date && details.end_date) {
       return true
     }
     return false
   }
 
   const datesAreValid = () => {
-    if ((details.start_date <= details.end_date) || details.event) {
+    if (details.start_date <= details.end_date) {
       return true
     }
     return false
@@ -77,10 +76,6 @@ export default function NewTaskForm({projectID}) {
 
   const setResponsibility = (value) => {
     setDetails({...details, responsibility: value})
-  }
-
-  const updateEvent = (e) => {
-    setDetails({...details, event: e.target.checked, end_date: ""})
   }
 
   return <form>
@@ -127,18 +122,7 @@ export default function NewTaskForm({projectID}) {
           min={project?.start_date}
           max={project?.end_date}
           value={details?.end_date}
-          disabled={details?.event}
           onChange={updateDetail('end_date')}
-        />
-      </div>
-      <div className="form_group list-inline-item align-top" >
-        <label>Event</label>
-        <input
-          className="form-check form-check-input"
-          name="event"
-          type="checkbox"
-          defaultChecked={details?.event}
-          onChange={updateEvent}
         />
       </div>
       <div className="form_group list-inline-item">
