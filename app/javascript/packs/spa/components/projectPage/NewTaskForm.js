@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { newTask } from 'actions/tasks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function NewTaskForm({projectID}) {
@@ -11,15 +13,17 @@ export default function NewTaskForm({projectID}) {
     start_date: "",
     end_date: "",
     hours: "",
-    // description: "",
-    // cost_code: "",
-    // event: false,
-    // responsibilty: "internal"
+    description: "",
+    cost_code: "",
+    event: false,
+    responsibility: "internal"
   }
 
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
   const [details, setDetails] = useState(defaltDetails)
+  const [openAccordion, setOpenAccordion] = useState(false)
+  const [openDropdown, setOpenDropdown] = useState(false)
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
@@ -49,15 +53,16 @@ export default function NewTaskForm({projectID}) {
     }
     return false
   }
+
   const datesExsist = () => {
-    if (details.start_date && details.end_date) {
+    if ((details.start_date && details.end_date) || (details.start_date && details.event)) {
       return true
     }
     return false
   }
 
   const datesAreValid = () => {
-    if (details.start_date <= details.end_date) {
+    if ((details.start_date <= details.end_date) || details.event) {
       return true
     }
     return false
@@ -70,8 +75,25 @@ export default function NewTaskForm({projectID}) {
     return false
   }
 
+  const setResponsibility = (value) => {
+    setDetails({...details, responsibility: value})
+  }
+
+  const updateEvent = (e) => {
+    setDetails({...details, event: e.target.checked, end_date: ""})
+  }
+
   return <form>
     <div className="card-body">
+      <div
+        onClick={() => {setOpenAccordion(!openAccordion)}}
+        className="list-inline-item align-bottom"
+      >
+        <FontAwesomeIcon
+          icon={faChevronUp}
+          className={openAccordion ? "flip" : "un-flip"}
+        />
+      </div>
       <div className="form_group list-inline-item">
         <label>New Task</label>
         <input
@@ -105,7 +127,18 @@ export default function NewTaskForm({projectID}) {
           min={project?.start_date}
           max={project?.end_date}
           value={details?.end_date}
+          disabled={details?.event}
           onChange={updateDetail('end_date')}
+        />
+      </div>
+      <div className="form_group list-inline-item align-top" >
+        <label>Event</label>
+        <input
+          className="form-check form-check-input"
+          name="event"
+          type="checkbox"
+          defaultChecked={details?.event}
+          onChange={updateEvent}
         />
       </div>
       <div className="form_group list-inline-item">
@@ -120,15 +153,50 @@ export default function NewTaskForm({projectID}) {
           onChange={updateDetail('hours')}
         />
       </div>
-      {/*
-        description
-        cost code
-        event
-        responsability
-      */}
-      <button type="button" className="btn btn-primary btn-sm" onClick={saveTask()} disabled={!isValid()}>Save</button>
+      <button
+        type="button"
+        className="btn btn-primary btn-sm"
+        onClick={saveTask()}
+        disabled={!isValid()}
+      >Save</button>
     </div>
+    {openAccordion && <div className="form-group card-body bg-dark" >
+      <div className="list-inline-item align-bottom" >
+        <FontAwesomeIcon style={{color: "var(--bs-dark)"}} icon={faChevronUp} />
+      </div>
+      <div className="form_group list-inline-item">
+        <label>Description</label>
+        <input
+          className="form-control form-control-sm"
+          placeholder="Description"
+          name="description"
+          type="textarea"
+          lable="description"
+          value={details?.description}
+          onChange={updateDetail('description')}
+        />
+      </div>
+      <div className="form_group list-inline-item">
+        <label>Cost Code</label>
+        <input
+          className="form-control form-control-sm"
+          name="costCode"
+          placeholder="Cost code"
+          value={details?.cost_code}
+          onChange={updateDetail('cost_code')}
+        />
+      </div>
+      <div className="form_group list-inline-item">
+        <label>Responsibility</label>
+        <div className="dropdown form-select form-select-sm" onClick={() => {setOpenDropdown(!openDropdown)}} >
+          {details?.responsibility}
+          {(openAccordion && openDropdown) && <div className="dropdown-menu" >
+            {_.map(["internal", "external", "subcontractor"], (item, index) => (
+              <div key={index} onClick={() => {setResponsibility(item)}} >{item}</div>
+            ))}
+          </div>}
+        </div>
+      </div>
+    </div>}
   </form>
 }
-
-
