@@ -6,6 +6,8 @@ class CreateTasks < ActiveRecord::Migration[6.1]
       t.date :start_date
       t.date :end_date
       t.integer :hours
+      t.string :description
+      t.string :responsibility, default: "internal"
 
       t.timestamps
     end
