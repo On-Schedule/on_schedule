@@ -45,9 +45,10 @@ export default function AddUsersFormSection(details) {
       <label className="form-label mt-4">Remove Users</label>
       <div className="card-body bg-dark user-card">
         {_.map(selectedUsers, (selectedUser) => (
-          <div key={selectedUser.id}>
+          <div key={selectedUser.id} style={{display: "flex"}}>
             <button
               className="btn btn-outline-danger btn-sm list-inline-item"
+              style={{flex: "auto", textAlign: "left"}}
               onClick={() => removeFromList(selectedUser)}
               disabled={selectedUser.id === currentUser.id}
             >
@@ -61,9 +62,10 @@ export default function AddUsersFormSection(details) {
       <label className="form-label mt-4">Add Additional Users</label>
       <div className="card-body bg-dark user-card">
         {_.map(nonSelectedUsers, (user) => (
-          <div key={user.id}>
+          <div key={user.id} style={{display: "flex"}}>
             <button
               className="btn btn-outline-success btn-sm list-inline-item"
+              style={{flex: "auto", textAlign: "left"}}
               onClick={() => addToList(user, false)}
             >
               <FontAwesomeIcon icon={faSquarePlus} /> {user.full_name}
