@@ -47,9 +47,9 @@ export default function DateBar({gridTemp, scale, taskCardOffset}) {
     setDateBarInfo(months)
   }
 
-  return <div className="grid sticky-top" style={{...gridTemp, backgroundColor: "var(--bs-card-bg)"}}>
+  return <div className="grid" style={{...gridTemp}}>
     {_.map(dateBarInfo, (month, indexM) => (
-      <div key={indexM} className="date-bar" style={{gridColumn: `${month.offset + 2} / span ${month.days}`}} >
+      <div key={indexM} className="date-bar" style={{gridColumn: `${month.offset + 1} / span ${month.days}`}} >
         <span className=" sticky-left sticky-right" style={{"--stick-l": `${taskCardOffset}px`}}>
           {month.month[scale]}
         </span>
@@ -57,7 +57,7 @@ export default function DateBar({gridTemp, scale, taskCardOffset}) {
     ))}
     {scale === "day" ? _.map(dateBarInfo, (month, indexM) => (
       _.map(_.range(month.startRange, month.endRange), (day, indexD) => (
-        <div key={`${indexM}-${indexD}`} className="date-bar" style={{gridColumn: `${month.offset + indexD + 2}`}} >{day}</div>
+        <div key={`${indexM}-${indexD}`} className="date-bar" style={{gridColumn: `${month.offset + indexD + 1}`}} >{day}</div>
     )))) : "" }
   </div>
 }
