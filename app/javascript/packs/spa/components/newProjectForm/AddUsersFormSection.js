@@ -47,8 +47,7 @@ export default function AddUsersFormSection(details) {
         {_.map(selectedUsers, (selectedUser) => (
           <div key={selectedUser.id} style={{display: "flex"}}>
             <button
-              className="btn btn-outline-danger btn-sm list-inline-item"
-              style={{flex: "auto", textAlign: "left"}}
+              className="btn btn-outline-danger btn-sm list-inline-item user-btn"
               onClick={() => removeFromList(selectedUser)}
               disabled={selectedUser.id === currentUser.id}
             >
@@ -64,8 +63,7 @@ export default function AddUsersFormSection(details) {
         {_.map(nonSelectedUsers, (user) => (
           <div key={user.id} style={{display: "flex"}}>
             <button
-              className="btn btn-outline-success btn-sm list-inline-item"
-              style={{flex: "auto", textAlign: "left"}}
+              className="btn btn-outline-success btn-sm list-inline-item user-btn"
               onClick={() => addToList(user, false)}
             >
               <FontAwesomeIcon icon={faSquarePlus} /> {user.full_name}

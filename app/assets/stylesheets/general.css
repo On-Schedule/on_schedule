@@ -88,6 +88,11 @@
   transform: rotate(0deg);
 }
 
+.user-btn {
+  flex: auto;
+  text-align: left;
+}
+
 /* boot strap changes (in case of style change) */
 
 /* #### Modified #### */
