@@ -39,9 +39,9 @@
   --day6: transparent;
   background:
     repeating-linear-gradient(0.25turn,
-      #99999950 0 1px,
+      #99999925 0 1px,
       transparent 1px calc(var(--scale) - 1px),
-      #52575c50 calc(var(--scale) - 1px) var(--scale)),
+      #99999925 calc(var(--scale) - 1px) var(--scale)),
     repeating-linear-gradient(0.25turn,
       var(--day0) 0 var(--scale),
       var(--day1) var(--scale) calc(2 * var(--scale)),
@@ -68,7 +68,7 @@
   margin-left: 2px;
   margin-right: 2px;
   margin-top: 5px;
-  margin-bottom: 5px  ;
+  margin-bottom: 5px;
 }
 
 .date-bar {
