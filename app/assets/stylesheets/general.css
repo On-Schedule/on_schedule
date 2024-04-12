@@ -28,14 +28,47 @@
   width: 100%;
 }
 
+.grid-background {
+  --scale: 40px;
+  --day0: transparent;
+  --day1: transparent;
+  --day2: transparent;
+  --day3: transparent;
+  --day4: transparent;
+  --day5: transparent;
+  --day6: transparent;
+  background:
+    repeating-linear-gradient(0.25turn,
+      #99999925 0 1px,
+      transparent 1px calc(var(--scale) - 1px),
+      #99999925 calc(var(--scale) - 1px) var(--scale)),
+    repeating-linear-gradient(0.25turn,
+      var(--day0) 0 var(--scale),
+      var(--day1) var(--scale) calc(2 * var(--scale)),
+      var(--day2) calc(2 * var(--scale)) calc(3 * var(--scale)),
+      var(--day3) calc(3 * var(--scale)) calc(4 * var(--scale)),
+      var(--day4) calc(4 * var(--scale)) calc(5 * var(--scale)),
+      var(--day5) calc(5 * var(--scale)) calc(6 * var(--scale)),
+      var(--day6) calc(6 * var(--scale)) calc(7 * var(--scale))
+    );
+}
+
+.task-items {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, 0.15));
+}
+
 .schedule_bar {
   --bar-color: var(--bs-secondary);
-  border-radius: 20px;
+  border-radius: 10px;
   border-style: solid;
   border-width: 1px;
   border-color: black;
   grid-column: var(--start) / span var(--stop);
   background-color: var(--bar-color);
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .date-bar {
@@ -53,6 +86,11 @@
   display: inline-block;
   transition: 0.25s ease-in-out;
   transform: rotate(0deg);
+}
+
+.user-btn {
+  flex: auto;
+  text-align: left;
 }
 
 /* boot strap changes (in case of style change) */

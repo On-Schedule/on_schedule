@@ -10,7 +10,7 @@ export default function SearchBar(spec) {
   }
 
   return <input
-      className="form-control"
+      className="form-control form-control-sm"
       name="name"
       placeholder="Search"
       onChange={updateSearch}
