@@ -10,3 +10,15 @@ On-schedule is a passion project that bridges my construction project management
     2. Create useful project analytics based on schedule data  
     3. Create User To-do lists to keep track of pending tasks and schedule objectives  
     4. Clean, simple, easy-to-use UI  
+
+
+### Would you be interested in seeing what I've done?
+this project is built with  
+Ruby 3.2.2  
+Rails 7.0.8  
+React 18.2.0  
+
+- Clone the repo into a local repository via your mode of choice.  
+  <img width="406" alt="image" src="https://github.com/On-Schedule/on_schedule/assets/72056427/c9faa023-8bd7-4a46-9eae-199cdb230017">
+- Run `bundle install`, `npm install`, then `rails db:{create,migrate,seed}`
+- Go to `http://localhost:3000/` and sign in with `email: user@example.com` and `password: password`. This will allow you to see a mock database with a few projects in it.
