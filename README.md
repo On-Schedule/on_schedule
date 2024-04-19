@@ -4,9 +4,9 @@ Sorry for the mess... 😬. On-Schedule is currently under construction (includi
 
 On-schedule is a passion project that bridges my construction project management background with my love for programming. While I was still working as a Project Manager, I needed a scheduling tool. So, in my spare time, and more for fun than the actual practicality, I made a scheduling tool in Excel. It was a bit cumbersome and had its fair share of bugs and quarks, but when I took a step back, I realized I needed to change careers and get into software development.
 
-Project MVP
-  Overall goals
-    1. Create an effective "Gantt" style project schedule
-    2. Create useful project analytics based on schedule data
-    3. Create User To-do lists to keep track of pending tasks and schedule objectives
-    4. Clean, simple, easy-to-use UI
+## Project MVP
+  ### Overall goals
+    1. Create an effective "Gantt" style project schedule  
+    2. Create useful project analytics based on schedule data  
+    3. Create User To-do lists to keep track of pending tasks and schedule objectives  
+    4. Clean, simple, easy-to-use UI  
