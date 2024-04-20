@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-export default function  Draggable({rootClass = "", children }) {
+export default function  Draggable({rootClass = "", children}) {
   const ourRef = useRef(null);
   const [isMouseDown, setIsMouseDown] = useState(false);
   const mouseCoords = useRef({
