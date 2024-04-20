@@ -38,7 +38,7 @@ function App() {
                   {open ? <div className="dropdown-menu" >
                     <div className="card-body" style={{marginLeft: "10px", marginRight: "10px"}} >
                       {_.map(user.projects, (project, index) => (
-                        <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-lg d-flex" key={index} >{project.name}</Link>
+                        <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-sm d-flex" key={index} >{project.name}</Link>
                       ))}
                     </div>
                   </div> : ""}
