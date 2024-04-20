@@ -17,7 +17,7 @@ export default function ProjectPage() {
   return <div className='dashboard-wrapper'>
     <div className="card border-primary mb-3">
       <div className="card-header navbar">
-        <h2>{project?.name} Schedule</h2>
+        {project?.name} Schedule
       </div>
       <NewTaskForm projectID={project_id} />
       <TaskList />

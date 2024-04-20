@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 import { DateTime } from "luxon"
 import SearchBar from '../common/SearchBar';
+import Draggable from "../common/Draggable";
 
 const projectScale = {
   "day": 35,
@@ -81,28 +82,30 @@ export default function TaskList() {
   }
 
   return <div className="card-body">
-    <div className="schedule-body grid" style={mainGridTemplate}>
-      <div className="sticky-top" style={{gridColumn: 2, gridRow: 1, backgroundColor: "var(--bs-card-bg)"}}>
-        <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
-      </div>
-      <div className="sticky-top sticky-left" style={{gridColumn: 1, gridRow: 1, backgroundColor: "var(--bs-card-bg)", zIndex: "1025", paddingRight: "10px", alignContent: "center", verticalAlignContent: "center"}}>
-        <SearchBar unfilteredArray={tasks} searchKey={"name"} setFilteredArray={setSearchedTasks} />
-      </div>
-      <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
-        <div style={{width: `${(duration * cellSize) + taskCardWidth}px`}}>
-          {tasks?.length > 0 && (
-            _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-              <div key={task.id} className="grid" style={mainGridTemplate}>
-                <div className="sticky-left task-items" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
-                <div className="grid grid-background" style={{...gridTemp, ...bgFormat()}}>
-                  <div className={"schedule_bar"} style={{...taskIndexes(task), ...color(index)}} />
+    <Draggable>
+      <div className="schedule-body grid" style={mainGridTemplate}>
+        <div className="sticky-top" style={{gridColumn: 2, gridRow: 1, backgroundColor: "var(--bs-card-bg)"}}>
+          <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
+        </div>
+        <div className="sticky-top sticky-left" style={{gridColumn: 1, gridRow: 1, backgroundColor: "var(--bs-card-bg)", zIndex: "1025", paddingRight: "10px", alignContent: "center", verticalAlignContent: "center"}}>
+          <SearchBar unfilteredArray={tasks} searchKey={"name"} setFilteredArray={setSearchedTasks} />
+        </div>
+        <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
+          <div style={{width: `${(duration * cellSize) + taskCardWidth}px`}}>
+            {tasks?.length > 0 && (
+              _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
+                <div key={task.id} className="grid" style={mainGridTemplate}>
+                  <div className="sticky-left task-items" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
+                  <div className="grid grid-background" style={{...gridTemp, ...bgFormat()}}>
+                    <div className={"schedule_bar"} style={{...taskIndexes(task), ...color(index)}} />
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </Draggable>
     <div className="card-body text-center">
       <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("day"))} > Day </button>
       <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("month"))} > Month </button>

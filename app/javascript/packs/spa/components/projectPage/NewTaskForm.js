@@ -145,9 +145,7 @@ export default function NewTaskForm({projectID}) {
       >Save</button>
     </div>
     {openAccordion && <div className="form-group card-body bg-dark" >
-      <div className="list-inline-item align-bottom" >
-        <FontAwesomeIcon style={{color: "var(--bs-dark)"}} icon={faChevronUp} />
-      </div>
+      <FontAwesomeIcon style={{color: "var(--bs-dark)"}} icon={faChevronUp} />
       <div className="form_group list-inline-item">
         <label>Description</label>
         <input
