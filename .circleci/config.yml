@@ -10,7 +10,7 @@ jobs:
       - image: cimg/ruby:3.2.2-node
         environment:
           RAILS_ENV: test
-        #   PGHOST: 127.0.0.1
+          PGHOST: 127.0.0.1
           PGUSER: root
           DATABASE_URL: "postgres://root@localhost:5432/onschedule_test"
       - image: cimg/postgres:12.18
