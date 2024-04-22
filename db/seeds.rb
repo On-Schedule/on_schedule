@@ -32,38 +32,44 @@ Task.create!({
   project: @red_fields_lodge,
   name: "Deep underground",
   start_date: Date.parse("10/10/2022"),
-  end_date: Date.parse("25/10/2022")
+  end_date: Date.parse("25/10/2022"),
+  hours: 90
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Set pads",
   start_date: Date.parse("15/10/2022"),
-  end_date: Date.parse("29/10/2022")
+  end_date: Date.parse("29/10/2022"),
+  hours: 30
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Rough-in - Building 1",
   start_date: Date.parse("18/10/2022"),
-  end_date: Date.parse("23/12/2022")
+  end_date: Date.parse("23/12/2022"),
+  hours: 600
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Trim - Building 1",
   start_date: Date.parse("1/11/2022"),
-  end_date: Date.parse("23/12/2022")
+  end_date: Date.parse("23/12/2022"),
+  hours: 550
 })
 Task.create!({
   project: @red_fields_lodge,
   name: "Lighting - building 2",
   start_date: Date.parse("7/11/2022"),
-  end_date: Date.parse("17/11/2022")
+  end_date: Date.parse("17/11/2022"),
+  hours: 250
 })
 
 Task.create!({
   project: @red_fields_lodge,
   name: "Trim - Building 2",
   start_date: Date.parse("7/12/2022"),
-  end_date: Date.parse("17/12/2022")
+  end_date: Date.parse("17/12/2022"),
+  hours: 600
 })
 
 @kpr_hq = Project.create!({
@@ -86,37 +92,43 @@ Task.create!({
   project: @kpr_hq,
   name: "Lighting demo",
   start_date: Date.parse("10/10/2022"),
-  end_date: Date.parse("25/10/2022")
+  end_date: Date.parse("25/10/2022"),
+  hours: 200
 })
 Task.create!({
   project: @kpr_hq,
   name: "Electrical rough",
   start_date: Date.parse("15/10/2022"),
-  end_date: Date.parse("31/10/2022")
+  end_date: Date.parse("31/10/2022"),
+  hours: 400
 })
 Task.create!({
   project: @kpr_hq,
   name: "Lighting rough",
   start_date: Date.parse("01/11/2022"),
-  end_date: Date.parse("23/12/2022")
+  end_date: Date.parse("23/12/2022"),
+  hours: 300
 })
 Task.create!({
   project: @kpr_hq,
   name: "Trim",
   start_date: Date.parse("19/12/2022"),
-  end_date: Date.parse("25/02/2023")
+  end_date: Date.parse("25/02/2023"),
+  hours: 250
 })
 Task.create!({
   project: @kpr_hq,
   name: "Lighting finish",
   start_date: Date.parse("14/07/2023"),
-  end_date: Date.parse("25/09/2024")
+  end_date: Date.parse("25/09/2024"),
+  hours: 200
 })
 Task.create!({
   project: @kpr_hq,
   name: "turnover and training",
   start_date: Date.parse("14/08/2023"),
-  end_date: Date.parse("25/09/2024")
+  end_date: Date.parse("25/09/2024"),
+  hours: 20
 })
 
 @the_zoo = Project.create!({
