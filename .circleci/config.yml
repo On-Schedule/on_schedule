@@ -8,15 +8,15 @@ jobs:
     # Install gems, run rspec tests
     docker:
       - image: cimg/ruby:3.2.2-node
-        # environment:
-        #   RAILS_ENV: test
+        environment:
+          RAILS_ENV: test
         #   PGHOST: 127.0.0.1
-        #   PGUSER: root
-        #   DATABASE_URL: "postgres://root@localhost:5432/onschedule_test"
+          PGUSER: root
+          DATABASE_URL: "postgres://root@localhost:5432/onschedule_test"
       - image: cimg/postgres:12.18
         environment:
-        #   POSTGRES_USER: root
-        #   POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_USER: root
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: onschedule_test
     environment:
       RAILS_ENV: test
@@ -28,8 +28,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
           name: Database setup
-          command: rails db:create
-          command: rails db:migrate
+          command: bundle exec rake db:{create,migrate}
       - run:
           name: rspec test
           command: bundle exec rspec
