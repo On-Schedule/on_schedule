@@ -30,6 +30,9 @@ jobs:
           name: wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
+          name: Install Javascript Dependencies
+          command: npm install
+      - run:
           name: Database setup
           command: bundle exec rake db:{create,migrate}
       - run:
