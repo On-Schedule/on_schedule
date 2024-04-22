@@ -129,14 +129,14 @@ export default function NewProjectForm({project=defaultProject}) {
     return false
   }
 
-  return <div className="card text-white bg-primary mb-3 primary-card-wrapper">
-    <h4 className="card-header">Create A New Project</h4>
+  return <div className="card bg-primary mb-3 primary-card-wrapper">
+    <div className="card-header navbar">Create A New Project</div>
     <form>
       <div className="card-body">
         <div className="form_group">
-          <label className="form-label mt-4">Project Name</label>
+          <label className="form-label">Project Name</label>
           <input
-            className="form-control"
+            className="form-control form-control-sm"
             name="name"
             placeholder="Project Name"
             value={details?.name}
@@ -146,7 +146,7 @@ export default function NewProjectForm({project=defaultProject}) {
         <div className="form_group list-inline-item">
           <label className="form-label mt-4">Start Date</label>
           <input
-            className="form-control"
+            className="form-control form-control-sm"
             name="startDate"
             type='date'
             lable="Start Date"
@@ -157,7 +157,7 @@ export default function NewProjectForm({project=defaultProject}) {
         <div className="form_group list-inline-item">
           <label className="form-label mt-4">End Date</label>
           <input
-            className="form-control"
+            className="form-control form-control-sm"
             name="endDate"
             type='date'
             lable="End Date"
@@ -181,33 +181,35 @@ export default function NewProjectForm({project=defaultProject}) {
         </div>
       </div>
       { custom ? (
-        <div className="form-group card-body bg-dark">
-          {_.map(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (day) => (
-            <div key={day} className="form-check form-check-inline">
+        <div className="form-group card-body" style={{paddingTop: 0}}>
+          <div className="card-body bg-dark">
+            {_.map(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (day) => (
+              <div key={day} className="form-check form-check-inline">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={day}
+                  name="day"
+                  checked={_.includes(details.schedule.days, day)}
+                  disabled={!custom}
+                  onChange={setDays()}
+                />
+                <label className="form-label">{_.upperFirst(day)}</label>
+              </div>
+            ))}
+            <div className=" list-inline-item">
+              <label className="form-label">Workday Hours</label>
               <input
-                className="form-check-input"
-                type="checkbox"
-                value={day}
-                name="day"
-                checked={_.includes(details.schedule.days, day)}
+                className="form-control form-control-sm"
+                type="number"
+                name="hours"
+                min={1}
+                max={24}
+                value={details.schedule.hours}
                 disabled={!custom}
-                onChange={setDays()}
+                onChange={setHours()}
               />
-              <label className="form-label">{_.upperFirst(day)}</label>
             </div>
-          ))}
-          <div className=" list-inline-item">
-            <label className="form-label mt-4">Workday Hours</label>
-            <input
-              className="form-control"
-              type="number"
-              name="hours"
-              min={1}
-              max={24}
-              value={details.schedule.hours}
-              disabled={!custom}
-              onChange={setHours()}
-            />
           </div>
         </div>
       ) : ("")}
@@ -222,7 +224,7 @@ export default function NewProjectForm({project=defaultProject}) {
         </div>
       </div> : ""}
       <div className="card-body text-center">
-        <button type="button" className="btn btn-primary" onClick={saveProject()} disabled={!isValid()}>Save</button>
+        <button type="button" className={`btn btn-sm ${isValid() ? "btn-outline-success" : "btn-outline-danger"}`} onClick={saveProject()} disabled={!isValid()}>Save</button>
       </div>
     </form>
   </div>

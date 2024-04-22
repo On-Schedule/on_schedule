@@ -14,7 +14,13 @@ export default function CurrentTasksCard() {
   return <div className="card border-primary mb-3 mx-md-2 dashboard-card">
     <div className="card-header navbar">Tasks</div>
     <div className="card-body dashboard-card-body">
-      <SearchBar unfilteredArray={tasks} searchKey={"name"} setFilteredArray={setSearchedItem} />
+      <SearchBar
+        unfilteredArray={tasks}
+        searchKey={"name"}
+        setFilteredArray={setSearchedItem}
+        className="form-control-sm"
+        style={{marginBottom: "10px"}}
+      />
       {searchedItem?.length != 0 ? (
         _.map(searchedItem, (task) => (
           <h4 key={task.id}>

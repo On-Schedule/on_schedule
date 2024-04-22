@@ -1,20 +1,39 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
+const { func, shape, string, array } = PropTypes;
+
+SearchBar.propTypes = {
+  setFilteredArray: func.isRequired,
+  searchKey: string.isRequired,
+  unfilteredArray: array,
+  style: shape({}),
+  className: string,
+};
 
 export default function SearchBar(spec) {
+  const {
+    setFilteredArray,
+    searchKey,
+    unfilteredArray,
+    className,
+    style
+  } = spec;
+
   const updateSearch = (e) => {
     var searchValue = e.target.value.toLowerCase()
-    const search = _.filter(spec.unfilteredArray, (item) => (
-      item[spec.searchKey].toLowerCase().match(searchValue)
+    const search = _.filter(unfilteredArray, (item) => (
+      item[searchKey].toLowerCase().match(searchValue)
     ));
-    spec.setFilteredArray(search);
+    setFilteredArray(search);
   }
 
   return <input
-      className="form-control form-control-sm"
       name="name"
       placeholder="Search"
       onChange={updateSearch}
-      style={{marginBottom: "10px"}}
+      className={className + " form-control"}
+      style={style}
     />
 }
 // ####################         template for implementing the search bar         ####################
