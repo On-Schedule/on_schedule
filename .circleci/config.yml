@@ -3,6 +3,7 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@2.0.1
+  browser-tools: circleci/browser-tools@1.4.8
 jobs:
   test-ruby:
     # Install gems, run rspec tests
@@ -23,6 +24,8 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run:
           name: wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
