@@ -13,7 +13,7 @@ jobs:
           PGHOST: 127.0.0.1
           PGUSER: root
           DATABASE_URL: "postgres://root@localhost:5432/onschedule_test"
-      - image: circleci/postgres:9.5-alpine
+      - image: cimg/postgres:12.18
         environment:
           POSTGRES_USER: root
           POSTGRES_HOST_AUTH_METHOD: trust
