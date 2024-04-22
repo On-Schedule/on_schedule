@@ -3,9 +3,9 @@ require 'rails_helper'
 describe "User Dashboard", :js do
   let!(:user) { create :user }
   let!(:project1) { create :project }
-  let!(:projectUser1) { create :project_user, project: project1, user: user }
+  let!(:projectUser1) { create :project_user, project: project1, user: }
   let!(:project2) { create :project }
-  let!(:projectUser2) { create :project_user, project: project2, user: user }
+  let!(:projectUser2) { create :project_user, project: project2, user: }
 
   before do
     sign_in user
