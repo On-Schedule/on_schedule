@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { signOut } from 'actions/user'
 import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
 import ProjectPage from './components/ProjectPage';
 
 function App() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false)
+
+  const signOutUser = async () => {
+    await dispatch(signOut());
+    window.location.reload()
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -19,7 +27,22 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarColor01">
             <ul className="navbar-nav me-auto">
               <li className="nav-item">
-                <Link to={""} className="nav-link active">Home</Link>
+                <Link to={""} className="nav-link">Home</Link>
+              </li>
+              <li className="nav-item">
+                <div
+                  onMouseEnter={() => {setOpen(true)}}
+                  onMouseLeave={() => {setOpen(false)}}
+                >
+                  <a className="nav-link dropdown">Projects</a>
+                  {open ? <div className="dropdown-menu" >
+                    <div className="card-body" style={{marginLeft: "10px", marginRight: "10px"}} >
+                      {_.map(user?.projects, (project, index) => (
+                        <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-sm d-flex" key={index} >{project.name}</Link>
+                      ))}
+                    </div>
+                  </div> : ""}
+                </div>
               </li>
               <li className="nav-item">
                 <a className="nav-link">Features</a>
@@ -29,6 +52,11 @@ function App() {
               </li>
               <li className="nav-item">
                 <a className="nav-link">About</a>
+              </li>
+            </ul>
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <a className="nav-link" onClick={signOutUser}>Log Out</a>
               </li>
             </ul>
           </div>

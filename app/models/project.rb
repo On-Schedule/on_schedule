@@ -8,6 +8,10 @@ class Project < ApplicationRecord
   validate :start_date_before_end_date
   validate :schedule_days_and_hours_are_valid
 
+  def duration
+    (end_date - start_date).to_i + 1
+  end
+
   private
 
   def schedule_days_and_hours_are_valid

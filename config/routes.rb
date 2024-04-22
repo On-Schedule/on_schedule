@@ -3,8 +3,17 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, path: '/v1' do
+      devise_scope :user do
+        delete 'user', to: '/devise/sessions#destroy'
+      end
+
       resource :user, only: [:show]
-      resources :projects, only: [:create, :show]
+      resource :company, only: [] do
+        resources :users, only: [:index]
+      end
+      resources :projects, only: [:create, :show] do
+        resources :tasks, only: [:index, :create]
+      end
     end
   end
 

@@ -1,7 +1,7 @@
 export function loadUser() {
   return async (dispatch, getState, api) => {
     const {data:user} = await api.get('user');
-    dispatch({type: 'user/recieved', user});
+    dispatch({type: 'user/received', user});
     return user;
   }
 }
@@ -9,7 +9,7 @@ export function loadUser() {
 export function updateUser(fields) {
   return async (dispatch, getState, api) => {
     const {data:user} = await api.put('user', {user: fields});
-    dispatch({type: 'user/recieved', user});
+    dispatch({type: 'user/received', user});
     return user;
   }
 }
