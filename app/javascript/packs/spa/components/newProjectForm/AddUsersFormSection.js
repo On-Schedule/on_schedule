@@ -40,9 +40,9 @@ export default function AddUsersFormSection(details) {
     _.remove(selectedUsers, user, _.isEqual)
   }
 
-  return <div className="card-body row-cols-2">
+  return <div className="card-body row-cols-2" style={{paddingTop: 0}}>
     <div className="list-inline-item ">
-      <label className="form-label mt-4">Remove Users</label>
+      <label className="form-label">Remove Users</label>
       <div className="card-body bg-dark user-card">
         {_.map(selectedUsers, (selectedUser) => (
           <div key={selectedUser.id} style={{display: "flex"}}>
@@ -58,7 +58,7 @@ export default function AddUsersFormSection(details) {
       </div>
     </div>
     <div className="list-inline-item">
-      <label className="form-label mt-4">Add Additional Users</label>
+      <label className="form-label">Add Additional Users</label>
       <div className="card-body bg-dark user-card">
         {_.map(nonSelectedUsers, (user) => (
           <div key={user.id} style={{display: "flex"}}>

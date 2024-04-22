@@ -17,7 +17,13 @@ export default function ProjectsCard() {
       <Link to="/projects/new" className="btn btn-info btn-sm d-flex">+ Add New Project</ Link>
     </div>
     <div className="card-body dashboard-card-body">
-      <SearchBar unfilteredArray={projects} searchKey={"name"} setFilteredArray={setSearchedProjects} />
+      <SearchBar
+        unfilteredArray={projects}
+        searchKey={"name"}
+        setFilteredArray={setSearchedProjects}
+        className="form-control-sm"
+        style={{marginBottom: "10px"}}
+      />
       {searchedProjects?.length != 0 ? (
         _.map(searchedProjects, (project) => (
           <h4 key={project.id}>
