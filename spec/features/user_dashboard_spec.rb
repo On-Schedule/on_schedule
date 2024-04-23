@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe "User Dashboard", :js do
   let!(:user) { create :user }
@@ -16,5 +16,11 @@ describe "User Dashboard", :js do
     within "nav" do
       expect(page).to have_content(user.company.name)
     end
+  end
+
+  it "has default card" do
+    expect(page).to have_css("#projects-card")
+    expect(page).to have_css("#current-tasks-card")
+    expect(page).to have_css("#overview-card")
   end
 end

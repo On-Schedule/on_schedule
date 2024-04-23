@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function OverviewCard() {
-  return <div className="card border-primary mb-3 mx-md-2 dashboard-card">
+  return <div className="card border-primary mb-3 mx-md-2 dashboard-card" id="overview-card">
     <div className="card-header navbar"> Overview</div>
     <div className="card-body dashboard-card-body">
       <span>place holder for overview card</span><br/>
