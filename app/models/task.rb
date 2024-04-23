@@ -3,7 +3,8 @@ class Task < ApplicationRecord
   validates :name, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true, comparison: {greater_than_or_equal_to: :start_date}
-  validate :within_project_dates
+  validate :start_date_within_project_dates
+  validate :end_date_within_project_dates
 
   enum responsibility: {internal: "internal", external: "external", subcontractor: "subcontractor"}
 
@@ -13,10 +14,16 @@ class Task < ApplicationRecord
 
   private
 
-  def within_project_dates
+  def start_date_within_project_dates
+    return false unless start_date && project
+
     if start_date < project.start_date || start_date > project.end_date
       errors.add(:start_date, "must be inside project dates")
     end
+  end
+
+  def end_date_within_project_dates
+    return false unless end_date && project
 
     if end_date < project.start_date || end_date > project.end_date
       errors.add(:end_date, "must be inside project dates")
