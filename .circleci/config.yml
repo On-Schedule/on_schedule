@@ -1,0 +1,59 @@
+# This config was automatically generated from your source code
+# Stacks detected: deps:node:.,deps:ruby:.
+version: 2.1
+orbs:
+  ruby: circleci/ruby@2.0.1
+  browser-tools: circleci/browser-tools@1.4.8
+jobs:
+  test-ruby:
+    # Install gems, run rspec tests
+    docker:
+      - image: cimg/ruby:3.2.2-node
+        environment:
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: root
+          DATABASE_URL: "postgres://root@localhost:5432/onschedule_test"
+      - image: cimg/postgres:12.18
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: onschedule_test
+    environment:
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - ruby/install-deps
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
+      - run:
+          name: wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Install Javascript Dependencies
+          command: npm install
+      - run:
+          name: Database setup
+          command: bundle exec rake db:{create,migrate}
+      # - run:
+      #     name: test if it works
+      #     command: RAILS_ENV=test bundle exec rails webpacker:compile
+      - run:
+          name: rspec test
+          command: bundle exec rspec
+  deploy:
+    # This is an example deploy job, not actually used by the workflow
+    docker:
+      - image: cimg/base:stable
+    steps:
+      # Replace this with steps to deploy to users
+      - run:
+          name: deploy
+          command: '#e.g. ./deploy.sh'
+workflows:
+  build-and-test:
+    jobs:
+      - test-ruby
+    # - deploy:
+    #     requires:
+    #       - test-ruby
