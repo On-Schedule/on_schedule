@@ -19,8 +19,8 @@ describe "User Dashboard", :js do
   end
 
   it "has default card" do
-    expect(page).to have_css("#projects-card")
-    expect(page).to have_css("#current-tasks-card")
-    expect(page).to have_css("#overview-card")
+    page.has_css?("#projects-card")
+    page.has_css?("#current-tasks-card")
+    page.has_css?("#overview-card")
   end
 end
