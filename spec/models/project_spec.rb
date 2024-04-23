@@ -23,11 +23,16 @@ describe Project, type: :model do
     end
 
     it "should validate start_date_before_end_date" do
-      subject.start_date = "2020-01-02"
+      subject.start_date = "2020-01-01"
       subject.end_date = "2020-01-01"
       subject.valid?
 
       expect(subject.errors.full_messages).to include("End date must be after start date")
+
+      subject.end_date = "2020-01-02"
+      subject.valid?
+
+      expect(subject.errors.full_messages).to_not include("End date must be after start date")
     end
   end
 
