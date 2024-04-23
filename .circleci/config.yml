@@ -37,7 +37,7 @@ jobs:
           command: bundle exec rake db:{create,migrate}
       - run:
           name: test if it works
-          command: bundle exec rails assets:precompile
+          command: RAILS_ENV=test bundle exec rails webpacker:compile
       - run:
           name: rspec test
           command: bundle exec rspec
