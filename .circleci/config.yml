@@ -36,6 +36,9 @@ jobs:
           name: Database setup
           command: bundle exec rake db:{create,migrate}
       - run:
+          name: test if it works
+          command: NODE_ENV=test bundle exec rails webpacker:compile
+      - run:
           name: rspec test
           command: bundle exec rspec
   deploy:
