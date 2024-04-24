@@ -11,7 +11,7 @@ export default function CurrentTasksCard() {
       setSearchedItem(tasks)
   }, [tasks])
 
-  return <div className="card border-primary mb-3 mx-md-2 dashboard-card">
+  return <div className="card border-primary mb-3 mx-md-2 dashboard-card" id="current-tasks-card">
     <div className="card-header navbar">Tasks</div>
     <div className="card-body dashboard-card-body">
       <SearchBar

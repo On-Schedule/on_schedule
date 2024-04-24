@@ -11,7 +11,7 @@ export default function ProjectsCard() {
       setSearchedProjects(projects)
   }, [projects])
 
-  return <div className="card border-primary mb-3 mx-md-2 dashboard-card">
+  return <div className="card border-primary mb-3 mx-md-2 dashboard-card" id='projects-card'>
     <div className="card-header navbar">
       Projects
       <Link to="/projects/new" className="btn btn-info btn-sm d-flex">+ Add New Project</ Link>

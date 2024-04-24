@@ -61,7 +61,7 @@ export default function AddUsersFormSection(details) {
       <label className="form-label">Add Additional Users</label>
       <div className="card-body bg-dark user-card">
         {_.map(nonSelectedUsers, (user) => (
-          <div key={user.id} style={{display: "flex"}}>
+          <div key={user.id} style={{display: "flex"}} id={`${user.full_name.replace(' ', "-")}`}>
             <button
               className="btn btn-outline-success btn-sm list-inline-item user-btn"
               onClick={() => addToList(user, false)}
