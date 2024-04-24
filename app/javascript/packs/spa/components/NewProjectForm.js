@@ -172,7 +172,7 @@ export default function NewProjectForm({project=defaultProject}) {
                 className="form-check-input"
                 value={preSet}
                 type="radio"
-                name="workWeek"
+                name={preSet}
                 defaultChecked={preSet === "5x8 (M-F)"}
               />
               <label className="form-label">{preSet}</label>
@@ -189,7 +189,7 @@ export default function NewProjectForm({project=defaultProject}) {
                   className="form-check-input"
                   type="checkbox"
                   value={day}
-                  name="day"
+                  name={day}
                   checked={_.includes(details.schedule.days, day)}
                   disabled={!custom}
                   onChange={setDays()}
