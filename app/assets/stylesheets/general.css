@@ -40,21 +40,58 @@
   background:
     repeating-linear-gradient(0.25turn,
       #99999925 0 1px,
-      transparent 1px calc(var(--scale) - 1px),
-      #99999925 calc(var(--scale) - 1px) var(--scale)),
-    repeating-linear-gradient(0.25turn,
-      var(--day0) 0 var(--scale),
-      var(--day1) var(--scale) calc(2 * var(--scale)),
-      var(--day2) calc(2 * var(--scale)) calc(3 * var(--scale)),
-      var(--day3) calc(3 * var(--scale)) calc(4 * var(--scale)),
-      var(--day4) calc(4 * var(--scale)) calc(5 * var(--scale)),
-      var(--day5) calc(5 * var(--scale)) calc(6 * var(--scale)),
-      var(--day6) calc(6 * var(--scale)) calc(7 * var(--scale))
+      var(--day0) 1px calc(var(--scale) - 1px),
+      #99999925 calc(var(--scale) - 1px) calc(var(--scale) + 1px),
+      var(--day1) calc(var(--scale) + 1px) calc(calc(2 * var(--scale)) - 1px),
+      #99999925 calc(calc(2 * var(--scale)) - 1px) calc(calc(2 * var(--scale)) + 1px),
+      var(--day2) calc(calc(2 * var(--scale)) + 1px) calc(calc(3 * var(--scale)) - 1px),
+      #99999925 calc(calc(3 * var(--scale)) - 1px) calc(calc(3 * var(--scale)) + 1px),
+      var(--day3) calc(calc(3 * var(--scale)) + 1px) calc(calc(4 * var(--scale)) - 1px),
+      #99999925 calc(calc(4 * var(--scale)) - 1px) calc(calc(4 * var(--scale)) + 1px),
+      var(--day4) calc(calc(4 * var(--scale)) + 1px) calc(calc(5 * var(--scale)) - 1px),
+      #99999925 calc(calc(5 * var(--scale)) - 1px) calc(calc(5 * var(--scale)) + 1px),
+      var(--day5) calc(calc(5 * var(--scale)) + 1px) calc(calc(6 * var(--scale)) - 1px),
+      #99999925 calc(calc(6 * var(--scale)) - 1px) calc(calc(6 * var(--scale)) + 1px),
+      var(--day6) calc(calc(6 * var(--scale)) + 1px) calc(calc(7 * var(--scale)) - 1px),
+      #99999925 calc(calc(7 * var(--scale)) - 1px) calc(calc(7 * var(--scale)))
     );
 }
 
 .task-items {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, 0.15));
+  background:
+    linear-gradient(270deg, #272b30 0%, transparent 10px),
+    linear-gradient(180deg, transparent 90%, #ffffff26);
+  background-color: var(--bs-card-bg);
+}
+
+.open {
+  max-height: 190px;
+  overflow: hidden;
+  transition: max-height .75s ease-in-out
+}
+
+.close {
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height .75s ease-in-out
+}
+
+.task-items-expand {
+  background: linear-gradient(270deg, #272b30 0%, transparent 10px);
+  background-color: var(--bs-card-bg);
+}
+
+.date-bar-bg {
+  padding-bottom: 8px;
+  background: linear-gradient(0deg, #272b30 0%, transparent 10px);
+  background-color: var(--bs-card-bg);
+}
+
+.search-box-border {
+  background:
+    linear-gradient(270deg, transparent 0%, var(--bs-card-bg) 10px),
+    linear-gradient(0deg, transparent 0%, var(--bs-card-bg) 10px);
+  background-color: #272b30;
 }
 
 .schedule_bar {
@@ -75,6 +112,8 @@
   border-left-style: solid;
   border-right-style: solid;
   text-align: center;
+  border-color: #99999925;
+  border-width: 1px;
 }
 
 .flip {

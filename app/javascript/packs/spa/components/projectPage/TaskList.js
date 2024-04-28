@@ -4,6 +4,7 @@ import DateBar from "./DateBar";
 import { DateTime } from "luxon"
 import SearchBar from '../common/SearchBar';
 import DragScroll from "../common/DragScroll";
+import Task from "./task";
 
 const projectScale = {
   "day": 35,
@@ -43,12 +44,6 @@ export default function TaskList() {
     setScale(newScale)
   }
 
-  const taskIndexes = (task) => {
-    var start = task.date_index["start"]
-    var stop = task.date_index["stop"]
-    return {"--start": start, "--stop": stop}
-  }
-
   const bgFormat = () => {
     var formatVars = {}
     if (scale === "month") {
@@ -71,23 +66,13 @@ export default function TaskList() {
     setSearchedTasks(tasks)
   }, [tasks])
 
-  // temp custom color place holder
-  const color = (val) => {
-    const colors = {
-      0: "rgb(68, 45, 87)",
-      1: "rgb(45, 48, 87)",
-      2: "rgb(87, 45, 49)"
-    }
-    return {"--bar-color": colors[val % 3]}
-  }
-
   return <div className="card-body">
     <DragScroll>
       <div className="schedule-body grid" style={mainGridTemplate}>
-        <div className="sticky-top" style={{gridColumn: 2, gridRow: 1, backgroundColor: "var(--bs-card-bg)"}}>
+        <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1}}>
           <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
         </div>
-        <div className="sticky-top sticky-left" style={{gridColumn: 1, gridRow: 1, backgroundColor: "var(--bs-card-bg)", zIndex: "1025", paddingRight: "10px", alignContent: "center", verticalAlignContent: "center"}}>
+        <div className="sticky-top sticky-left search-box-border" style={{gridColumn: 1, gridRow: 1, zIndex: "1025", paddingRight: "10px", alignContent: "center", verticalAlignContent: "center"}}>
           <SearchBar
             unfilteredArray={tasks}
             searchKey={"name"}
@@ -104,12 +89,7 @@ export default function TaskList() {
           <div style={{width: `${(duration * cellSize) + taskCardWidth}px`}}>
             {tasks?.length > 0 && (
               _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-                <div key={task.id} className="grid" style={mainGridTemplate}>
-                  <div className="sticky-left task-items" style={{backgroundColor: "var(--bs-card-bg)"}}>{task.name}</div>
-                  <div className="grid" style={gridTemp}>
-                    <div className={"schedule_bar"} style={{...taskIndexes(task), ...color(index)}} />
-                  </div>
-                </div>
+                <Task task={task} index={index} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} key={task.id}/>
               ))
             )}
           </div>
