@@ -83,5 +83,6 @@ export default function DragMove(props) {
 //   };
 
 //  <DragMove style={} className="" onDragMove={handleDragMove}>
-//    <div></div>
+//    <div style={{transform: `translateX(${translate.x}px) translateY(${translate.y}px)`}}>
+//    </div>
 //  </DragMove>
