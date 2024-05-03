@@ -12,6 +12,22 @@ class Task < ApplicationRecord
     {start: (start_date - project.start_date).to_i + 1, stop: (end_date - start_date).to_i + 1}
   end
 
+  def daily_manpower
+    (hours.to_f / working_days / project.schedule["hours"]).round(2)
+  end
+
+  def working_days
+    start_date.upto(end_date).count do |day|
+      project.schedule["days"].any? do |project_day|
+        day.send("#{project_day}?")
+      end
+    end
+  end
+
+  def total_days
+    start_date.upto(end_date).count
+  end
+
   private
 
   def start_date_within_project_dates

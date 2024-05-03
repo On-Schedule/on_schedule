@@ -89,7 +89,7 @@ export default function DragScroll(props) {
       onPointerMove={handlePointerMove}
       // onMouseEnter={() => {document.body.style.cursor = "grab"}}
       // onMouseLeave={() => {document.body.style.cursor = "default"}}
-      className={className + "flex overflow-x-scroll"}
+      className={className + " flex overflow-x-scroll"}
       style={style}
     >
       {children}

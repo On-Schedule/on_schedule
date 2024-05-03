@@ -55,5 +55,26 @@ describe Task, type: :model do
 
       expect(task.date_index).to eq({start: 2, stop: 24})
     end
+
+    it "#total_days" do
+      project = FactoryBot.create(:project, start_date: "2020-01-01", end_date: "2020-01-25")
+      task = FactoryBot.create(:task, start_date: "2020-01-02", end_date: "2020-01-25", project:)
+
+      expect(task.total_days).to eq(24)
+    end
+
+    it "#working_days" do
+      project = FactoryBot.create(:project, start_date: "2020-01-01", end_date: "2020-01-25")
+      task = FactoryBot.create(:task, start_date: "2020-01-02", end_date: "2020-01-25", project:)
+
+      expect(task.working_days).to eq(17)
+    end
+
+    it "#daily_manpower" do
+      project = FactoryBot.create(:project, start_date: "2020-01-01", end_date: "2020-01-25")
+      task = FactoryBot.create(:task, start_date: "2020-01-02", end_date: "2020-01-25", hours: 170, project:)
+
+      expect(task.daily_manpower).to eq(1.25)
+    end
   end
 end
