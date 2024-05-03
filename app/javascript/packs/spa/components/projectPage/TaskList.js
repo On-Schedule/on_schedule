@@ -69,7 +69,7 @@ export default function TaskList() {
   return <div className="card-body">
     <DragScroll>
       <div className="schedule-body grid" style={mainGridTemplate}>
-        <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1}}>
+        <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1024"}}>
           <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
         </div>
         <div
@@ -92,17 +92,15 @@ export default function TaskList() {
           />
         </div>
         <div
-          className="grid-background"
+          className="project-grid-background"
           style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
         />
         <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
-          <div style={{width: `${(duration * cellSize) + taskCardWidth}px`}}>
-            {tasks?.length > 0 && (
-              _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-                <Task task={task} index={index} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} key={task.id}/>
-              ))
-            )}
-          </div>
+          {tasks?.length > 0 && (
+            _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
+              <Task task={task} index={index} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
+            ))
+          )}
         </div>
       </div>
     </DragScroll>

@@ -12,7 +12,7 @@
   text-align: center;
 }
 
-.user-card {
+.project-form-user-card {
   height: 25em;
   overflow-y: auto;
 }
@@ -28,7 +28,7 @@
   width: 100%;
 }
 
-.grid-background {
+.project-grid-background {
   --scale: 40px;
   --day0: transparent;
   --day1: transparent;
@@ -60,25 +60,37 @@
 .task-items {
   background:
     linear-gradient(270deg, #272b30 0%, transparent 10px),
-    linear-gradient(180deg, transparent 90%, #ffffff26);
+    linear-gradient(90deg, #54545430 0%, transparent 5px),
+    linear-gradient(180deg, #ffffff26 1px, transparent 1px);
   background-color: var(--bs-card-bg);
-}
-
-.open {
-  max-height: 190px;
-  overflow: hidden;
-  transition: max-height .75s ease-in-out
-}
-
-.close {
-  max-height: 0px;
-  overflow: hidden;
-  transition: max-height .75s ease-in-out
 }
 
 .task-items-expand {
-  background: linear-gradient(270deg, #272b30 0%, transparent 10px);
+  background:
+    linear-gradient(270deg, #272b30 0%, transparent 10px),
+    linear-gradient(90deg, #54545430 0%, transparent 5px),
+    linear-gradient(0deg, #ffffff26 1px, transparent 1px);
   background-color: var(--bs-card-bg);
+}
+
+.base-slide-out {
+  white-space: nowrap;
+  overflow: hidden;
+  transition:
+    max-height .25s ease-in-out,
+    height .25s ease-in-out,
+    max-width .25s ease-in-out,
+    width .25s ease-in-out;
+}
+
+.open-task-item {
+  max-height: 10em;
+  width: var(--open-item-width);
+}
+
+.close-task-item {
+  max-height: 0px;
+  width: var(--closed-item-width);
 }
 
 .date-bar-bg {
@@ -94,7 +106,7 @@
   background-color: #272b30;
 }
 
-.schedule_bar {
+.schedule-bar {
   --bar-color: var(--bs-secondary);
   border-radius: 10px;
   border-style: solid;
@@ -102,10 +114,8 @@
   border-color: black;
   grid-column: var(--start) / span var(--stop);
   background-color: var(--bar-color);
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px 2px;
+  height: 13px;
 }
 
 .date-bar {

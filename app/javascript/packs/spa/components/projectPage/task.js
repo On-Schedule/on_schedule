@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { DateTime } from "luxon";
 
-export default function Task({task, index, mainGridTemplate, gridTemp}) {
+export default function Task({task, index, mainGridTemplate, gridTemp, taskCardWidth}) {
   const [openAccordion, setOpenAccordion] = useState(false)
+  const openTaskItemWidth = 500
+  const start_date = DateTime.fromISO(task.start_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  const end_date = DateTime.fromISO(task.end_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
 
   const taskIndexes = (task) => {
     var start = task.date_index["start"]
@@ -22,31 +26,32 @@ export default function Task({task, index, mainGridTemplate, gridTemp}) {
 
   return <div className="grid" style={mainGridTemplate}>
     <div className="sticky-left">
-      <div className="task-items">
-        <span style={{paddingLeft: "5px", paddingRight: "5px"}} onClick={() => {setOpenAccordion(!openAccordion)}}>
+      <div className="task-items base-slide-out" style={{width: openAccordion ? `${openTaskItemWidth}px` : `${taskCardWidth}px`}}>
           <FontAwesomeIcon
             icon={faChevronUp}
             className={openAccordion ? "flip" : "un-flip"}
+            style={{padding: "0px 5px", color: "var(--bs-gray-700)"}}
+            onClick={() => {setOpenAccordion(!openAccordion)}}
           />
-        </span>
         {task.name}
       </div>
-      <div className={openAccordion ? "open" : "close"}>
+      <div className={`base-slide-out ${openAccordion ? "open-task-item" : "close-task-item"}`} style={{"--open-item-width": `${openTaskItemWidth}px`, "--closed-item-width": `${taskCardWidth}px`}}>
         <div className="task-items-expand">
-          <div style={{paddingTop: "5px", paddingBottom: "10px"}}>
-            Start Date: {task.start_date} <br/>
-            End Date: {task.end_date} <br/>
-            Cost Code: {task.cost_code} <br/>
-            Hours: {task.hours} <br/>
-            Average Daily Manpower: {task.daily_manpower}<br/>
-            Total days: {task.total_days}<br/>
-            Working Days: {task.working_days}<br/>
+          <div className="card-body" style={{paddingTop: "0px"}}>
+            <div style={{backgroundColor: "var(--bs-dark)", padding: "5px 10px 10px"}}>
+              Dates: {start_date} - {end_date} <br/>
+              Duration: {task.total_days} days ({task.working_days} working days)<br/>
+              Average Daily Manpower: {task.daily_manpower}<br/>
+              Cost Code: {task.cost_code} <br/>
+              Hours: {task.hours} <br/>
+              {/* also... Responsibility, in process? percent complete (based on number of days)? */}
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div className="grid" style={gridTemp}>
-      <div className="schedule_bar" style={{...taskIndexes(task), ...color(index), height: "13px"}} />
+      <div className="schedule-bar" style={{...taskIndexes(task), ...color(index, task)}} />
     </div>
   </div>
 }
