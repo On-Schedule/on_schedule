@@ -19,13 +19,18 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
     return {"--start": start, "--stop": stop}
   }
 
-  const color = (val) => {
+  const color = (task) => {
     const colors = {
-      0: "rgb(68, 45, 87)",
-      1: "rgb(45, 48, 87)",
-      2: "rgb(87, 45, 49)"
+      "internal": "#555ded",
+      "external": "#737373",
+      "subcontractor": "#59ac93"
     }
-    return {"--bar-color": colors[val % 3]}
+
+    if(task.responsibility){
+      return {"--bar-color": colors[task.responsibility]}
+    } else {
+      return {"--bar-color": colors["internal"]}
+    }
   }
 
   return <div className="grid" style={mainGridTemplate}>
@@ -55,7 +60,7 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
       </div>
     </div>
     <div className="grid" style={gridTemp}>
-      <div className="schedule-bar" style={{...taskIndexes(task), ...color(index)}} />
+      <div className="schedule-bar" style={{...taskIndexes(task), ...color(task)}} />
     </div>
   </div>
 }
