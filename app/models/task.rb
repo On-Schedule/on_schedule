@@ -13,7 +13,11 @@ class Task < ApplicationRecord
   end
 
   def daily_manpower
-    (hours.to_f / working_days / project.schedule["hours"]).round(2)
+    if working_days.positive? && hours&.positive?
+      (hours.to_f / working_days / project.schedule["hours"]).round(2)
+    else
+      0
+    end
   end
 
   def working_days
