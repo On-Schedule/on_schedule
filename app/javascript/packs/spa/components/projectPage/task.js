@@ -8,6 +8,10 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
   const openTaskItemWidth = 500
   const start_date = DateTime.fromISO(task.start_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   const end_date = DateTime.fromISO(task.end_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
+  const itemWidths = {
+    "--open-item-width": `${openTaskItemWidth}px`,
+    "--closed-item-width": `${taskCardWidth}px`
+  }
 
   const taskIndexes = (task) => {
     var start = task.date_index["start"]
@@ -35,7 +39,7 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
           />
         {task.name}
       </div>
-      <div className={`base-slide-out ${openAccordion ? "open-task-item" : "close-task-item"}`} style={{"--open-item-width": `${openTaskItemWidth}px`, "--closed-item-width": `${taskCardWidth}px`}}>
+      <div className={`base-slide-out ${openAccordion ? "open-task-item" : "close-task-item"}`} style={itemWidths}>
         <div className="task-items-expand">
           <div className="card-body" style={{paddingTop: "0px"}}>
             <div style={{backgroundColor: "var(--bs-dark)", padding: "5px 10px 10px"}}>
@@ -51,7 +55,7 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
       </div>
     </div>
     <div className="grid" style={gridTemp}>
-      <div className="schedule-bar" style={{...taskIndexes(task), ...color(index, task)}} />
+      <div className="schedule-bar" style={{...taskIndexes(task), ...color(index)}} />
     </div>
   </div>
 }

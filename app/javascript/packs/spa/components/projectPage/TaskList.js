@@ -72,17 +72,7 @@ export default function TaskList() {
         <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1024"}}>
           <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
         </div>
-        <div
-          className="sticky-top sticky-left search-box-border"
-          style={{
-            gridColumn: 1,
-            gridRow: 1,
-            zIndex: "1025",
-            paddingRight: "10px",
-            alignContent: "center",
-            verticalAlignContent: "center"
-          }}
-        >
+        <div className="sticky-top sticky-left task-items-search-box">
           <SearchBar
             unfilteredArray={tasks}
             searchKey={"name"}

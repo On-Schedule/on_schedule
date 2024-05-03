@@ -99,11 +99,17 @@
   background-color: var(--bs-card-bg);
 }
 
-.search-box-border {
+.task-items-search-box {
   background:
     linear-gradient(270deg, transparent 0%, var(--bs-card-bg) 10px),
     linear-gradient(0deg, transparent 0%, var(--bs-card-bg) 10px);
   background-color: #272b30;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1025;
+  padding-right: 10px;
+  align-content: center;
+  vertical-align: center;
 }
 
 .schedule-bar {

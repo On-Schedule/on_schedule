@@ -36,7 +36,7 @@ function App() {
                 >
                   <a className="nav-link dropdown">Projects</a>
                   {open ? <div className="dropdown-menu" >
-                    <div className="card-body" style={{marginLeft: "10px", marginRight: "10px"}} >
+                    <div className="card-body" style={{margin: "0px 10px"}} >
                       {_.map(user?.projects, (project, index) => (
                         <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-sm d-flex" key={index} >{project.name}</Link>
                       ))}
