@@ -1,6 +1,6 @@
 object current_user
 
-attributes :id, :full_name
+attributes :id, :full_name, :role
 
 child :projects do
   attributes :id, :name
