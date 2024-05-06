@@ -13,4 +13,11 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  enum role: {
+    super_admin: 'super_admin',
+    admin: 'admin',
+    full: 'full',
+    read_only: 'read_only'
+  }
 end

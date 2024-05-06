@@ -5,6 +5,7 @@ import { signOut } from 'actions/user'
 import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
 import ProjectPage from './components/ProjectPage';
+import CompanyAdminPage from './components/CompanyAdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,11 +17,18 @@ function App() {
     window.location.reload()
   };
 
+  const companyAdmin = () => {
+    return (user?.role === "super_admin" ||user?.role === "admin")
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
-          <a className="navbar-brand">{user?.company?.name || "OnSchedule" }</a>
+          {companyAdmin() ?
+            <Link to={"company/admin"} className="navbar-brand">{user?.company?.name || "OnSchedule" }</Link> :
+            <a className="navbar-brand" >{user?.company?.name || "OnSchedule" }</a>
+          }
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -66,6 +74,7 @@ function App() {
         <Route index element={<UserDashboard />} />
         <Route path="/projects/new" element={<NewProjectForm />} />
         <Route path="/projects/:id" element={<ProjectPage />} />
+        <Route path="/company/admin" element={<CompanyAdminPage />} />
       </Routes>
     </div>
   );
