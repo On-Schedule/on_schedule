@@ -17,7 +17,7 @@ function App() {
     window.location.reload()
   };
 
-  const company_admin = () => {
+  const companyAdmin = () => {
     return (user?.role === "super_admin" ||user?.role === "admin")
   }
 
@@ -25,7 +25,10 @@ function App() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container-fluid">
-          {company_admin() ? <Link to={"company/admin"} className="navbar-brand">{user?.company?.name || "OnSchedule" }</Link> : <a className="navbar-brand" >{user?.company?.name || "OnSchedule" }</a>}
+          {companyAdmin() ?
+            <Link to={"company/admin"} className="navbar-brand">{user?.company?.name || "OnSchedule" }</Link> :
+            <a className="navbar-brand" >{user?.company?.name || "OnSchedule" }</a>
+          }
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
