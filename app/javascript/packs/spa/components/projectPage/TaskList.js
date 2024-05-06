@@ -33,7 +33,6 @@ export default function TaskList() {
   const [scale, setScale] = useState("day")
   const gridTemp = {
     gridTemplateColumns: `repeat(${duration}, ${cellSize}px)`,
-    width: `${(duration * cellSize)}px`
   }
   const mainGridTemplate = {
     gridTemplateColumns: `${taskCardWidth}px ${duration * cellSize}px`,
