@@ -4,13 +4,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import DateBox from "./DateBox";
 
-export default function DatePicker({InitialDate=DateTime.now().startOf("day")}) {
+export default function DatePicker({InitialDate=DateTime.now().startOf("day"), setStartDate=()=>{}, setEndDate=()=>{}}) {
   const [date, setDate] = useState(InitialDate)
+  const [controlDates, setControlDates] = useState({})
+  const [focus, setFocus] = useState(true)
+
+  const handleClick = (date) => {
+    if (focus) {
+      setControlDates({...controlDates, startDate: date})
+      setStartDate(date)
+    } else {
+      setControlDates({...controlDates, endDate: date})
+      setEndDate(date)
+    }
+    setFocus(!focus)
+  }
+
+  const isHovering = (date) => {
+    setControlDates({...controlDates, hovering: date})
+  }
 
   const buildRow = (date, controlMonth) => {
     var row = []
     for (var i = 1; i <= 7; i++) {
-      row.push(<DateBox date={date} controlMonth={controlMonth} key={date.toFormat("ddmmyyyy-2")}/>)
+      row.push(<DateBox date={date} controlDates={{...controlDates, month: controlMonth}} key={date.toFormat("ddmmyyyy-2")} handleClick={handleClick} isHovering={isHovering} />)
       date = date.plus({day: 1})
     }
 
