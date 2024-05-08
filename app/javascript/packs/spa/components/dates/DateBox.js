@@ -42,10 +42,14 @@ export default function DateBox({date, controlDates={}, handleClick=()=>{}, isHo
     isHovering(date)
   }
 
-  return <div
+  const testTwo = () => {
+    return date.month != controlDates.month
+  }
+
+  return <>{testTwo() ? <div style={{width: "35px", height: "35px"}} ></div>  : <div
     style={{width: "35px", height: "35px", lineHeight: "30px", borderStyle: "solid", textAlign: "center", verticalAlign: "center", ...bgColor()}}
     onMouseEnter={hovering}
     onMouseLeave={() => {setHover(false)}}
     onClick={test}
-  > {date.day} </div>
+  > {date.day} </div>}</>
 }
