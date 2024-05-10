@@ -1,0 +1,53 @@
+.date-picker-dates {
+  padding: 0px 10px;
+}
+
+.custom-date-field {}
+
+/* Chrome, Safari, Edge, Opera */
+.custom-date-field>input::-webkit-outer-spin-button,
+.custom-date-field>input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.custom-date-field>input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.date-box {
+  margin-bottom: 2px;
+  width: 35px;
+  height: 35px;
+  line-height: 30px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.date-box-focused {
+  background-color: #5f96ee;
+  color: black;
+}
+
+.date-box-selected {
+  background-color: #347cf0;
+  color: black;
+}
+
+.date-box-out-of-month {
+  background-color: #1f1f1f;
+  color: black;
+}
+
+.date-box-start {
+  border-radius: 20px 0px 0px 20px;
+}
+
+.date-box-end {
+  border-radius: 0px 20px 20px 0px;
+}
+
+.date-box-start-end {
+  border-radius: 20px;
+}
