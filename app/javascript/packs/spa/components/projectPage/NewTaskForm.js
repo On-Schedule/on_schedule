@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { newTask } from 'actions/tasks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import DateRangeField from "../dates/DateRangeField";
 
 
 export default function NewTaskForm({projectID}) {
@@ -23,9 +24,18 @@ export default function NewTaskForm({projectID}) {
   const [details, setDetails] = useState(defaltDetails)
   const [openAccordion, setOpenAccordion] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(false)
+  const [reset, setReset] = useState(false)
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
+  }
+
+  const updateStartDate = (date) => {
+    setDetails({...details, start_date: date})
+  }
+
+  const updateEndDate = (date) => {
+    setDetails({...details, end_date: date})
   }
 
   const saveTask = () => async () => {
@@ -35,6 +45,7 @@ export default function NewTaskForm({projectID}) {
 
     await dispatch(newTask(details, project.id));
     setDetails(defaltDetails)
+    setReset(true)
   }
 
   const isValid = () => {
@@ -100,30 +111,7 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
-        <label>Start Date</label>
-        <input
-          className="form-control form-control-sm"
-          name="startDate"
-          type="date"
-          lable="Start Date"
-          min={project?.start_date}
-          max={project?.end_date}
-          value={details?.start_date}
-          onChange={updateDetail('start_date')}
-        />
-      </div>
-      <div className="form_group list-inline-item">
-        <label>End Date</label>
-        <input
-          className="form-control form-control-sm"
-          name="endDate"
-          type="date"
-          lable="End Date"
-          min={project?.start_date}
-          max={project?.end_date}
-          value={details?.end_date}
-          onChange={updateDetail('end_date')}
-        />
+        <DateRangeField updateStartDate={updateStartDate} updateEndDate={updateEndDate} reset={reset} setReset={setReset} />
       </div>
       <div className="form_group list-inline-item">
         <label>Hours</label>
