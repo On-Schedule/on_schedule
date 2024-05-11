@@ -1,79 +1,106 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useContext, createContext } from "react";
 import { DateTime } from "luxon"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import DateBox from "./DateBox";
+import { StartDateContext, EndDateContext } from "./DateRangeField"
+import Calendar from "./Calendar";
 
-export default function DatePicker({InitialDate=DateTime.now().startOf("day"), setStartDate=()=>{}, setEndDate=()=>{}}) {
-  const [date, setDate] = useState(InitialDate)
+export const CalendarContext = createContext("")
+
+export default function DatePicker({InitialDate=DateTime.now(), focus=true, setFocus=()=>{}}) {
+  const [date, setDate] = useState(InitialDate.startOf("month"))
   const [controlDates, setControlDates] = useState({})
-  const [focus, setFocus] = useState(true)
+  const {startDate, setStartDate} = useContext(StartDateContext)
+  const {endDate, setEndDate, closeAccordion} = useContext(EndDateContext)
 
   const handleClick = (date) => {
-    if (focus) {
-      setControlDates({...controlDates, startDate: date})
+    if (startDate && date < startDate && focus === "endDate") {
       setStartDate(date)
+      setEndDate("")
+      setFocus("endDate")
+    } else if (endDate && date > endDate && focus === "startDate") {
+      setStartDate(date)
+      setEndDate("")
+      setFocus("endDate")
+    } else if (focus === "startDate") {
+      setStartDate(date)
+      setFocus("endDate")
     } else {
-      setControlDates({...controlDates, endDate: date})
       setEndDate(date)
+      setFocus("startDate")
+
+      if (startDate && date) {
+        closeAccordion()
+      }
     }
-    setFocus(!focus)
   }
 
   const isHovering = (date) => {
     setControlDates({...controlDates, hovering: date})
   }
 
-  const buildRow = (date, controlMonth) => {
-    var row = []
-    for (var i = 1; i <= 7; i++) {
-      row.push(<DateBox date={date} controlDates={{...controlDates, month: controlMonth}} key={date.toFormat("ddmmyyyy-2")} handleClick={handleClick} isHovering={isHovering} />)
-      date = date.plus({day: 1})
+  const scrollMonths = (e) => {
+    if (Math.sign(e.deltaY) === -1) {
+      setDate(date.minus({month: 1}))
+    } else if (Math.sign(e.deltaY) === 1) {
+      setDate(date.plus({month: 1}))
     }
-
-    return row
   }
 
-  const buildMonth = (month=date) => {
-    var startWeek = month.startOf("month").startOf('week', {useLocaleWeeks: true})
-    var endWeek = month.endOf("month").startOf('week', {useLocaleWeeks: true})
+  const preventDefault = useCallback((e) => {
+    e.preventDefault()
+  }, [])
 
-    var builtMonth = []
-    for (var i = startWeek; i <= endWeek; i = i.plus({week: 1})) {
-      builtMonth.push(<div style={{display: "flex", flexDirection: "row", width: "100%"}} key={i.toFormat("ddmmyyyy")}>{buildRow(i, month.month)}</div>)
-    }
-
-    return builtMonth
+  const disableScroll = () => {
+    document.addEventListener('wheel', preventDefault, {
+      passive: false,
+    });
   }
 
- return <div className='content'>
-    <div className="calendar">
-      <FontAwesomeIcon
-        icon={faChevronUp}
-        onClick={() => setDate(date.minus({month: 1}))}
-        style={{padding: "10px"}}
-      />
-      <FontAwesomeIcon
-        icon={faChevronDown}
-        onClick={() => setDate(date.plus({month: 1}))}
-        style={{padding: "10px"}}
-      />
-      <div style={{display: "flex"}}>
-        <div style={{padding: "10px"}}>
-          <h4>
-            {date.toFormat("LLLL, yyyy")}
-          </h4>
-          <div>
-            {buildMonth()}
-          </div>
-        </div>
-        <div style={{padding: "10px"}}>
-          <h4>
-            {date.plus({month: 1}).toFormat("LLLL, yyyy")}
-          </h4>
-          <div>
-            {buildMonth(date.plus({month: 1}))}
-          </div>
+  const enableScroll = () => {
+    document.removeEventListener('wheel', preventDefault);
+  }
+
+ return <div className='card date-picker-container'>
+    <div
+      onWheel={scrollMonths}
+      onMouseEnter={disableScroll}
+      onMouseLeave={enableScroll}
+    >
+      <div className="card-header" style={{display: "flex"}}>
+        <FontAwesomeIcon
+          icon={faChevronUp}
+          onClick={() => setDate(date.minus({month: 1}))}
+          style={{padding: "10px"}}
+        />
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          onClick={() => setDate(date.plus({month: 1}))}
+          style={{padding: "10px"}}
+        />
+        <h4
+         className="date-picker-dates"
+         style={{borderBottomStyle: focus === "startDate" && "solid"}}
+         onClick={()=>{setFocus("startDate")}}
+        >Start date</h4>
+        <h4
+         className="date-picker-dates"
+         style={{borderBottomStyle: focus === "endDate" && "solid"}}
+         onClick={()=>{setFocus("endDate")}}
+        >End date</h4>
+      </div>
+      <div className="card-body">
+        <div style={{display: "flex"}}>
+          <CalendarContext.Provider value={{
+            controlDates: controlDates,
+            startDate: startDate,
+            endDate: endDate,
+            handleClick: handleClick,
+            isHovering: isHovering
+          }}>
+            <Calendar date={date} />
+            <Calendar date={date.plus({month: 1})} />
+          </CalendarContext.Provider>
         </div>
       </div>
     </div>
