@@ -16,6 +16,21 @@
   -moz-appearance: textfield;
 }
 
+.date-picker-container {
+  margin-top: 15px;
+}
+
+.calendar-month-box {
+  padding: 10px;
+  text-align: center;
+}
+
+.calendar-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .date-box {
   margin-bottom: 2px;
   width: 35px;
