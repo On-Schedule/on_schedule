@@ -85,3 +85,26 @@
 .custom-date-field .year {
   width: 3em
 }
+
+.date-selector-focus {
+  position: absolute;
+  height: 5px;
+  width: 8em;
+  background-color: var(--bs-info);
+  border-radius: 2.5px;
+  margin-top: 3px;
+}
+
+.date-picker-open,
+.date-picker-closed {
+  position: absolute;
+  z-index: 2000;
+}
+
+.date-picker-open {
+  max-height: 500px;
+}
+
+.date-picker-closed {
+  max-height: 0px;
+}
