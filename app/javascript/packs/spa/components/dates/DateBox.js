@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CalendarContext } from "./DatePicker";
 
-export default function DateBox({date, controlDates={}, handleClick=()=>{}, isHovering=()=>{}}) {
+export default function DateBox({date, controlDates={}}) {
+  const {startDate, endDate, handleClick, isHovering} = useContext(CalendarContext)
   const [hover, setHover] = useState(false)
 
   const boxClasses = () => {
-    if (controlDates.startDate?.toLocaleString() == date.toLocaleString() && controlDates.endDate?.toLocaleString() == date.toLocaleString()) {
+    if (startDate?.toLocaleString() == date.toLocaleString() && endDate?.toLocaleString() == date.toLocaleString()) {
       return "date-box-selected date-box-start-end"
-    } else if (controlDates.startDate?.toLocaleString() == date.toLocaleString()) {
+    } else if (startDate?.toLocaleString() == date.toLocaleString()) {
       return "date-box-selected date-box-start"
-    } else if (controlDates.endDate?.toLocaleString() == date.toLocaleString()) {
+    } else if (endDate?.toLocaleString() == date.toLocaleString()) {
       return "date-box-selected date-box-end"
     } else if (
-      (controlDates.startDate && controlDates.endDate && controlDates.startDate < date && controlDates.endDate > date) ||
-      (controlDates.startDate && !controlDates.endDate && controlDates.startDate < date && controlDates.hovering >= date) ||
+      (startDate && endDate && startDate < date && endDate > date) ||
+      (startDate && !endDate && startDate < date && controlDates.hovering > date) ||
       (hover)
     ) {
       return "date-box-focused"
