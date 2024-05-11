@@ -7,7 +7,7 @@ import Calendar from "./Calendar";
 
 export const CalendarContext = createContext("")
 
-export default function DatePicker({InitialDate=DateTime.now(), focus=true, setFocus=()=>{}}) {
+export default function DateRangePicker({InitialDate=DateTime.now(), focus=true, setFocus=()=>{}}) {
   const [date, setDate] = useState(InitialDate.startOf("month"))
   const [controlDates, setControlDates] = useState({})
   const {startDate, setStartDate} = useContext(StartDateContext)

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { DateTime } from "luxon";
 import DateBox from "./DateBox";
-import { CalendarContext } from "./DatePicker";
+import { CalendarContext } from "./DateRangePicker";
 
 export default function Calendar({date}) {
   const {controlDates} = useContext(CalendarContext)

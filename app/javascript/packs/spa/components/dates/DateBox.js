@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { CalendarContext } from "./DatePicker";
+import { CalendarContext } from "./DateRangePicker";
 
 export default function DateBox({date, controlDates={}}) {
   const {startDate, endDate, handleClick, isHovering} = useContext(CalendarContext)
