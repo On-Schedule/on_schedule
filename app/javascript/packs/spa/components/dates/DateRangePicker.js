@@ -2,10 +2,8 @@ import React, { useState, useCallback, useContext, createContext } from "react";
 import { DateTime } from "luxon"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { StartDateContext, EndDateContext } from "./DateRangeField"
 import Calendar from "./Calendar";
-
-export const CalendarContext = createContext("")
+import { CalendarContext, StartDateContext, EndDateContext } from "./DateUtils";
 
 export default function DateRangePicker({InitialDate=DateTime.now(), focus=true, setFocus=()=>{}}) {
   const [date, setDate] = useState(InitialDate.startOf("month"))

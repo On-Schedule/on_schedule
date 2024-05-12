@@ -2,9 +2,7 @@ import React, { useState, useRef, createContext, useCallback } from "react";
 import DateRangePicker from "./DateRangePicker";
 import CustomDateField from "./CustomDateField";
 import PropTypes from 'prop-types';
-
-export const StartDateContext = createContext({startDate: "", setStartDate: ()=>{}})
-export const EndDateContext = createContext({endDate: "", setEndDate: ()=>{}, closeAccordion: ()=>{}})
+import { StartDateContext, EndDateContext } from "./DateUtils";
 
 const { oneOfType, func, object, string } = PropTypes;
 
