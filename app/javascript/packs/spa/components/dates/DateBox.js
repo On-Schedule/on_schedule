@@ -36,23 +36,6 @@ export default function DateBox({date, controlDates={}}) {
 
     return className
   }
-  // const boxClasses = () => {
-  //   if ((dateRangeMin && date < dateRangeMin) || (dateRangeMax && date > dateRangeMax)) {
-  //     return "date-box-out-of-range"
-  //   } else if (startDate?.toLocaleString() == date.toLocaleString() && endDate?.toLocaleString() == date.toLocaleString()) {
-  //     return "date-box-selected date-box-start-end"
-  //   } else if (startDate?.toLocaleString() == date.toLocaleString()) {
-  //     return "date-box-selected date-box-start"
-  //   } else if (endDate?.toLocaleString() == date.toLocaleString()) {
-  //     return "date-box-selected date-box-end"
-  //   } else if (
-  //     (startDate && endDate && startDate < date && endDate > date) ||
-  //     (startDate && !endDate && startDate < date && controlDates.hovering > date) ||
-  //     (hover)
-  //   ) {
-  //     return "date-box-focused"
-  //   }
-  // }
 
   const hovering = () => {
     setHover(true)
