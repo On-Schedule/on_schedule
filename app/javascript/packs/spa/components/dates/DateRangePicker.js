@@ -10,11 +10,13 @@ export const CalendarContext = createContext("")
 export default function DateRangePicker({InitialDate=DateTime.now(), focus=true, setFocus=()=>{}}) {
   const [date, setDate] = useState(InitialDate.startOf("month"))
   const [controlDates, setControlDates] = useState({})
-  const {startDate, setStartDate} = useContext(StartDateContext)
-  const {endDate, setEndDate, closeAccordion} = useContext(EndDateContext)
+  const {startDate, startDateLimit, setStartDate} = useContext(StartDateContext)
+  const {endDate, endDateLimit, setEndDate, closeAccordion} = useContext(EndDateContext)
 
   const handleClick = (date) => {
-    if (startDate && date < startDate && focus === "endDate") {
+    if ((startDateLimit && date < startDateLimit) || (endDateLimit && date > endDateLimit)) {
+      return
+    } else if (startDate && date < startDate && focus === "endDate") {
       setStartDate(date)
       setEndDate("")
       setFocus("endDate")

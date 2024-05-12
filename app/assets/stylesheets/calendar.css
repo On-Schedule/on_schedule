@@ -33,6 +33,17 @@
   width: 100%;
 }
 
+.date-box-out-of-range {
+  --selected-color: #3c3c3c;
+  --focused-color: #646464;
+  color: #1f1f1f;
+}
+
+.date-box-in-range {
+  --selected-color: #347cf0;
+  --focused-color: #5f96ee;
+}
+
 .date-box {
   margin-bottom: 2px;
   width: 35px;
@@ -43,17 +54,12 @@
 }
 
 .date-box-focused {
-  background-color: #5f96ee;
+  background-color: var(--focused-color);
   color: black;
 }
 
 .date-box-selected {
-  background-color: #347cf0;
-  color: black;
-}
-
-.date-box-out-of-month {
-  background-color: #1f1f1f;
+  background-color: var(--selected-color);
   color: black;
 }
 

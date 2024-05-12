@@ -5,6 +5,7 @@ import { newTask } from 'actions/tasks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import DateRangeField from "../dates/DateRangeField";
+import { DateTime } from "luxon";
 
 
 export default function NewTaskForm({projectID}) {
@@ -111,7 +112,14 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
-        <DateRangeField updateStartDate={updateStartDate} updateEndDate={updateEndDate} reset={reset} setReset={setReset} />
+        <DateRangeField
+          updateStartDate={updateStartDate}
+          updateEndDate={updateEndDate}
+          reset={reset}
+          setReset={setReset}
+          startDateLimit={DateTime.fromISO(project?.start_date)}
+          endDateLimit={DateTime.fromISO(project?.end_date)}
+        />
       </div>
       <div className="form_group list-inline-item">
         <label>Hours</label>

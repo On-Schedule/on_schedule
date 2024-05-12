@@ -12,7 +12,7 @@ DateRangeField.propTypes = {
   updateStartDate: func.isRequired,
   updateEndDate: func.isRequired,
   startDateLimit: object,
-  EndDateLimit: object,
+  endDateLimit: object,
   reset: bool,
   setReset: func,
 };
@@ -28,7 +28,7 @@ export default function DateRangeField(props) {
     updateStartDate,
     updateEndDate,
     startDateLimit,
-    EndDateLimit,
+    endDateLimit,
     reset,
     setReset
   } = props
@@ -72,8 +72,8 @@ export default function DateRangeField(props) {
   }
 
   return <div>
-    <StartDateContext.Provider value={{startDate: startDate, setStartDate: setStartDate}}>
-      <EndDateContext.Provider value={{endDate: endDate, setEndDate: setEndDate, closeAccordion: closeAccordion}}>
+    <StartDateContext.Provider value={{startDate: startDate, startDateLimit: startDateLimit, setStartDate: setStartDate}}>
+      <EndDateContext.Provider value={{endDate: endDate, endDateLimit: endDateLimit, setEndDate: setEndDate, closeAccordion: closeAccordion}}>
         <div>
           <div className="form_group list-inline-item" onClick={() => {
             openAccordion()
