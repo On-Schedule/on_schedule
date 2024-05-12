@@ -9,22 +9,22 @@ export const EndDateContext = createContext({endDate: "", setEndDate: ()=>{}, cl
 const { oneOfType, func, object, string } = PropTypes;
 
 DateRangeField.propTypes = {
-  startDate: oneOfType([object, string]).isRequired,
-  endDate: oneOfType([object, string]).isRequired,
-  updateStartDate: func.isRequired,
-  updateEndDate: func.isRequired,
-  startDateLimit: object,
-  endDateLimit: object,
+  startDateValue: oneOfType([object, string]).isRequired,
+  endDateValue: oneOfType([object, string]).isRequired,
+  onStartDateChange: func.isRequired,
+  onEndDateChange: func.isRequired,
+  dateRangeMin: object,
+  dateRangeMax: object,
 };
 
 export default function DateRangeField(props) {
   const {
-    startDate,
-    endDate,
-    updateStartDate,
-    updateEndDate,
-    startDateLimit,
-    endDateLimit
+    startDateValue,
+    endDateValue,
+    onStartDateChange,
+    onEndDateChange,
+    dateRangeMin,
+    dateRangeMax
   } = props
 
   const dateRangeRef = useRef(null);
@@ -54,8 +54,8 @@ export default function DateRangeField(props) {
   }, [])
 
   return <div>
-    <StartDateContext.Provider value={{startDate: startDate, startDateLimit: startDateLimit, setStartDate: updateStartDate}}>
-      <EndDateContext.Provider value={{endDate: endDate, endDateLimit: endDateLimit, setEndDate: updateEndDate, closeAccordion: closeAccordion}}>
+    <StartDateContext.Provider value={{startDate: startDateValue, dateRangeMin: dateRangeMin, setStartDate: onStartDateChange}}>
+      <EndDateContext.Provider value={{endDate: endDateValue, dateRangeMax: dateRangeMax, setEndDate: onEndDateChange, closeAccordion: closeAccordion}}>
         <div>
           <div ref={startRef} className="form_group list-inline-item" onClick={() => {
             openAccordion()

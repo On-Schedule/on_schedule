@@ -4,12 +4,12 @@ import { EndDateContext, StartDateContext } from "./DateRangeField";
 
 export default function DateBox({date, controlDates={}}) {
   const {startDate, endDate, handleClick, isHovering} = useContext(CalendarContext)
-  const {startDateLimit} = useContext(StartDateContext)
-  const {endDateLimit} = useContext(EndDateContext)
+  const {dateRangeMin} = useContext(StartDateContext)
+  const {dateRangeMax} = useContext(EndDateContext)
   const [hover, setHover] = useState(false)
 
   const outOfRange = () => {
-    return ((startDateLimit && date < startDateLimit) || (endDateLimit && date > endDateLimit))
+    return ((dateRangeMin && date < dateRangeMin) || (dateRangeMax && date > dateRangeMax))
   }
 
   const boxClasses = () => {
@@ -37,7 +37,7 @@ export default function DateBox({date, controlDates={}}) {
     return className
   }
   // const boxClasses = () => {
-  //   if ((startDateLimit && date < startDateLimit) || (endDateLimit && date > endDateLimit)) {
+  //   if ((dateRangeMin && date < dateRangeMin) || (dateRangeMax && date > dateRangeMax)) {
   //     return "date-box-out-of-range"
   //   } else if (startDate?.toLocaleString() == date.toLocaleString() && endDate?.toLocaleString() == date.toLocaleString()) {
   //     return "date-box-selected date-box-start-end"
