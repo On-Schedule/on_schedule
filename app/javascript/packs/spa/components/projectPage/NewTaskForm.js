@@ -25,7 +25,6 @@ export default function NewTaskForm({projectID}) {
   const [details, setDetails] = useState(defaltDetails)
   const [openAccordion, setOpenAccordion] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(false)
-  const [reset, setReset] = useState(false)
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
@@ -46,7 +45,6 @@ export default function NewTaskForm({projectID}) {
 
     await dispatch(newTask(details, project.id));
     setDetails(defaltDetails)
-    setReset(true)
   }
 
   const isValid = () => {
@@ -113,10 +111,10 @@ export default function NewTaskForm({projectID}) {
       </div>
       <div className="form_group list-inline-item">
         <DateRangeField
+          startDate={details.start_date ? DateTime.fromISO(details.start_date) : details.start_date}
+          endDate={details.end_date ? DateTime.fromISO(details.end_date) : details.end_date}
           updateStartDate={updateStartDate}
           updateEndDate={updateEndDate}
-          reset={reset}
-          setReset={setReset}
           startDateLimit={DateTime.fromISO(project?.start_date)}
           endDateLimit={DateTime.fromISO(project?.end_date)}
         />

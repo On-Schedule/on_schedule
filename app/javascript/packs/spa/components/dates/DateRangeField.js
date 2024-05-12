@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, createContext } from "react";
+import React, { useState, useRef, createContext, useCallback } from "react";
 import DateRangePicker from "./DateRangePicker";
 import CustomDateField from "./CustomDateField";
 import PropTypes from 'prop-types';
@@ -6,54 +6,33 @@ import PropTypes from 'prop-types';
 export const StartDateContext = createContext({startDate: "", setStartDate: ()=>{}})
 export const EndDateContext = createContext({endDate: "", setEndDate: ()=>{}, closeAccordion: ()=>{}})
 
-const { func, object, bool } = PropTypes;
+const { oneOfType, func, object, string } = PropTypes;
 
 DateRangeField.propTypes = {
+  startDate: oneOfType([object, string]).isRequired,
+  endDate: oneOfType([object, string]).isRequired,
   updateStartDate: func.isRequired,
   updateEndDate: func.isRequired,
   startDateLimit: object,
   endDateLimit: object,
-  reset: bool,
-  setReset: func,
 };
-
-DateRangeField.defaultProps = {
-  setReset: () => {},
-  reset: false,
-};
-
 
 export default function DateRangeField(props) {
   const {
+    startDate,
+    endDate,
     updateStartDate,
     updateEndDate,
     startDateLimit,
-    endDateLimit,
-    reset,
-    setReset
+    endDateLimit
   } = props
 
-  const wrapperRef = useRef(null);
+  const dateRangeRef = useRef(null);
+  const startRef = useRef(null);
+  const endRef = useRef(null);
   const [accordion, setAccordion] = useState(false)
-  const [startDate, setStartDate] = useState("")
-  const [endDate, setEndDate] = useState("")
   const [focus, setFocus] = useState("")
 
-  useEffect(() => {
-    if (reset) {
-      setStartDate("")
-      setEndDate("")
-      setReset(false)
-    }
-  }, [reset])
-
-  useEffect(() => {
-    updateStartDate(startDate ? startDate.toISODate() : startDate)
-  }, [startDate])
-
-  useEffect(() => {
-    updateEndDate(endDate ? endDate.toISODate() : endDate)
-  }, [endDate])
 
   const closeAccordion = () => {
     setAccordion(false)
@@ -65,17 +44,20 @@ export default function DateRangeField(props) {
     document.addEventListener("mousedown", handleClickOutside);
   }
 
-  const handleClickOutside = (event) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+  const handleClickOutside = useCallback((e) => {
+    if (dateRangeRef.current && (
+      !dateRangeRef.current.contains(e.target) &&
+      !startRef.current.contains(e.target) &&
+      !endRef.current.contains(e.target))) {
       closeAccordion()
     }
-  }
+  }, [])
 
   return <div>
-    <StartDateContext.Provider value={{startDate: startDate, startDateLimit: startDateLimit, setStartDate: setStartDate}}>
-      <EndDateContext.Provider value={{endDate: endDate, endDateLimit: endDateLimit, setEndDate: setEndDate, closeAccordion: closeAccordion}}>
+    <StartDateContext.Provider value={{startDate: startDate, startDateLimit: startDateLimit, setStartDate: updateStartDate}}>
+      <EndDateContext.Provider value={{endDate: endDate, endDateLimit: endDateLimit, setEndDate: updateEndDate, closeAccordion: closeAccordion}}>
         <div>
-          <div className="form_group list-inline-item" onClick={() => {
+          <div ref={startRef} className="form_group list-inline-item" onClick={() => {
             openAccordion()
             setFocus("startDate")
           }} >
@@ -83,7 +65,7 @@ export default function DateRangeField(props) {
             <CustomDateField dateType={"startDate"} />
             {focus === "startDate" && <div className="date-selector-focus" />}
           </div>
-          <div className="form_group list-inline-item" onClick={() => {
+          <div ref={endRef} className="form_group list-inline-item" onClick={() => {
             openAccordion()
             setFocus("endDate")
           }} >
@@ -91,7 +73,7 @@ export default function DateRangeField(props) {
             {focus === "endDate" && <div className="date-selector-focus" />}
           </div>
         </div>
-        <div ref={wrapperRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")}>
+        <div ref={dateRangeRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")}>
           <DateRangePicker focus={focus} setFocus={setFocus} />
         </div>
       </EndDateContext.Provider>

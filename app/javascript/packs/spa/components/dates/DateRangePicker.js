@@ -17,18 +17,18 @@ export default function DateRangePicker({InitialDate=DateTime.now(), focus=true,
     if ((startDateLimit && date < startDateLimit) || (endDateLimit && date > endDateLimit)) {
       return
     } else if (startDate && date < startDate && focus === "endDate") {
-      setStartDate(date)
+      setStartDate(date.toISODate())
       setEndDate("")
       setFocus("endDate")
     } else if (endDate && date > endDate && focus === "startDate") {
-      setStartDate(date)
+      setStartDate(date.toISODate())
       setEndDate("")
       setFocus("endDate")
     } else if (focus === "startDate") {
-      setStartDate(date)
+      setStartDate(date.toISODate())
       setFocus("endDate")
     } else {
-      setEndDate(date)
+      setEndDate(date.toISODate())
       setFocus("startDate")
 
       if (startDate && date) {

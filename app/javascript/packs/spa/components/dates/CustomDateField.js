@@ -38,7 +38,7 @@ export default function CustomDateField({sendDate=()=>{}, receivedDate, dateType
 
   useEffect(() => {
     if (isValid()) {
-      setDateContext(DateTime.fromObject(date))
+      setDateContext(`${_.padStart(date.year, 4, 0)}-${_.padStart(date.month, 2, 0)}-${_.padStart(date.day, 2, 0)}`)
     }
   }, [date])
 
