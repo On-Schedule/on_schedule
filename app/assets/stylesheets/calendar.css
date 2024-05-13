@@ -1,7 +1,3 @@
-.date-picker-dates {
-  padding: 0px 10px;
-}
-
 .custom-date-field {
   width: 9em;
 }
@@ -16,6 +12,10 @@
 /* Firefox */
 .custom-date-field input[type=number] {
   -moz-appearance: textfield;
+}
+
+.focus-indicator {
+  padding: 0px 10px;
 }
 
 .date-picker-container {

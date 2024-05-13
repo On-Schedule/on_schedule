@@ -90,12 +90,12 @@ export default function DateRangePicker(props) {
           style={{padding: "10px"}}
         />
         <h4
-         className="date-picker-dates"
+         className="focus-indicator"
          style={{borderBottomStyle: focus === "startDate" && "solid"}}
          onClick={()=>{setFocus("startDate")}}
         >Start date</h4>
         <h4
-         className="date-picker-dates"
+         className="focus-indicator"
          style={{borderBottomStyle: focus === "endDate" && "solid"}}
          onClick={()=>{setFocus("endDate")}}
         >End date</h4>
