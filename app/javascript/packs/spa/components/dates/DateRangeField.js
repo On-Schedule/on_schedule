@@ -1,16 +1,13 @@
 import React, { useState, useRef, createContext, useCallback } from "react";
 import DateRangePicker from "./DateRangePicker";
 import CustomDateField from "./CustomDateField";
-import PropTypes from 'prop-types';
+import { oneOfType, func, object, string } from 'prop-types';
 import { StartDateContext, EndDateContext } from "./DateUtils";
-
-const { oneOfType, func, object, string } = PropTypes;
 
 DateRangeField.propTypes = {
   startDateValue: oneOfType([object, string]).isRequired,
   endDateValue: oneOfType([object, string]).isRequired,
-  onStartDateChange: func.isRequired,
-  onEndDateChange: func.isRequired,
+  onDatesChange: func.isRequired,
   dateRangeMin: object,
   dateRangeMax: object,
 };
@@ -19,8 +16,7 @@ export default function DateRangeField(props) {
   const {
     startDateValue,
     endDateValue,
-    onStartDateChange,
-    onEndDateChange,
+    onDatesChange,
     dateRangeMin,
     dateRangeMax
   } = props
@@ -51,9 +47,19 @@ export default function DateRangeField(props) {
     }
   }, [])
 
+  const setDates = (dates) => {
+    if (_.isEqual(Object.keys(dates), ["startDate", "endDate"])) {
+      onDatesChange(dates)
+    } else if (dates.startDate) {
+      onDatesChange({...dates, endDate: endDateValue})
+    } else if (dates.endDate) {
+      onDatesChange({...dates, startDate: startDateValue})
+    }
+  }
+
   return <div>
-    <StartDateContext.Provider value={{startDate: startDateValue, dateRangeMin: dateRangeMin, setStartDate: onStartDateChange}}>
-      <EndDateContext.Provider value={{endDate: endDateValue, dateRangeMax: dateRangeMax, setEndDate: onEndDateChange, closeAccordion: closeAccordion}}>
+    <StartDateContext.Provider value={{startDate: startDateValue, dateRangeMin: dateRangeMin, setStartDate: setDates}}>
+      <EndDateContext.Provider value={{endDate: endDateValue, dateRangeMax: dateRangeMax, setEndDate: setDates, closeAccordion: closeAccordion}}>
         <div>
           <div ref={startRef} className="form_group list-inline-item" onClick={() => {
             openAccordion()

@@ -4,9 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Calendar from "./Calendar";
 import { CalendarContext, StartDateContext, EndDateContext } from "./DateUtils";
+import { object, string, func } from "prop-types"
 
-export default function DateRangePicker({InitialDate=DateTime.now(), focus=true, setFocus=()=>{}}) {
-  const [date, setDate] = useState(InitialDate.startOf("month"))
+DateRangePicker.propTypes = {
+  initialDate: object,
+  focus: string.isRequired,
+  setFocus: func.isRequired
+}
+
+DateRangePicker.defaultProps = {
+  initialDate: DateTime.now(),
+}
+
+export default function DateRangePicker(props) {
+  const {initialDate, focus, setFocus} = props
+  const [date, setDate] = useState(initialDate.startOf("month"))
   const [controlDates, setControlDates] = useState({})
   const {startDate, dateRangeMin, setStartDate} = useContext(StartDateContext)
   const {endDate, dateRangeMax, setEndDate, closeAccordion} = useContext(EndDateContext)
@@ -15,18 +27,23 @@ export default function DateRangePicker({InitialDate=DateTime.now(), focus=true,
     if ((dateRangeMin && date < dateRangeMin) || (dateRangeMax && date > dateRangeMax)) {
       return
     } else if (startDate && date < startDate && focus === "endDate") {
-      setStartDate(date.toISODate())
-      setEndDate("")
+      // setStartDate(date.toISODate())
+      // setEndDate("")
+      setStartDate({startDate: date.toISODate(), endDate: ""})
       setFocus("endDate")
     } else if (endDate && date > endDate && focus === "startDate") {
-      setStartDate(date.toISODate())
-      setEndDate("")
+      // setStartDate(date.toISODate())
+      // setEndDate("")
+      console.log('you are here!');
+      setStartDate({startDate: date.toISODate(), endDate: ""})
       setFocus("endDate")
     } else if (focus === "startDate") {
-      setStartDate(date.toISODate())
+      // setStartDate(date.toISODate())
+      setStartDate({startDate: date.toISODate()})
       setFocus("endDate")
     } else {
-      setEndDate(date.toISODate())
+      // setEndDate(date.toISODate())
+      setEndDate({endDate: date.toISODate()})
       setFocus("startDate")
 
       if (startDate && date) {

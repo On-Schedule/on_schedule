@@ -1,6 +1,11 @@
 import React, { useContext } from "react";
 import DateBox from "./DateBox";
 import { CalendarContext } from "./DateUtils";
+import { object } from 'prop-types';
+
+Calendar.propTypes = {
+  date: object.isRequired
+};
 
 export default function Calendar({date}) {
   const {controlDates} = useContext(CalendarContext)

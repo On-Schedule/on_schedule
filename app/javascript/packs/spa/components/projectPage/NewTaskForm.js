@@ -30,12 +30,9 @@ export default function NewTaskForm({projectID}) {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
   }
 
-  const updateStartDate = (date) => {
-    setDetails({...details, start_date: date})
-  }
-
-  const updateEndDate = (date) => {
-    setDetails({...details, end_date: date})
+  const updateDates = (dates) => {
+    dates = {start_date: dates.startDate, end_date: dates.endDate}
+    setDetails({...details, ...dates})
   }
 
   const saveTask = () => async () => {
@@ -113,8 +110,7 @@ export default function NewTaskForm({projectID}) {
         <DateRangeField
           startDateValue={details.start_date ? DateTime.fromISO(details.start_date) : details.start_date}
           endDateValue={details.end_date ? DateTime.fromISO(details.end_date) : details.end_date}
-          onStartDateChange={updateStartDate}
-          onEndDateChange={updateEndDate}
+          onDatesChange={updateDates}
           dateRangeMin={DateTime.fromISO(project?.start_date)}
           dateRangeMax={DateTime.fromISO(project?.end_date)}
         />

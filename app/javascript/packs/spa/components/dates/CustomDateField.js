@@ -1,8 +1,22 @@
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { StartDateContext, EndDateContext } from "./DateUtils";
+import { func, object, string, oneOfType } from "prop-types"
 
-export default function CustomDateField({sendDate=()=>{}, receivedDate, dateType}) {
+CustomDateField.propTypes = {
+  sendDate: func,
+  recivedDate: oneOfType([object, string]),
+  dateType: string
+}
+
+CustomDateField.defaultProps = {
+  sendDate: ()=>{},
+  recivedDate: "",
+  dateType: ""
+}
+
+export default function CustomDateField(props) {
+  const {sendDate, receivedDate, dateType} = props
   const [date, setDate] = useState({month: "", day: "", year: ""})
   const day = createRef()
   const month = createRef()
@@ -38,7 +52,7 @@ export default function CustomDateField({sendDate=()=>{}, receivedDate, dateType
 
   useEffect(() => {
     if (isValid()) {
-      setDateContext(`${_.padStart(date.year, 4, 0)}-${_.padStart(date.month, 2, 0)}-${_.padStart(date.day, 2, 0)}`)
+      setDateContext({[dateType]: `${_.padStart(date.year, 4, 0)}-${_.padStart(date.month, 2, 0)}-${_.padStart(date.day, 2, 0)}`})
     }
   }, [date])
 
