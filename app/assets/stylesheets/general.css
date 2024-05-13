@@ -12,14 +12,14 @@
   text-align: center;
 }
 
-.user-card {
+.project-form-user-card {
   height: 25em;
   overflow-y: auto;
 }
 
 .schedule-body {
   width: auto;
-  max-height: 650px;
+  max-height: 70vh;
   overflow: auto;
 }
 
@@ -28,7 +28,7 @@
   width: 100%;
 }
 
-.grid-background {
+.project-grid-background {
   --scale: 40px;
   --day0: transparent;
   --day1: transparent;
@@ -40,24 +40,79 @@
   background:
     repeating-linear-gradient(0.25turn,
       #99999925 0 1px,
-      transparent 1px calc(var(--scale) - 1px),
-      #99999925 calc(var(--scale) - 1px) var(--scale)),
-    repeating-linear-gradient(0.25turn,
-      var(--day0) 0 var(--scale),
-      var(--day1) var(--scale) calc(2 * var(--scale)),
-      var(--day2) calc(2 * var(--scale)) calc(3 * var(--scale)),
-      var(--day3) calc(3 * var(--scale)) calc(4 * var(--scale)),
-      var(--day4) calc(4 * var(--scale)) calc(5 * var(--scale)),
-      var(--day5) calc(5 * var(--scale)) calc(6 * var(--scale)),
-      var(--day6) calc(6 * var(--scale)) calc(7 * var(--scale))
+      var(--day0) 1px calc(var(--scale) - 1px),
+      #99999925 calc(var(--scale) - 1px) calc(var(--scale) + 1px),
+      var(--day1) calc(var(--scale) + 1px) calc(calc(2 * var(--scale)) - 1px),
+      #99999925 calc(calc(2 * var(--scale)) - 1px) calc(calc(2 * var(--scale)) + 1px),
+      var(--day2) calc(calc(2 * var(--scale)) + 1px) calc(calc(3 * var(--scale)) - 1px),
+      #99999925 calc(calc(3 * var(--scale)) - 1px) calc(calc(3 * var(--scale)) + 1px),
+      var(--day3) calc(calc(3 * var(--scale)) + 1px) calc(calc(4 * var(--scale)) - 1px),
+      #99999925 calc(calc(4 * var(--scale)) - 1px) calc(calc(4 * var(--scale)) + 1px),
+      var(--day4) calc(calc(4 * var(--scale)) + 1px) calc(calc(5 * var(--scale)) - 1px),
+      #99999925 calc(calc(5 * var(--scale)) - 1px) calc(calc(5 * var(--scale)) + 1px),
+      var(--day5) calc(calc(5 * var(--scale)) + 1px) calc(calc(6 * var(--scale)) - 1px),
+      #99999925 calc(calc(6 * var(--scale)) - 1px) calc(calc(6 * var(--scale)) + 1px),
+      var(--day6) calc(calc(6 * var(--scale)) + 1px) calc(calc(7 * var(--scale)) - 1px),
+      #99999925 calc(calc(7 * var(--scale)) - 1px) calc(calc(7 * var(--scale)))
     );
 }
 
 .task-items {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 90%, rgba(255, 255, 255, 0.15));
+  background:
+    linear-gradient(270deg, #272b30 0%, transparent 10px),
+    linear-gradient(90deg, #54545430 0%, transparent 5px),
+    linear-gradient(180deg, #ffffff26 1px, transparent 1px);
+  background-color: var(--bs-card-bg);
 }
 
-.schedule_bar {
+.task-items-expand {
+  background:
+    linear-gradient(270deg, #272b30 0%, transparent 10px),
+    linear-gradient(90deg, #54545430 0%, transparent 5px),
+    linear-gradient(0deg, #ffffff26 1px, transparent 1px);
+  background-color: var(--bs-card-bg);
+}
+
+.base-slide-out {
+  white-space: nowrap;
+  overflow: hidden;
+  transition:
+    max-height .25s ease-in-out,
+    height .25s ease-in-out,
+    max-width .25s ease-in-out,
+    width .25s ease-in-out;
+}
+
+.open-task-item {
+  max-height: 10em;
+  width: var(--open-item-width);
+}
+
+.close-task-item {
+  max-height: 0px;
+  width: var(--closed-item-width);
+}
+
+.date-bar-bg {
+  padding-bottom: 8px;
+  background: linear-gradient(0deg, #272b30 0%, transparent 10px);
+  background-color: var(--bs-card-bg);
+}
+
+.task-items-search-box {
+  background:
+    linear-gradient(270deg, transparent 0%, var(--bs-card-bg) 10px),
+    linear-gradient(0deg, transparent 0%, var(--bs-card-bg) 10px);
+  background-color: #272b30;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1025;
+  padding-right: 10px;
+  align-content: center;
+  vertical-align: center;
+}
+
+.schedule-bar {
   --bar-color: var(--bs-secondary);
   border-radius: 10px;
   border-style: solid;
@@ -65,16 +120,16 @@
   border-color: black;
   grid-column: var(--start) / span var(--stop);
   background-color: var(--bar-color);
-  margin-left: 2px;
-  margin-right: 2px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin: 5px 2px;
+  height: 13px;
 }
 
 .date-bar {
   border-left-style: solid;
   border-right-style: solid;
   text-align: center;
+  border-color: #99999925;
+  border-width: 1px;
 }
 
 .flip {

@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { newTask } from 'actions/tasks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import DateRangeField from "../dates/DateRangeField";
+import { DateTime } from "luxon";
 
 
 export default function NewTaskForm({projectID}) {
@@ -26,6 +28,11 @@ export default function NewTaskForm({projectID}) {
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
+  }
+
+  const updateDates = (dates) => {
+    dates = {start_date: dates.startDate, end_date: dates.endDate}
+    setDetails({...details, ...dates})
   }
 
   const saveTask = () => async () => {
@@ -100,29 +107,12 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
-        <label>Start Date</label>
-        <input
-          className="form-control form-control-sm"
-          name="startDate"
-          type="date"
-          lable="Start Date"
-          min={project?.start_date}
-          max={project?.end_date}
-          value={details?.start_date}
-          onChange={updateDetail('start_date')}
-        />
-      </div>
-      <div className="form_group list-inline-item">
-        <label>End Date</label>
-        <input
-          className="form-control form-control-sm"
-          name="endDate"
-          type="date"
-          lable="End Date"
-          min={project?.start_date}
-          max={project?.end_date}
-          value={details?.end_date}
-          onChange={updateDetail('end_date')}
+        <DateRangeField
+          startDateValue={details.start_date ? DateTime.fromISO(details.start_date) : details.start_date}
+          endDateValue={details.end_date ? DateTime.fromISO(details.end_date) : details.end_date}
+          onDatesChange={updateDates}
+          dateRangeMin={DateTime.fromISO(project?.start_date)}
+          dateRangeMax={DateTime.fromISO(project?.end_date)}
         />
       </div>
       <div className="form_group list-inline-item">

@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_24_194405) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_06_205811) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "companies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -51,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_194405) do
     t.string "responsibility", default: "internal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cost_code"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
@@ -65,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_24_194405) do
     t.uuid "company_id", null: false
     t.string "first_name"
     t.string "last_name"
+    t.string "role", default: "read_only"
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

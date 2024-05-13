@@ -43,7 +43,7 @@ export default function AddUsersFormSection(details) {
   return <div className="card-body row-cols-2" style={{paddingTop: 0}}>
     <div className="list-inline-item ">
       <label className="form-label">Remove Users</label>
-      <div className="card-body bg-dark user-card">
+      <div className="card-body bg-dark project-form-user-card">
         {_.map(selectedUsers, (selectedUser) => (
           <div key={selectedUser.id} style={{display: "flex"}}>
             <button
@@ -59,9 +59,9 @@ export default function AddUsersFormSection(details) {
     </div>
     <div className="list-inline-item">
       <label className="form-label">Add Additional Users</label>
-      <div className="card-body bg-dark user-card">
+      <div className="card-body bg-dark project-form-user-card">
         {_.map(nonSelectedUsers, (user) => (
-          <div key={user.id} style={{display: "flex"}}>
+          <div key={user.id} style={{display: "flex"}} id={`${user.full_name.replace(' ', "-")}`}>
             <button
               className="btn btn-outline-success btn-sm list-inline-item user-btn"
               onClick={() => addToList(user, false)}

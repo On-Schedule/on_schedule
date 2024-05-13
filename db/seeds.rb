@@ -135,14 +135,16 @@ Task.create!({
   company: @skyward,
   name: "The Zoo",
   start_date: Date.parse("26/4/2024"),
-  end_date: Date.parse("3/2/2028"),
+  end_date: Date.parse("3/2/2026"),
   schedule: {
     days: ["monday", "tuesday", "wednesday", "thursday"],
     hours: 10
   }
 })
 
-FactoryBot.create_list(:task, 50, project: @the_zoo)
+FactoryBot.create_list(:task, 75, project: @the_zoo, responsibility: "internal")
+FactoryBot.create_list(:task, 25, project: @the_zoo, responsibility: "external", hours: nil)
+FactoryBot.create_list(:task, 15, project: @the_zoo, responsibility: "subcontractor", hours: nil)
 
 ProjectUser.create!({
   user: @sam_hill,

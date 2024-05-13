@@ -8,8 +8,16 @@ class User < ApplicationRecord
   has_many :project_users
   has_many :projects, through: :project_users
   has_many :tasks, through: :projects
+  validates_presence_of :first_name, :last_name
 
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  enum role: {
+    super_admin: 'super_admin',
+    admin: 'admin',
+    full: 'full',
+    read_only: 'read_only'
+  }
 end

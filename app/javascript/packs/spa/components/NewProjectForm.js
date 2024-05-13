@@ -169,10 +169,11 @@ export default function NewProjectForm({project=defaultProject}) {
           {_.map(["5x8 (M-F)", "4x10 (M-Th)", "4x10 (Tu-F)", "Custom schedule"], (preSet) => (
             <div key={preSet} className="form-check form-check-inline">
               <input
+                id={preSet}
                 className="form-check-input"
                 value={preSet}
                 type="radio"
-                name="workWeek"
+                name="WorkWeek"
                 defaultChecked={preSet === "5x8 (M-F)"}
               />
               <label className="form-label">{preSet}</label>
@@ -180,7 +181,7 @@ export default function NewProjectForm({project=defaultProject}) {
           ))}
         </div>
       </div>
-      { custom ? (
+      { custom && (
         <div className="form-group card-body" style={{paddingTop: 0}}>
           <div className="card-body bg-dark">
             {_.map(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (day) => (
@@ -189,7 +190,7 @@ export default function NewProjectForm({project=defaultProject}) {
                   className="form-check-input"
                   type="checkbox"
                   value={day}
-                  name="day"
+                  name={day}
                   checked={_.includes(details.schedule.days, day)}
                   disabled={!custom}
                   onChange={setDays()}
@@ -212,7 +213,7 @@ export default function NewProjectForm({project=defaultProject}) {
             </div>
           </div>
         </div>
-      ) : ("")}
+      )}
       <AddUsersFormSection updateDetails={updateDetails} />
       {!isValid() ? <div className="card-body">
         <div className="card-body bg-dark">
