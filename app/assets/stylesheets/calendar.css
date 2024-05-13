@@ -1,0 +1,116 @@
+.custom-date-field {
+  width: 9em;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.custom-date-field input::-webkit-outer-spin-button,
+.custom-date-field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.custom-date-field input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.focus-indicator {
+  padding: 0px 10px;
+}
+
+.date-picker-container {
+  margin-top: 15px;
+}
+
+.calendar-month-box {
+  padding: 10px;
+  text-align: center;
+}
+
+.calendar-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.date-box-out-of-range {
+  --selected-color: #3c3c3c;
+  --focused-color: #646464;
+  color: #1f1f1f;
+}
+
+.date-box-in-range {
+  --selected-color: #347cf0;
+  --focused-color: #5f96ee;
+}
+
+.date-box {
+  margin-bottom: 2px;
+  width: 35px;
+  height: 35px;
+  line-height: 30px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.date-box-focused {
+  background-color: var(--focused-color);
+  color: black;
+}
+
+.date-box-selected {
+  background-color: var(--selected-color);
+  color: black;
+}
+
+.date-box-start {
+  border-radius: 20px 0px 0px 20px;
+}
+
+.date-box-end {
+  border-radius: 0px 20px 20px 0px;
+}
+
+.date-box-start-end {
+  border-radius: 20px;
+}
+
+.custom-date-form-element {
+  border: none;
+  text-align: center;
+}
+
+.custom-date-field .day {
+  width: 1.5em
+}
+
+.custom-date-field .month {
+  width: 2em
+}
+
+.custom-date-field .year {
+  width: 3em
+}
+
+.date-selector-focus {
+  position: absolute;
+  height: 5px;
+  width: 8em;
+  background-color: var(--bs-info);
+  border-radius: 2.5px;
+  margin-top: 3px;
+}
+
+.date-picker-open,
+.date-picker-closed {
+  position: absolute;
+  z-index: 2000;
+}
+
+.date-picker-open {
+  max-height: 500px;
+}
+
+.date-picker-closed {
+  max-height: 0px;
+}
