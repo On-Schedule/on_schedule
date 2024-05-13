@@ -1,4 +1,4 @@
-import React, { useState, useRef, createContext, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import DateRangePicker from "./DateRangePicker";
 import CustomDateField from "./CustomDateField";
 import { oneOfType, func, object, string } from 'prop-types';
@@ -51,9 +51,9 @@ export default function DateRangeField(props) {
     if (_.isEqual(Object.keys(dates), ["startDate", "endDate"])) {
       onDatesChange(dates)
     } else if (dates.startDate) {
-      onDatesChange({...dates, endDate: endDateValue})
+      onDatesChange({...dates, endDate: endDateValue ? endDateValue.toISODate() : ""})
     } else if (dates.endDate) {
-      onDatesChange({...dates, startDate: startDateValue})
+      onDatesChange({...dates, startDate: startDateValue ? startDateValue.toISODate() : ""})
     }
   }
 

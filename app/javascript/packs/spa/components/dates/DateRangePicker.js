@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, createContext } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { DateTime } from "luxon"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
@@ -30,7 +30,6 @@ export default function DateRangePicker(props) {
       setStartDate({startDate: date.toISODate(), endDate: ""})
       setFocus("endDate")
     } else if (endDate && date > endDate && focus === "startDate") {
-      console.log('you are here!');
       setStartDate({startDate: date.toISODate(), endDate: ""})
       setFocus("endDate")
     } else if (focus === "startDate") {
