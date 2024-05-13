@@ -27,22 +27,16 @@ export default function DateRangePicker(props) {
     if ((dateRangeMin && date < dateRangeMin) || (dateRangeMax && date > dateRangeMax)) {
       return
     } else if (startDate && date < startDate && focus === "endDate") {
-      // setStartDate(date.toISODate())
-      // setEndDate("")
       setStartDate({startDate: date.toISODate(), endDate: ""})
       setFocus("endDate")
     } else if (endDate && date > endDate && focus === "startDate") {
-      // setStartDate(date.toISODate())
-      // setEndDate("")
       console.log('you are here!');
       setStartDate({startDate: date.toISODate(), endDate: ""})
       setFocus("endDate")
     } else if (focus === "startDate") {
-      // setStartDate(date.toISODate())
       setStartDate({startDate: date.toISODate()})
       setFocus("endDate")
     } else {
-      // setEndDate(date.toISODate())
       setEndDate({endDate: date.toISODate()})
       setFocus("startDate")
 

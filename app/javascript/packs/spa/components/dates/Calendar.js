@@ -14,7 +14,11 @@ export default function Calendar({date}) {
     var row = []
 
     for (var i = 1; i <= 7; i++) {
-      row.push(<DateBox date={date} controlDates={{...controlDates, month: controlMonth}} key={`${date.toFormat("ddMMyyyy")}-2`} />)
+      row.push(<DateBox
+        date={date}
+        controlDates={{...controlDates, month: controlMonth}}
+        key={`${date.toFormat("ddMMyyyy")}-2`}
+      />)
       date = date.plus({day: 1})
     }
 
@@ -27,7 +31,9 @@ export default function Calendar({date}) {
     var builtMonth = []
 
     for (var i = startWeek; i <= endWeek; i = i.plus({week: 1})) {
-      builtMonth.push(<div className="calendar-row" key={i.toFormat("ddMMyyyy")}>{buildRow(i, date.month)}</div>)
+      builtMonth.push(<div className="calendar-row" key={i.toFormat("ddMMyyyy")}>
+        {buildRow(i, date.month)}
+      </div>)
     }
 
     return builtMonth

@@ -30,7 +30,10 @@ export default function DateBox(props) {
       className = "date-box-in-range"
     }
 
-    if (startDate?.toLocaleString() == date.toLocaleString() && endDate?.toLocaleString() == date.toLocaleString()) {
+    if (
+      startDate?.toLocaleString() == date.toLocaleString() &&
+      endDate?.toLocaleString() == date.toLocaleString()
+    ) {
       className = className + " date-box-selected date-box-start-end"
     } else if (startDate?.toLocaleString() == date.toLocaleString()) {
       className = className + " date-box-selected date-box-start"

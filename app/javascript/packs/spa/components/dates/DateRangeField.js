@@ -58,8 +58,17 @@ export default function DateRangeField(props) {
   }
 
   return <div>
-    <StartDateContext.Provider value={{startDate: startDateValue, dateRangeMin: dateRangeMin, setStartDate: setDates}}>
-      <EndDateContext.Provider value={{endDate: endDateValue, dateRangeMax: dateRangeMax, setEndDate: setDates, closeAccordion: closeAccordion}}>
+    <StartDateContext.Provider value={{
+      startDate: startDateValue,
+      dateRangeMin: dateRangeMin,
+      setStartDate: setDates
+    }}>
+      <EndDateContext.Provider value={{
+        endDate: endDateValue,
+        dateRangeMax: dateRangeMax,
+        setEndDate: setDates,
+        closeAccordion: closeAccordion
+      }}>
         <div>
           <div ref={startRef} className="form_group list-inline-item" onClick={() => {
             openAccordion()
