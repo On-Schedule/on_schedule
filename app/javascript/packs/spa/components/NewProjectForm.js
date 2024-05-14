@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newProject } from 'actions/projects'
 import AddUsersFormSection from './newProjectForm/AddUsersFormSection';
+import { DateTime } from 'luxon';
+import DateRangeField from './dates/DateRangeField';
 
 const fiveEights = {
   days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
@@ -60,6 +62,11 @@ export default function NewProjectForm({project=defaultProject}) {
       default:
         setCustom(true);
     }
+  }
+
+  const updateDates = (dates) => {
+    dates = {start_date: dates.startDate, end_date: dates.endDate}
+    setDetails({...details, ...dates})
   }
 
   const setDays = () => (e) => {
@@ -144,25 +151,13 @@ export default function NewProjectForm({project=defaultProject}) {
           />
         </div>
         <div className="form_group list-inline-item">
-          <label className="form-label mt-4">Start Date</label>
-          <input
-            className="form-control form-control-sm"
-            name="startDate"
-            type='date'
-            lable="Start Date"
-            value={details?.start_date}
-            onChange={updateDetail('start_date')}
-          />
-        </div>
-        <div className="form_group list-inline-item">
-          <label className="form-label mt-4">End Date</label>
-          <input
-            className="form-control form-control-sm"
-            name="endDate"
-            type='date'
-            lable="End Date"
-            value={details?.end_date}
-            onChange={updateDetail('end_date')}
+          <label className="form-label"></label>
+          <DateRangeField
+            startDateValue={details.start_date ? DateTime.fromISO(details.start_date) : details.start_date}
+            endDateValue={details.end_date ? DateTime.fromISO(details.end_date) : details.end_date}
+            onDatesChange={updateDates}
+            dateRangeMin={DateTime.fromISO(project?.start_date)}
+            dateRangeMax={DateTime.fromISO(project?.end_date)}
           />
         </div>
         <div className="form-group" onChange={updateSchedule()}> <label className="form-label mt-4 ">Work Week</label><br/>
