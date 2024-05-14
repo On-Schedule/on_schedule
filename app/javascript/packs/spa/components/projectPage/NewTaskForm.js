@@ -151,11 +151,11 @@ export default function NewTaskForm({projectID}) {
       </div>
       <div className="form_group list-inline-item">
         <DateRangeField
-          startDateValue={details.start_date ? DateTime.fromISO(details.start_date) : details.start_date}
-          endDateValue={details.end_date ? DateTime.fromISO(details.end_date) : details.end_date}
+          startDateValue={details.start_date}
+          endDateValue={details.end_date}
           onDatesChange={updateDates}
-          dateRangeMin={DateTime.fromISO(project?.start_date)}
-          dateRangeMax={DateTime.fromISO(project?.end_date)}
+          dateRangeMin={project?.start_date}
+          dateRangeMax={project?.end_date}
         />
       </div>
       <div className="form_group list-inline-item">

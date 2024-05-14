@@ -1,16 +1,26 @@
 import React, { useState, useRef, useCallback } from "react";
 import DateRangePicker from "./DateRangePicker";
 import CustomDateField from "./CustomDateField";
-import { oneOfType, func, object, string } from 'prop-types';
+import { func, string, bool } from 'prop-types';
 import { StartDateContext, EndDateContext } from "./DateUtils";
+import { DateTime } from "luxon";
 
 DateRangeField.propTypes = {
-  startDateValue: oneOfType([object, string]).isRequired,
-  endDateValue: oneOfType([object, string]).isRequired,
+  startDateValue: string.isRequired,
+  endDateValue: string.isRequired,
   onDatesChange: func.isRequired,
-  dateRangeMin: object,
-  dateRangeMax: object,
+  dateRangeMin: string,
+  dateRangeMax: string,
+  labels: bool,
+  label1: string,
+  label2: string,
 };
+
+DateRangeField.defaultProps = {
+  labels: true,
+  label1: "Dates",
+  label2: ""
+}
 
 export default function DateRangeField(props) {
   const {
@@ -18,7 +28,10 @@ export default function DateRangeField(props) {
     endDateValue,
     onDatesChange,
     dateRangeMin,
-    dateRangeMax
+    dateRangeMax,
+    labels,
+    label1,
+    label2
   } = props
 
   const dateRangeRef = useRef(null);
@@ -51,21 +64,29 @@ export default function DateRangeField(props) {
     if (_.isEqual(Object.keys(dates), ["startDate", "endDate"])) {
       onDatesChange(dates)
     } else if (dates.startDate) {
-      onDatesChange({...dates, endDate: endDateValue ? endDateValue.toISODate() : ""})
+      onDatesChange({...dates, endDate: endDateValue})
     } else if (dates.endDate) {
-      onDatesChange({...dates, startDate: startDateValue ? startDateValue.toISODate() : ""})
+      onDatesChange({...dates, startDate: startDateValue})
+    }
+  }
+
+  const dateConverter = (date) => {
+    if (date && DateTime.fromISO(date).isValid) {
+      return DateTime.fromISO(date)
+    } else {
+      return ""
     }
   }
 
   return <div>
     <StartDateContext.Provider value={{
-      startDate: startDateValue,
-      dateRangeMin: dateRangeMin,
+      startDate: dateConverter(startDateValue),
+      dateRangeMin: dateConverter(dateRangeMin),
       setStartDate: setDates
     }}>
       <EndDateContext.Provider value={{
-        endDate: endDateValue,
-        dateRangeMax: dateRangeMax,
+        endDate: dateConverter(endDateValue),
+        dateRangeMax: dateConverter(dateRangeMax),
         setEndDate: setDates,
         closeAccordion: closeAccordion
       }}>
@@ -74,15 +95,23 @@ export default function DateRangeField(props) {
             openAccordion()
             setFocus("startDate")
           }} >
-            <label>Dates</label>
+            {labels && <label>{label1}</label>}
+            <div ref={endRef} onClick={() => {
+              openAccordion()
+              setFocus("endDate")
+            }}>
             <CustomDateField dateType={"startDate"} />
+            </div>
             {focus === "startDate" && <div className="date-selector-focus" />}
           </div>
-          <div ref={endRef} className="form_group list-inline-item" onClick={() => {
-            openAccordion()
-            setFocus("endDate")
-          }} >
+          <div className="form_group list-inline-item">
+            {labels && <label>{label2}</label>}
+            <div ref={endRef} onClick={() => {
+              openAccordion()
+              setFocus("endDate")
+            }}>
             <CustomDateField dateType={"endDate"} />
+          </div>
             {focus === "endDate" && <div className="date-selector-focus" />}
           </div>
         </div>
