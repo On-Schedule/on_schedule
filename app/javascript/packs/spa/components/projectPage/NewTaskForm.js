@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { newTask } from 'actions/tasks'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import DateRangeField from "../dates/DateRangeField";
 import { DateTime } from "luxon";
-
 
 export default function NewTaskForm({projectID}) {
   const defaltDetails = {
@@ -23,8 +20,6 @@ export default function NewTaskForm({projectID}) {
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
   const [details, setDetails] = useState(defaltDetails)
-  const [openAccordion, setOpenAccordion] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState(false)
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
@@ -53,49 +48,97 @@ export default function NewTaskForm({projectID}) {
     )
   }
 
-  const nameIsValid = () => {
-    if (details.name.length >= 1) {
+  const noWarnings = () => {
+    if (details.responsibility === "internal") {
+      return (hoursExist() && hasWorkingDays())
+    } else if (details.responsibility === "external") {
+      return true
+    } else if (details.responsibility === "subcontractor") {
       return true
     }
-    return false
+  }
+
+  const hoursExist = () => {
+    return !!details.hours
+  }
+
+  const nameIsValid = () => {
+    return !!details.name
   }
 
   const datesExsist = () => {
-    if (details.start_date && details.end_date) {
-      return true
-    }
-    return false
+    return (details.start_date && details.end_date)
   }
 
   const datesAreValid = () => {
-    if (details.start_date <= details.end_date) {
-      return true
-    }
-    return false
+    return (details.start_date <= details.end_date)
   }
 
   const datesInsideProjectDates = () => {
-    if ((details.start_date >= project?.start_date) && (details.end_date <= project?.end_date)) {
-      return true
-    }
-    return false
+    return ((details.start_date >= project?.start_date) && (details.end_date <= project?.end_date))
   }
 
-  const setResponsibility = (value) => {
-    setDetails({...details, responsibility: value})
+  const setResponsibility = (e) => {
+    if (e.target.value === "internal") {
+      setDetails({...details, responsibility: e.target.value})
+    } else {
+      setDetails({...details, responsibility: e.target.value, cost_code: "", hours: ""})
+    }
+  }
+
+  const calculateWeekends = () => {
+    const weekend = []
+    const days = {
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6,
+      sunday: 7
+    }
+
+    _.each(days, (dayNum, day) => {
+      if (!_.includes(project.schedule.days, day)){
+        weekend.push(dayNum)
+      }
+    })
+
+    return weekend
+  }
+
+  const hasWorkingDays = () => {
+    if (datesExsist() && datesAreValid()) {
+      const weekend = calculateWeekends()
+      const startDate = DateTime.fromISO(details.start_date)
+      startDate.loc.weekSettings = {weekend: weekend}
+      const endDate = DateTime.fromISO(details.end_date)
+      const days = endDate.diff(startDate, 'days').as("days") + 1
+      var valid = false
+
+      for (let index = 0, date = startDate; index < days; index++, date = date.plus({days: 1})) {
+        if (!date.isWeekend) {
+          valid = true
+          break
+        }
+      }
+      return valid
+    }
+    return true
+  }
+
+  const buttonStyle = () => {
+    if (!isValid()) {
+      return "btn-outline-danger"
+    } else if (!noWarnings()) {
+      return "btn-outline-warning"
+    } else {
+      return "btn-outline-success"
+    }
   }
 
   return <form>
     <div className="card-body">
-      <div
-        onClick={() => {setOpenAccordion(!openAccordion)}}
-        className="list-inline-item align-bottom"
-      >
-        <FontAwesomeIcon
-          icon={faChevronUp}
-          className={openAccordion ? "flip" : "un-flip"}
-        />
-      </div>
       <div className="form_group list-inline-item">
         <label>New Task</label>
         <input
@@ -116,8 +159,18 @@ export default function NewTaskForm({projectID}) {
         />
       </div>
       <div className="form_group list-inline-item">
+        <label>Responsibility</label>
+        <select className="dropdown form-select form-select-sm" onChange={setResponsibility} >
+          {details?.responsibility}
+            {_.map(["internal", "external", "subcontractor"], (item, index) => (
+              <option key={index} onClick={() => {setResponsibility(item)}} >{item}</option>
+            ))}
+        </select>
+      </div>
+      {details.responsibility === "internal" && <div className="form_group list-inline-item">
         <label>Hours</label>
         <input
+          style={{maxWidth: "5.25em"}}
           className="form-control form-control-sm"
           placeholder="Hours"
           name="hours"
@@ -126,16 +179,18 @@ export default function NewTaskForm({projectID}) {
           value={details?.hours}
           onChange={updateDetail('hours')}
         />
-      </div>
-      <button
-        type="button"
-        className="btn btn-primary btn-sm"
-        onClick={saveTask()}
-        disabled={!isValid()}
-      >Save</button>
-    </div>
-    {openAccordion && <div className="form-group card-body bg-dark" >
-      <FontAwesomeIcon style={{color: "var(--bs-dark)"}} icon={faChevronUp} />
+      </div>}
+      {details.responsibility === "internal" && <div className="form_group list-inline-item">
+        <label>Cost Code</label>
+        <input
+          className="form-control form-control-sm"
+          style={{maxWidth: "7em"}}
+          name="costCode"
+          placeholder="Cost code"
+          value={details?.cost_code}
+          onChange={updateDetail('cost_code')}
+        />
+      </div>}
       <div className="form_group list-inline-item">
         <label>Description</label>
         <input
@@ -148,27 +203,19 @@ export default function NewTaskForm({projectID}) {
           onChange={updateDetail('description')}
         />
       </div>
-      <div className="form_group list-inline-item">
-        <label>Cost Code</label>
-        <input
-          className="form-control form-control-sm"
-          name="costCode"
-          placeholder="Cost code"
-          value={details?.cost_code}
-          onChange={updateDetail('cost_code')}
-        />
-      </div>
-      <div className="form_group list-inline-item">
-        <label>Responsibility</label>
-        <div className="dropdown form-select form-select-sm" onClick={() => {setOpenDropdown(!openDropdown)}} >
-          {details?.responsibility}
-          {(openAccordion && openDropdown) && <div className="dropdown-menu" >
-            {_.map(["internal", "external", "subcontractor"], (item, index) => (
-              <div key={index} onClick={() => {setResponsibility(item)}} >{item}</div>
-            ))}
-          </div>}
-        </div>
-      </div>
-    </div>}
+      <button
+        type="button"
+        className={`btn btn-sm ${buttonStyle()}`}
+        onClick={saveTask()}
+        disabled={!isValid()}
+      >Save</button>
+      {(!isValid() || !noWarnings()) && <div className="card-body" style={{paddingBottom: "0px"}}>
+        {!nameIsValid() && <div className="text-danger">- Name is required.</div>}
+        {!datesExsist() && <div className="text-danger">- Start and end dates are required.</div>}
+        {!datesAreValid() && <div className="text-danger">- Start date must be before end date.</div>}
+        {(!hoursExist() && !noWarnings()) && <div className="text-warning">- Tasks without hours may not be included in some analytics.</div>}
+        {(!hasWorkingDays() && !noWarnings()) && <div className="text-warning">- Dates selected do not include any working days.</div>}
+      </div>}
+    </div>
   </form>
 }
