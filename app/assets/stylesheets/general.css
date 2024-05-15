@@ -161,8 +161,30 @@
   height: 500px;
 }
 
-.flex-wrap {
+.task-form-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   flex-wrap: wrap;
+  justify-content: center;
+  max-width: 50em;
+}
+
+.task-form-element {
+  --base-width: 10em;
+  --grow-rate: 1;
+  min-width: var(--base-width);
+  flex-basis: var(--base-width);
+  flex-grow: var(--grow-rate);
+  flex-shrink: var(--grow-rate);
+}
+
+.task-form-validations-box {
+  padding-bottom: 0px;
+  flex-basis: 30em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* boot strap changes (in case of style change) */

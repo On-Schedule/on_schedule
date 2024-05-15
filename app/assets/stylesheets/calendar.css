@@ -1,7 +1,3 @@
-.custom-date-field {
-  width: 9em;
-}
-
 /* Chrome, Safari, Edge, Opera */
 .custom-date-field input::-webkit-outer-spin-button,
 .custom-date-field input::-webkit-inner-spin-button {
@@ -78,6 +74,11 @@
 .custom-date-form-element {
   border: none;
   text-align: center;
+  padding: 0px;
+}
+
+.custom-date-form-element:focus {
+  background-color: #fff;
 }
 
 .custom-date-field .day {

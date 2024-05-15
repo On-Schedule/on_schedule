@@ -131,15 +131,15 @@ export default function NewTaskForm({projectID}) {
     if (!isValid()) {
       return "btn-outline-danger"
     } else if (!noWarnings()) {
-      return "btn-outline-warning"
+      return "btn-outline-warning border-warning"
     } else {
-      return "btn-outline-success"
+      return "btn-outline-success border-success"
     }
   }
 
-  return <form>
-    <div className="card-body">
-      <div className="form_group list-inline-item">
+  return <form style={{display: "flex", flexWrap: "wrap"}}>
+    <div className="card-body task-form-flex">
+      <div className="list-inline-item task-form-element" >
         <label>New Task</label>
         <input
           className="form-control form-control-sm"
@@ -149,7 +149,7 @@ export default function NewTaskForm({projectID}) {
           onChange={updateDetail('name')}
         />
       </div>
-      <div className="form_group list-inline-item">
+      <div className="list-inline-item task-form-element" style={{"--base-width": "16.25em"}}>
         <DateRangeField
           startDateValue={details.start_date}
           endDateValue={details.end_date}
@@ -158,7 +158,7 @@ export default function NewTaskForm({projectID}) {
           dateRangeMax={project?.end_date}
         />
       </div>
-      <div className="form_group list-inline-item">
+      <div className="list-inline-item task-form-element" >
         <label>Responsibility</label>
         <select className="dropdown form-select form-select-sm" onChange={setResponsibility} >
           {details?.responsibility}
@@ -167,10 +167,9 @@ export default function NewTaskForm({projectID}) {
             ))}
         </select>
       </div>
-      {details.responsibility === "internal" && <div className="form_group list-inline-item">
+      {details.responsibility === "internal" && <div className="list-inline-item task-form-element" style={{"--base-width": "5.25em"}} >
         <label>Hours</label>
         <input
-          style={{maxWidth: "5.25em"}}
           className="form-control form-control-sm"
           placeholder="Hours"
           name="hours"
@@ -180,18 +179,17 @@ export default function NewTaskForm({projectID}) {
           onChange={updateDetail('hours')}
         />
       </div>}
-      {details.responsibility === "internal" && <div className="form_group list-inline-item">
+      {details.responsibility === "internal" && <div className="list-inline-item task-form-element" style={{"--base-width": "7em"}} >
         <label>Cost Code</label>
         <input
           className="form-control form-control-sm"
-          style={{maxWidth: "7em"}}
           name="costCode"
           placeholder="Cost code"
           value={details?.cost_code}
           onChange={updateDetail('cost_code')}
         />
       </div>}
-      <div className="form_group list-inline-item">
+      <div className="list-inline-item task-form-element" style={{"--grow-rate": "2"}} >
         <label>Description</label>
         <input
           className="form-control form-control-sm"
@@ -203,19 +201,23 @@ export default function NewTaskForm({projectID}) {
           onChange={updateDetail('description')}
         />
       </div>
-      <button
-        type="button"
-        className={`btn btn-sm ${buttonStyle()}`}
-        onClick={saveTask()}
-        disabled={!isValid()}
-      >Save</button>
-      {(!isValid() || !noWarnings()) && <div className="card-body" style={{paddingBottom: "0px"}}>
-        {!nameIsValid() && <div className="text-danger">- Name is required.</div>}
-        {!datesExsist() && <div className="text-danger">- Start and end dates are required.</div>}
-        {!datesAreValid() && <div className="text-danger">- Start date must be before end date.</div>}
-        {(!hoursExist() && !noWarnings()) && <div className="text-warning">- Tasks without hours may not be included in some analytics.</div>}
-        {(!hasWorkingDays() && !noWarnings()) && <div className="text-warning">- Dates selected do not include any working days.</div>}
-      </div>}
+      <div className="list-inline-item task-form-element" style={{maxWidth: "10em", "--base-width": "3.1em"}}>
+        <button
+          type="button"
+          className={`btn btn-sm ${buttonStyle()}`}
+          style={{width: "100%", marginTop: ".5em"}}
+          onClick={saveTask()}
+          disabled={!isValid()}
+        >Save</button>
+      </div>
+      <div></div>
     </div>
+    {(!isValid() || !noWarnings()) && <div className="card-body task-form-validations-box">
+      {!nameIsValid() && <div className="text-danger">- Name is required.</div>}
+      {!datesExsist() && <div className="text-danger">- Start and end dates are required.</div>}
+      {!datesAreValid() && <div className="text-danger">- Start date must be before end date.</div>}
+      {(!hoursExist() && !noWarnings()) && <div className="text-warning">- Tasks without hours may not be included in some analytics.</div>}
+      {(!hasWorkingDays() && !noWarnings()) && <div className="text-warning">- Dates selected do not include any working days.</div>}
+    </div>}
   </form>
 }
