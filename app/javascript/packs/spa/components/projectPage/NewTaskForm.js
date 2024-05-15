@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { newTask } from 'actions/tasks'
@@ -20,6 +20,10 @@ export default function NewTaskForm({projectID}) {
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
   const [details, setDetails] = useState(defaltDetails)
+
+  useEffect(() => {
+    setDetails(defaltDetails)
+  }, [projectID])
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
