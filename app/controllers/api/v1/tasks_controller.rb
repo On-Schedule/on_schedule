@@ -21,7 +21,7 @@ class Api::V1::TasksController < ApplicationController
       :start_date,
       :end_date,
       :hours,
-      :cost_Code,
+      :cost_code,
       :project_id,
       :description,
       :responsibility
