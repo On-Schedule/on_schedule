@@ -13,6 +13,7 @@ export default function ProjectPage({initialEdit=false}) {
 
   useEffect(() => {
     dispatch(getProject(project_id));
+    setEdit(initialEdit)
   }, [project_id]);
 
   return <div className='dashboard-wrapper'>
