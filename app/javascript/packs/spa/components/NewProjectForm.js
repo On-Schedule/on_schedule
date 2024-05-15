@@ -139,7 +139,7 @@ export default function NewProjectForm({project=defaultProject}) {
     <div className="card-header navbar">Create A New Project</div>
     <form>
       <div className="card-body">
-        <div className="form_group">
+        <div>
           <label className="form-label">Project Name</label>
           <input
             className="form-control form-control-sm"
@@ -149,7 +149,7 @@ export default function NewProjectForm({project=defaultProject}) {
             onChange={updateDetail('name')}
           />
         </div>
-        <div className="form_group list-inline-item">
+        <div className="list-inline-item">
           <label className="form-label mt-4">Dates</label>
           <DateRangeField
             labels={false}
@@ -158,7 +158,7 @@ export default function NewProjectForm({project=defaultProject}) {
             onDatesChange={updateDates}
           />
         </div>
-        <div className="form-group" onChange={updateSchedule()}> <label className="form-label mt-4 ">Work Week</label><br/>
+        <div onChange={updateSchedule()}> <label className="form-label mt-4 ">Work Week</label><br/>
           {_.map(["5x8 (M-F)", "4x10 (M-Th)", "4x10 (Tu-F)", "Custom schedule"], (preSet) => (
             <div key={preSet} className="form-check form-check-inline">
               <input
@@ -175,7 +175,7 @@ export default function NewProjectForm({project=defaultProject}) {
         </div>
       </div>
       { custom && (
-        <div className="form-group card-body" style={{paddingTop: 0}}>
+        <div className="card-body" style={{paddingTop: 0}}>
           <div className="card-body bg-dark">
             {_.map(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (day) => (
               <div key={day} className="form-check form-check-inline">
@@ -218,7 +218,7 @@ export default function NewProjectForm({project=defaultProject}) {
         </div>
       </div> : ""}
       <div className="card-body text-center">
-        <button type="button" className={`btn btn-sm ${isValid() ? "btn-outline-success" : "btn-outline-danger"}`} onClick={saveProject()} disabled={!isValid()}>Save</button>
+        <button type="button" className={`btn btn-sm ${isValid() ? "btn-outline-success border-success" : "btn-outline-danger"}`} onClick={saveProject()} disabled={!isValid()}>Save</button>
       </div>
     </form>
   </div>

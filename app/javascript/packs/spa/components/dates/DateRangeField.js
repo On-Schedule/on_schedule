@@ -90,21 +90,18 @@ export default function DateRangeField(props) {
         setEndDate: setDates,
         closeAccordion: closeAccordion
       }}>
-        <div>
-          <div ref={startRef} className="form_group list-inline-item" onClick={() => {
-            openAccordion()
-            setFocus("startDate")
-          }} >
+        <div style={{display: "flex"}}>
+          <div className="list-inline-item" style={{width: "50%"}} >
             {labels && <label>{label1}</label>}
-            <div ref={endRef} onClick={() => {
+            <div ref={startRef} onClick={() => {
               openAccordion()
-              setFocus("endDate")
+              setFocus("startDate")
             }}>
             <CustomDateField dateType={"startDate"} />
             </div>
             {focus === "startDate" && <div className="date-selector-focus" />}
           </div>
-          <div className="form_group list-inline-item">
+          <div className="list-inline-item" style={{width: "50%"}} >
             {labels && <label>{label2}</label>}
             <div ref={endRef} onClick={() => {
               openAccordion()
