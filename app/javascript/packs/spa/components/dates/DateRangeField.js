@@ -93,7 +93,7 @@ export default function DateRangeField(props) {
         <div style={{display: "flex"}}>
           <div className="list-inline-item" style={{width: "50%"}} >
             {labels && <label>{label1}</label>}
-            <div ref={startRef} onClick={() => {
+            <div ref={startRef} id="startDate" onClick={() => {
               openAccordion()
               setFocus("startDate")
             }}>
@@ -103,7 +103,7 @@ export default function DateRangeField(props) {
           </div>
           <div className="list-inline-item" style={{width: "50%"}} >
             {labels && <label>{label2}</label>}
-            <div ref={endRef} onClick={() => {
+            <div ref={endRef} id="endDate" onClick={() => {
               openAccordion()
               setFocus("endDate")
             }}>

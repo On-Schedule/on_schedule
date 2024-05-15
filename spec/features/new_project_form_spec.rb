@@ -22,8 +22,18 @@ describe "New PRoject Form", :js do
     fill_in "Project Name", with: "Glacier park"
     expect(page).to_not have_content("- Name is required")
 
-    fill_in "startDate", with: "04-01-2020"
-    fill_in "endDate", with: "04-01-2021"
+    within("#startDate") do
+      find(".month").set("04")
+      find(".day").set("01")
+      find(".year").set("2020")
+    end
+
+    within("#endDate") do
+      find(".month").set("04")
+      find(".day").set("01")
+      find(".year").set("2021")
+    end
+
     expect(page).to_not have_content("- Start and end dates are required")
     expect(page).to_not have_content("- Start date must be before end date")
     expect(page).to have_button('Save')
@@ -38,8 +48,18 @@ describe "New PRoject Form", :js do
   describe "schedules" do
     before do
       fill_in "Project Name", with: "Glacier park"
-      fill_in "startDate", with: "04-01-2020"
-      fill_in "endDate", with: "04-01-2021"
+
+      within("#startDate") do
+        find(".month").set("04")
+        find(".day").set("01")
+        find(".year").set("2020")
+      end
+
+      within("#endDate") do
+        find(".month").set("04")
+        find(".day").set("01")
+        find(".year").set("2021")
+      end
     end
 
     it "uses prebuilt 5x8 (M-F) by default" do
@@ -122,8 +142,18 @@ describe "New PRoject Form", :js do
 
     before do
       fill_in "Project Name", with: "Glacier park"
-      fill_in "startDate", with: "04-01-2020"
-      fill_in "endDate", with: "04-01-2021"
+
+      within("#startDate") do
+        find(".month").set("04")
+        find(".day").set("01")
+        find(".year").set("2020")
+      end
+
+      within("#endDate") do
+        find(".month").set("04")
+        find(".day").set("01")
+        find(".year").set("2021")
+      end
     end
 
     it "adds current user as a full user by default" do
