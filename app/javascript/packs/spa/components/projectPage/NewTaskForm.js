@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
-import { newTask } from 'actions/tasks'
+import { newTask, updateTask } from 'actions/tasks'
 import DateRangeField from "../dates/DateRangeField";
 import { DateTime } from "luxon";
 
-export default function NewTaskForm({projectID}) {
+export default function NewTaskForm({task={}, setEdit=()=>{}, projectID}) {
+  const {name, start_date, end_date, hours, description, cost_code, responsibility, project_id} = task
   const defaltDetails = {
-    project_id: projectID,
-    name: "",
-    start_date: "",
-    end_date: "",
-    hours: "",
-    description: "",
-    cost_code: "",
-    responsibility: "internal"
+    project_id: project_id || project?.id || projectID,
+    name: name || "",
+    start_date: start_date || "",
+    end_date: end_date || "",
+    hours: hours || "",
+    description: description || "",
+    cost_code: cost_code || "",
+    responsibility: responsibility || "internal"
   }
 
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function NewTaskForm({projectID}) {
 
   useEffect(() => {
     setDetails(defaltDetails)
-  }, [projectID])
+  }, [project])
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
@@ -39,8 +40,13 @@ export default function NewTaskForm({projectID}) {
       return;
     }
 
-    await dispatch(newTask(details, project.id));
-    setDetails(defaltDetails)
+    if (task.id) {
+      await dispatch(updateTask(details, project.id, task.id));
+      setEdit(false)
+    } else {
+      await dispatch(newTask(details, project.id));
+      setDetails(defaltDetails)
+    }
   }
 
   const isValid = () => {
@@ -164,8 +170,7 @@ export default function NewTaskForm({projectID}) {
       </div>
       <div className="list-inline-item task-form-element" >
         <label>Responsibility</label>
-        <select className="dropdown form-select form-select-sm" onChange={setResponsibility} >
-          {details?.responsibility}
+        <select className="dropdown form-select form-select-sm" onChange={setResponsibility} value={details?.responsibility} >
             {_.map(["internal", "external", "subcontractor"], (item, index) => (
               <option key={index} onClick={() => {setResponsibility(item)}} >{item}</option>
             ))}
@@ -205,14 +210,22 @@ export default function NewTaskForm({projectID}) {
           onChange={updateDetail('description')}
         />
       </div>
-      <div className="list-inline-item task-form-element" style={{maxWidth: "10em", "--base-width": "3.1em"}}>
+      <div className="list-inline-item task-form-element" style={{maxWidth: "10em", "--base-width": `${task.id ? "7em" : "3.1"}`, display: "flex"}}>
         <button
           type="button"
           className={`btn btn-sm ${buttonStyle()}`}
-          style={{width: "100%", marginTop: ".5em"}}
+          style={{flexBasis: "1", flexGrow: "1", marginTop: ".5em"}}
           onClick={saveTask()}
           disabled={!isValid()}
         >Save</button>
+        {task.id && <button
+          className="btn btn-sm btn-outline-light"
+          style={{flexBasis: "1", flexGrow: "1", marginTop: ".5em", marginLeft: ".5em"}}
+          onClick={()=>{setEdit(false)}}> Cancel </button>}
+        {/* {task.id && <button
+          className="btn btn-sm btn-outline-light"
+          style={{flexBasis: "1", marginTop: ".5em"}}
+          onClick={()=>{setEdit(false)}}> Delete </button>} */}
       </div>
       <div></div>
     </div>
