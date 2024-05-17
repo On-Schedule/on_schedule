@@ -84,7 +84,7 @@
 }
 
 .open-task-item {
-  max-height: 10em;
+  max-height: 12em;
   width: var(--open-item-width);
 }
 

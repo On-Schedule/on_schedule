@@ -66,7 +66,10 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
       <div className="schedule-bar" style={{...taskIndexes(task), ...color(task)}} />
     </div>
     {edit &&
-    <div className="card" style={{position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)", zIndex: "3000", maxWidth: "50em"}}>
+    <div className="card" style={{position: "absolute", left: "50%", top: "35%", transform: "translate(-50%, -50%)", zIndex: "3000", maxWidth: "50em"}}>
+      <div className="card-header" style={{display: "flex"}}>
+        {task.name} <span style={{marginLeft: "auto"}} onClick={()=>{setEdit(false)}}> X </span>
+      </div>
       <div className="card-body" >
         <NewTaskForm task={task} setEdit={setEdit}/>
       </div>
