@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe "New PRoject Form", :js do
+describe "New Project Form", :js do
   let!(:user) { create :user }
 
   before do
@@ -14,7 +14,7 @@ describe "New PRoject Form", :js do
     page.has_content?("- Start date must be before end date")
   end
 
-  it "savew button is disabled by by default" do
+  it "save button is disabled by by default" do
     expect(page).to have_button('Save', disabled: true)
   end
 

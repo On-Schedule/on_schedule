@@ -4,7 +4,7 @@ import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { DateTime } from "luxon";
 import NewTaskForm from "./NewTaskForm";
 
-export default function Task({task, index, mainGridTemplate, gridTemp, taskCardWidth}) {
+export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidth}) {
   const [accordion, setAccordion] = useState(false)
   const taskItemRef = useRef(null);
   const modalRef = useRef(null);

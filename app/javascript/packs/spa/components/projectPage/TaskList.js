@@ -4,7 +4,7 @@ import DateBar from "./DateBar";
 import { DateTime } from "luxon"
 import SearchBar from '../common/SearchBar';
 import DragScroll from "../common/DragScroll";
-import Task from "./Task";
+import TaskItem from "./TaskItem";
 
 const projectScale = {
   "day": 35,
@@ -88,7 +88,7 @@ export default function TaskList() {
         <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
           {tasks?.length > 0 && (
             _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-              <Task task={task} index={index} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
+              <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
             ))
           )}
         </div>
