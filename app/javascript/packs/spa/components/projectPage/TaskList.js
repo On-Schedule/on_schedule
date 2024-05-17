@@ -4,7 +4,7 @@ import DateBar from "./DateBar";
 import { DateTime } from "luxon"
 import SearchBar from '../common/SearchBar';
 import DragScroll from "../common/DragScroll";
-import Task from "./task";
+import Task from "./Task";
 
 const projectScale = {
   "day": 35,

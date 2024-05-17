@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { DateTime } from "luxon";
 import NewTaskForm from "./NewTaskForm";
 
 export default function Task({task, index, mainGridTemplate, gridTemp, taskCardWidth}) {
-  const [openAccordion, setOpenAccordion] = useState(false)
+  const [accordion, setAccordion] = useState(false)
+  const taskItemRef = useRef(null);
+  const modalRef = useRef(null);
+  const scheduleBarRef = useRef(null);
   const openTaskItemWidth = 500
   const start_date = DateTime.fromISO(task.start_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   const end_date = DateTime.fromISO(task.end_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
@@ -35,18 +38,47 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
     }
   }
 
+  const closeAccordion = () => {
+    setAccordion(false)
+    setEdit(false)
+    document.removeEventListener("click", handleClickOutsideTask);
+  }
+
+  const toggleAccordion = () => {
+    if (accordion) {
+      setAccordion(false)
+      document.removeEventListener("click", handleClickOutsideTask);
+    } else {
+      setAccordion(true)
+      document.addEventListener("click", handleClickOutsideTask);
+    }
+    setEdit(false)
+  }
+
+  const handleClickOutsideTask = (e) => {
+    if (taskItemRef.current && (
+      !taskItemRef.current.contains(e.target) &&
+      !modalRef.current?.contains(e.target) &&
+      !scheduleBarRef.current.contains(e.target))) {
+      closeAccordion()
+    }
+  }
+
   return <div className="grid" style={mainGridTemplate}>
-    <div className="sticky-left">
-      <div className="task-items base-slide-out" style={{width: openAccordion ? `${openTaskItemWidth}px` : `${taskCardWidth}px`}}>
+    <div ref={taskItemRef} className="sticky-left">
+      <div
+        className="task-items base-slide-out"
+        style={{width: accordion ? `${openTaskItemWidth}px` : `${taskCardWidth}px`}}
+        onClick={toggleAccordion}
+      >
         <FontAwesomeIcon
           icon={faChevronUp}
-          className={openAccordion ? "flip" : "un-flip"}
+          className={accordion ? "flip" : "un-flip"}
           style={{padding: "0px 5px", color: "var(--bs-gray-700)"}}
-          onClick={() => {setOpenAccordion(!openAccordion); setEdit(false)}}
         />
         {task.name}
       </div>
-      <div className={`base-slide-out ${openAccordion ? "open-task-item" : "close-task-item"}`} style={itemWidths}>
+      <div className={`base-slide-out ${accordion ? "open-task-item" : "close-task-item"}`} style={itemWidths}>
         <div className="task-items-expand">
           <div className="card-body" style={{paddingTop: "0px"}}>
             <div style={{backgroundColor: "var(--bs-dark)", padding: "5px 10px 10px"}}>
@@ -63,10 +95,10 @@ export default function Task({task, index, mainGridTemplate, gridTemp, taskCardW
       </div>
     </div>
     <div className="grid" style={gridTemp}>
-      <div className="schedule-bar" style={{...taskIndexes(task), ...color(task)}} />
+      <div ref={scheduleBarRef} className="schedule-bar" style={{...taskIndexes(task), ...color(task)}} />
     </div>
     {edit &&
-    <div className="card" style={{position: "absolute", left: "50%", top: "35%", transform: "translate(-50%, -50%)", zIndex: "3000", maxWidth: "50em"}}>
+    <div ref={modalRef} className="card edit-task-modal" >
       <div className="card-header" style={{display: "flex"}}>
         {task.name} <span style={{marginLeft: "auto"}} onClick={()=>{setEdit(false)}}> X </span>
       </div>
