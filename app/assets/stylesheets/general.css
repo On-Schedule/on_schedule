@@ -60,7 +60,6 @@
 .task-items {
   background:
     linear-gradient(270deg, #272b30 0%, transparent 10px),
-    linear-gradient(90deg, #54545430 0%, transparent 5px),
     linear-gradient(180deg, #ffffff26 1px, transparent 1px);
   background-color: var(--bs-card-bg);
 }
@@ -68,7 +67,6 @@
 .task-items-expand {
   background:
     linear-gradient(270deg, #272b30 0%, transparent 10px),
-    linear-gradient(90deg, #54545430 0%, transparent 5px),
     linear-gradient(0deg, #ffffff26 1px, transparent 1px);
   background-color: var(--bs-card-bg);
 }
