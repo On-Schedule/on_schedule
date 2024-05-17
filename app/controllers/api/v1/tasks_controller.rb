@@ -13,6 +13,14 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      render :show, status: :ok
+    end
+  end
+
   private
 
   def task_params
@@ -21,7 +29,7 @@ class Api::V1::TasksController < ApplicationController
       :start_date,
       :end_date,
       :hours,
-      :cost_Code,
+      :cost_code,
       :project_id,
       :description,
       :responsibility
