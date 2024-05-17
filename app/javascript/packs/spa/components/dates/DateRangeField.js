@@ -113,7 +113,7 @@ export default function DateRangeField(props) {
           </div>
         </div>
         <div ref={dateRangeRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")}>
-          <DateRangePicker focus={focus} setFocus={setFocus} />
+          <DateRangePicker focus={focus} setFocus={setFocus} initialDate={dateConverter(startDateValue) || dateConverter(dateRangeMin) || DateTime.now()}/>
         </div>
       </EndDateContext.Provider>
     </StartDateContext.Provider>
