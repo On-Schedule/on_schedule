@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         resources :users, only: [:index]
       end
       resources :projects, only: [:create, :show] do
-        resources :tasks, only: [:index, :create]
+        resources :tasks, only: [:index, :create, :update]
       end
     end
   end

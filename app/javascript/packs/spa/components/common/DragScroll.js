@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import PropTypes from 'prop-types';
 
 const { func, element, shape, string } = PropTypes;
@@ -16,6 +16,7 @@ DragScroll.defaultProps = {
   onPointerDown: () => {},
   onPointerUp: () => {},
   onPointerMove: () => {},
+  className: ""
 };
 
 export default function DragScroll(props) {
@@ -25,10 +26,10 @@ export default function DragScroll(props) {
     onPointerMove,
     children,
     style,
-    className
+    className,
+    scrollElementRef
   } = props
 
-  const ourRef = useRef(null);
   const mouseCoords = useRef({
     startX: 0,
     startY: 0,
@@ -39,8 +40,8 @@ export default function DragScroll(props) {
   const [isDragging, setisDragging] = useState(false);
 
   const handlePointerDown = (e) => {
-    if (!ourRef.current) return
-    const slider = ourRef.current.children[0];
+    if (!scrollElementRef.current) return
+    const slider = scrollElementRef.current;
     const startX = e.pageX - slider.offsetLeft;
     const startY = e.pageY - slider.offsetTop;
     const scrollLeft = slider.scrollLeft;
@@ -54,16 +55,16 @@ export default function DragScroll(props) {
 
   const handlePointerUp = (e) => {
     setisDragging(false)
-    if (!ourRef.current) return
+    if (!scrollElementRef.current) return
     document.body.style.cursor = "default"
 
     onPointerUp(e)
   }
 
   const handlePointerMove = (e) => {
-    if (!isDragging || ! ourRef.current) return;
+    if (!isDragging || ! scrollElementRef.current) return;
     e.preventDefault();
-    const slider = ourRef.current.children[0];
+    const slider = scrollElementRef.current;
     const x = e.pageX - slider.offsetLeft;
     const y = e.pageY - slider.offsetTop;
     const walkX = (x - mouseCoords.current.startX) * 1.5;
@@ -73,6 +74,10 @@ export default function DragScroll(props) {
 
     onPointerMove(e)
   }
+
+    const preventDefault = useCallback((e) => {
+      e.preventDefault()
+    }, [])
 
   useEffect(() => {
     window.addEventListener('pointerup', handlePointerUp);
@@ -84,11 +89,10 @@ export default function DragScroll(props) {
 
   return (
     <div
-      ref={ourRef}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      // onMouseEnter={() => {document.body.style.cursor = "grab"}}
-      // onMouseLeave={() => {document.body.style.cursor = "default"}}
+      onMouseEnter={() => {window.addEventListener('pointerdown', preventDefault)}}
+      onMouseLeave={() => {window.removeEventListener('pointerdown', preventDefault)}}
       className={className + " flex overflow-x-scroll"}
       style={style}
     >

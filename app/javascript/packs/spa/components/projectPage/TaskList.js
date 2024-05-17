@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 import { DateTime } from "luxon"
 import SearchBar from '../common/SearchBar';
 import DragScroll from "../common/DragScroll";
-import Task from "./task";
+import TaskItem from "./TaskItem";
 
 const projectScale = {
   "day": 35,
@@ -31,6 +31,7 @@ export default function TaskList() {
   const taskCardWidth = 250
   const [cellSize, setCellSize] = useState(projectScale["day"])
   const [scale, setScale] = useState("day")
+  const scrollElementRef = useRef(null)
   const gridTemp = {
     gridTemplateColumns: `repeat(${duration}, ${cellSize}px)`,
   }
@@ -65,9 +66,9 @@ export default function TaskList() {
     setSearchedTasks(tasks)
   }, [tasks])
 
-  return <div className="card-body">
-    <DragScroll>
-      <div className="schedule-body grid" style={mainGridTemplate}>
+  return <div className="card-body" >
+      <div  ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
+        <DragScroll scrollElementRef={scrollElementRef} style={{gridColumn: "2", gridRow: "2", zIndex: "600"}} />
         <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1024"}}>
           <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
         </div>
@@ -87,12 +88,11 @@ export default function TaskList() {
         <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
           {tasks?.length > 0 && (
             _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-              <Task task={task} index={index} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
+              <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
             ))
           )}
         </div>
       </div>
-    </DragScroll>
     <div className="card-body text-center">
       <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("day"))} > Day </button>
       <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("month"))} > Month </button>
