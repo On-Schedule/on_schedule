@@ -102,7 +102,12 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
     <div className="grid" style={gridTemp}>
       <div ref={scheduleBarRef} className="schedule-bar" style={{...taskIndexes(task), ...color(task)}} />
     </div>
-    {edit && <Modal className="edit-task-modal" headerText={task.name} closeModal={closeModal} ref={modalRef} >
+    {edit && <Modal
+      className="edit-task-modal"
+      headerText={task.name}
+      closeModal={closeModal}
+      ref={modalRef}
+    >
       <NewTaskForm task={task} setEdit={setEdit}/>
     </Modal>}
   </div>
