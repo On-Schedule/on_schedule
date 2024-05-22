@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTemplate } from '../../actions/templates';
 
-export default function ProjectTemplateForm(setOpenModal) {
+export default function ProjectTemplateForm({closeModal}) {
   const [details, setDetails] = useState({})
   const dispatch = useDispatch()
   const formData = new FormData()
@@ -17,6 +17,8 @@ export default function ProjectTemplateForm(setOpenModal) {
     formData.set("csv_file", details.csv_file)
 
     await dispatch(addTemplate(formData));
+
+    closeModal()
   }
 
 
