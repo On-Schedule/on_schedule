@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { DateTime } from "luxon";
 import NewTaskForm from "./NewTaskForm";
+import Modal from "../common/Modal";
 
 export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidth}) {
   const [accordion, setAccordion] = useState(false)
@@ -64,6 +65,10 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
     }
   }
 
+  const closeModal = () => {
+    setEdit(false)
+  }
+
   return <div className="grid" style={mainGridTemplate}>
     <div ref={taskItemRef} className="sticky-left">
       <div
@@ -97,15 +102,8 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
     <div className="grid" style={gridTemp}>
       <div ref={scheduleBarRef} className="schedule-bar" style={{...taskIndexes(task), ...color(task)}} />
     </div>
-    {edit &&
-    <div ref={modalRef} className="card edit-task-modal" >
-      <div className="card-header" style={{display: "flex"}}>
-        {task.name} <span style={{marginLeft: "auto"}} onClick={()=>{setEdit(false)}}> X </span>
-      </div>
-      <div className="card-body" >
-        <NewTaskForm task={task} setEdit={setEdit}/>
-      </div>
-    </div>
-    }
+    {edit && <Modal className="edit-task-modal" modalHeader={task.name} closeModal={closeModal} ref={modalRef} >
+      <NewTaskForm task={task} setEdit={setEdit}/>
+    </Modal>}
   </div>
 }
