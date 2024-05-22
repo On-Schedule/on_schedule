@@ -7,7 +7,6 @@ export default function ProjectTemplateForm({closeModal}) {
   const dispatch = useDispatch()
   const formData = new FormData()
 
-
   const submitForm = () => async (e) => {
     if (!isValid()) {
       return;
@@ -17,10 +16,8 @@ export default function ProjectTemplateForm({closeModal}) {
     formData.set("csv_file", details.csv_file)
 
     await dispatch(addTemplate(formData));
-
     closeModal()
   }
-
 
   const isValid = () => {
     if (details.csv_file && details.name) {
@@ -43,7 +40,6 @@ export default function ProjectTemplateForm({closeModal}) {
     <input
       type="text"
       className="form-control form-control-sm"
-      style={{}}
       placeholder='Template Name'
       onChange={addName}
     />
@@ -51,8 +47,6 @@ export default function ProjectTemplateForm({closeModal}) {
     <input
       type="file"
       className="form-control form-control-sm"
-      style={{}}
-      placeholder='Template Name'
       accept='.csv'
       onChange={addFile}
     />
