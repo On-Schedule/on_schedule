@@ -7,20 +7,25 @@ import Modal from '../common/Modal';
 export default function ProjectTemplates() {
   const dispatch = useDispatch()
   const templates = useSelector((state) => state.templates)
-  const [newTemplateFromCSV, setNewTemplateFromCSV] = useState(false)
+  const [fromCSVModal, setFromCSVModal] = useState(false)
 
   useEffect(() => {
     dispatch(getTemplates())
   }, [])
 
   const closeModal = () => {
-    setNewTemplateFromCSV(false)
+    setFromCSVModal(false)
   }
 
   return <div className="card border-primary mb-3 mx-md-2 dashboard-card" id='projects-card'>
     <div className="card-header navbar">
-      <button className='btn btn-sm btn-outline-info' onClick={() => {setNewTemplateFromCSV(true)}}>
-        From CSV
+      Project Templates
+      <button
+        className='btn btn-sm btn-info'
+        style={{marginLeft: "auto"}}
+        onClick={() => {setFromCSVModal(true)}}
+      >
+        + From CSV
       </button>
     </div>
     <div className="card-body dashboard-card-body">
@@ -28,7 +33,7 @@ export default function ProjectTemplates() {
         <div key={template.id}> {template.name} </div>
       ))}
     </div>
-    {newTemplateFromCSV && <Modal closeModal={closeModal} headerText="New Template From CSV">
+    {fromCSVModal && <Modal closeModal={closeModal} headerText="New template from CSV">
       <ProjectTemplateForm closeModal={closeModal} />
     </Modal>}
   </div>
