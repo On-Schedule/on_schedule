@@ -56,10 +56,18 @@ export default function ProjectTemplateForm({closeModal}) {
       accept='.csv'
       onChange={addFile}
     />
-    <button
-      className={`btn btn-sm ${isValid() ? "btn-outline-success" : "btn-outline-danger"}`}
-      onClick={submitForm()}
-      disabled={!isValid()}
-    >Save</button>
+    <div style={{display: "flex"}}>
+      <button
+        className={`btn btn-sm ${isValid() ? "btn-outline-success border-success" : "btn-outline-danger"}`}
+        onClick={submitForm()}
+        disabled={!isValid()}
+        style={{marginTop: "1em", flexGrow: "1"}}
+      >Save</button>
+      <button
+        className="btn btn-sm"
+        onClick={closeModal}
+        style={{marginTop: "1em", marginLeft: ".5em", flexGrow: "1"}}
+      >Cancel</button>
+    </div>
   </div>
 }
