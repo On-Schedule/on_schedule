@@ -5,14 +5,14 @@ const Modal = forwardRef(function Modal(props, ref) {
   const {
     className,
     style,
-    children,
+    headerText,
     closeModal,
-    modalHeader
+    children,
   } = props
 
-  return <div ref={ref} className={`${className} card modal-base`} style={style}>
+  return <div ref={ref} className={`${className} card modal`} style={style}>
     <div className="card-header" style={{display: "flex"}}>
-      {modalHeader} <span style={{marginLeft: "auto"}} onClick={closeModal}> X </span>
+      {headerText} <span style={{marginLeft: "auto"}} onClick={closeModal}> X </span>
     </div>
     <div className="card-body" >
       {children}
@@ -25,13 +25,13 @@ Modal.propTypes = {
   style: shape({}),
   children: element,
   closeModal: func,
-  modalHeader: string
+  headerText: string
 };
 
 Modal.defaultProps = {
   className: "",
+  headerText: "",
   closeModal: () => {},
-  modalHeader: ""
 };
 
 export default Modal

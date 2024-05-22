@@ -28,7 +28,7 @@ export default function ProjectTemplates() {
         <div key={template.id}> {template.name} </div>
       ))}
     </div>
-    {newTemplateFromCSV && <Modal closeModal={closeModal} modalHeader="New Template From CSV">
+    {newTemplateFromCSV && <Modal closeModal={closeModal} headerText="New Template From CSV">
       <ProjectTemplateForm />
     </Modal>}
   </div>
