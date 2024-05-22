@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       end
 
       resource :user, only: [:show]
+      resources :project_templates, only: [:index, :create]
       resource :company, only: [] do
         resources :users, only: [:index]
       end
