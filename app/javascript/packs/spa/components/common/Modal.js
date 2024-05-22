@@ -3,7 +3,6 @@ import { func, element, shape, string } from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from '@fortawesome/free-solid-svg-icons'
 
-
 const Modal = forwardRef(function Modal(props, ref) {
   const {
     className,
@@ -20,7 +19,7 @@ const Modal = forwardRef(function Modal(props, ref) {
         <FontAwesomeIcon icon={faX} />
       </span>
     </div>
-    <div className="card-body" >
+    <div className="card-body">
       {children}
     </div>
   </div>
