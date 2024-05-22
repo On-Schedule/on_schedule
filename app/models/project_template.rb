@@ -7,7 +7,7 @@ class ProjectTemplate < ApplicationRecord
         tasks: []
       }
 
-      CSV.read(csv_file).each do |row|
+      CSV.read(csv_file, headers: true).each do |row|
         template[:tasks].push(row.to_h)
       end
 
