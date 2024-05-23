@@ -1,8 +1,8 @@
 import { getTasks } from 'actions/tasks'
 
-export function newProject(details) {
+export function newProject(details, templateID) {
   return async (dispatch, getState, api) => {
-    const {data:project} = await api.post('projects', {'project': details});
+    const {data:project} = await api.post('projects', {'project': details, "template": templateID});
     dispatch({type: 'project/received', project});
     return project;
   }
