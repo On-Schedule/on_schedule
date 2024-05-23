@@ -4,6 +4,11 @@ class Api::V1::ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
 
+    if params[:template]
+      template = ProjectTemplate.find(params[:template])
+      @project.template = template.template["tasks"]
+    end
+
     if @project.save!
       params[:project][:project_users].each do |user|
         ProjectUser.create({project: @project, user_id: user[:id], user_level: user[:read_only] ? "read" : "full"})
