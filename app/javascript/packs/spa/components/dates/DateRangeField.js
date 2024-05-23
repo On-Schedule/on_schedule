@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import DateRangePicker from "./DateRangePicker";
 import CustomDateField from "./CustomDateField";
-import { func, string, bool } from 'prop-types';
+import { func, string, bool, shape } from 'prop-types';
 import { StartDateContext, EndDateContext } from "./DateUtils";
 import { DateTime } from "luxon";
 
@@ -14,12 +14,16 @@ DateRangeField.propTypes = {
   labels: bool,
   label1: string,
   label2: string,
+  dateFieldClass: string,
+  dateFieldStyle: shape({}),
 };
 
 DateRangeField.defaultProps = {
   labels: true,
   label1: "Dates",
-  label2: ""
+  label2: "",
+  dateFieldClass: "",
+  dateFieldStyle: {},
 }
 
 export default function DateRangeField(props) {
@@ -31,7 +35,9 @@ export default function DateRangeField(props) {
     dateRangeMax,
     labels,
     label1,
-    label2
+    label2,
+    dateFieldClass,
+    dateFieldStyle,
   } = props
 
   const dateRangeRef = useRef(null);
@@ -97,7 +103,7 @@ export default function DateRangeField(props) {
               openAccordion()
               setFocus("startDate")
             }}>
-            <CustomDateField dateType={"startDate"} />
+            <CustomDateField dateType={"startDate"} dateFieldClass={dateFieldClass} dateFieldStyle={dateFieldStyle} />
             </div>
             {focus === "startDate" && <div className="date-selector-focus" />}
           </div>
@@ -107,7 +113,7 @@ export default function DateRangeField(props) {
               openAccordion()
               setFocus("endDate")
             }}>
-            <CustomDateField dateType={"endDate"} />
+            <CustomDateField dateType={"endDate"} dateFieldClass={dateFieldClass} dateFieldStyle={dateFieldStyle} />
           </div>
             {focus === "endDate" && <div className="date-selector-focus" />}
           </div>
