@@ -20,13 +20,14 @@ export default function ProjectPage({initialEdit=false}) {
   }, [project_id]);
 
   useEffect(() => {
-    const newChannel = cableContext.cable.subscriptions.create({
-      channel: "ProjectChannel",
-      project_id: project_id
-    },
-    {
-      received: (data) => console.log(data)
-    })
+    const newChannel = cableContext.cable.subscriptions.create(
+      {
+        channel: "ProjectChannel",
+        project_id: project_id
+      },
+      {received: (data) => console.log(data)}
+    )
+
     return () => {
       newChannel.unsubscribe()
     }
