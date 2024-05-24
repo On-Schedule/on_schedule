@@ -1,7 +1,7 @@
 import { getTasks } from 'actions/tasks'
 
 export function newProject(details, templateID) {
-  return async (dispatch, getState, api) => {
+  return async (dispatch, _getState, api) => {
     const {data:project} = await api.post('projects', {'project': details, "template": templateID});
     dispatch({type: 'project/received', project});
     return project;
@@ -9,7 +9,7 @@ export function newProject(details, templateID) {
 }
 
 export function getProject(project_id) {
-  return async (dispatch, getState, api) => {
+  return async (dispatch, _getState, api) => {
     const {data:project} = await api.get(`projects/${project_id}`);
     dispatch({type: 'project/received', project});
     if (project) {
