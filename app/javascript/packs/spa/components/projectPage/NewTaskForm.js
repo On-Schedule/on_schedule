@@ -5,7 +5,7 @@ import { newTask, updateTask } from 'actions/tasks'
 import DateRangeField from "../dates/DateRangeField";
 import { DateTime } from "luxon";
 
-export default function NewTaskForm({task={}, setEdit=()=>{}, projectID}) {
+export default function NewTaskForm({task={}, setEdit=()=>{}, projectID, style}) {
   const {name, start_date, end_date, hours, description, cost_code, responsibility, project_id} = task
   const defaltDetails = {
     project_id: project_id || project?.id || projectID,
@@ -148,7 +148,7 @@ export default function NewTaskForm({task={}, setEdit=()=>{}, projectID}) {
   }
 
   return <form style={{display: "flex", flexWrap: "wrap"}}>
-    <div className="card-body task-form-flex">
+    <div className="card-body task-form-flex" style={style}>
       <div className="list-inline-item task-form-element" >
         <label>New Task</label>
         <input
@@ -172,7 +172,7 @@ export default function NewTaskForm({task={}, setEdit=()=>{}, projectID}) {
         <label>Responsibility</label>
         <select className="dropdown form-select form-select-sm" onChange={setResponsibility} value={details?.responsibility} >
             {_.map(["internal", "external", "subcontractor"], (item, index) => (
-              <option key={index} onClick={() => {setResponsibility(item)}} >{item}</option>
+              <option key={index}>{item}</option>
             ))}
         </select>
       </div>
