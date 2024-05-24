@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
+  mount ActionCable.server => '/cable'
   root to: 'dashboard#show'
   match '*path', to: 'dashboard#show', via: :get, constraints: ->(request) { !request.path.start_with?('/rails') && !request.path.start_with?('/api') }
 end

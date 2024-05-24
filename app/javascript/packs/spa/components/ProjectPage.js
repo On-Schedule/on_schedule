@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import TaskList from './projectPage/TaskList';
 import NewTaskForm from './projectPage/NewTaskForm';
 import { useParams } from 'react-router-dom';
 import { getProject } from 'actions/projects'
+import { CableContext } from '../context/cable';
+
 
 export default function ProjectPage({initialEdit=false}) {
+  const cableContext = useContext(CableContext)
   const project_id = useParams().id
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
@@ -15,6 +18,20 @@ export default function ProjectPage({initialEdit=false}) {
     dispatch(getProject(project_id));
     setEdit(initialEdit)
   }, [project_id]);
+
+  useEffect(() => {
+    const newChannel = cableContext.cable.subscriptions.create(
+      {
+        channel: "ProjectChannel",
+        project_id: project_id
+      },
+      {received: (data) => console.log(data)}
+    )
+
+    return () => {
+      newChannel.unsubscribe()
+    }
+  }, [project_id])
 
   return <div className='dashboard-wrapper'>
     <div className={`card mb-3 ${edit ? "border-warning" : "border-primary"}`}>

@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from './spa/App';
 import store from './spa/store';
 import { init } from './spa/actions/user';
+import { CableProvider } from './spa/context/cable';
 
 store.dispatch(init());
 
@@ -14,10 +15,12 @@ const root = ReactDOMClient.createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </BrowserRouter>
+    <CableProvider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
+    </CableProvider>
   </React.StrictMode>
 );
