@@ -65,12 +65,16 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
 
   const noWarnings = () => {
     if (details.responsibility === "internal") {
-      return (hoursExist() && hasWorkingDays())
+      return (hoursExist() && hasWorkingDays() && costCodeExist())
     } else if (details.responsibility === "external") {
       return true
     } else if (details.responsibility === "subcontractor") {
       return true
     }
+  }
+
+  const costCodeExist = () => {
+    return !!details.cost_code
   }
 
   const hoursExist = () => {
@@ -168,6 +172,16 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
     }
   }
 
+  const costCodeColor = () => {
+    if (details.responsibility != "internal") {
+      return {};
+    } else if (costCodeExist()) {
+      return bgcolors.success
+    } else {
+      return bgcolors.warning
+    }
+  }
+
   const datesColor = () => {
     if (!datesExsist() || !datesAreValid()) {
       return bgcolors.danger;
@@ -244,17 +258,20 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
           <div className="text-warning">Tasks without hours may not be included in some analytics.</div>
         </Tooltip>}
       </div>
-      <div className="list-inline-item task-form-element" style={{"--base-width": "7em"}} >
+      <div className="list-inline-item task-form-element" style={{"--base-width": "7em"}}   onMouseEnter={() => {setCostCodeTooltip(true)}} onMouseLeave={() => {setCostCodeTooltip(false)}}>
         {labels && <label>Cost Code</label>}
         <input
           className="form-control form-control-sm"
-          style={details.cost_code ? bgcolors.success : {}}
+          style={costCodeColor()}
           name="costCode"
           placeholder="Cost code"
           value={details?.cost_code}
           onChange={updateDetail('cost_code')}
           disabled={details.responsibility != "internal"}
         />
+        {((!costCodeExist() && !noWarnings()) && costCodeTooltip) && <Tooltip>
+          <div className="text-warning">Tasks without cost codes may not be included in some analytics.</div>
+        </Tooltip>}
       </div>
       <div className="list-inline-item task-form-element" style={{"--grow-rate": "2"}} >
         {labels && <label>Description</label>}
