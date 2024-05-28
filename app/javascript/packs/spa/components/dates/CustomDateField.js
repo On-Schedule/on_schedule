@@ -5,22 +5,14 @@ import { func, object, string, oneOfType, shape } from "prop-types"
 
 CustomDateField.propTypes = {
   sendDate: func,
-  recivedDate: oneOfType([object, string]),
+  receivedDate: oneOfType([object, string]),
   dateType: string,
   dateFieldClass: string,
   dateFieldStyle: shape({}),
 }
 
-CustomDateField.defaultProps = {
-  sendDate: ()=>{},
-  recivedDate: "",
-  dateType: "",
-  dateFieldClass: "",
-  dateFieldStyle: {},
-}
-
 export default function CustomDateField(props) {
-  const {sendDate, receivedDate, dateType, dateFieldClass, dateFieldStyle} = props
+  const {sendDate=()=>{}, receivedDate="", dateType="", dateFieldClass="", dateFieldStyle={}} = props
   const [date, setDate] = useState({month: "", day: "", year: ""})
   const day = createRef()
   const month = createRef()

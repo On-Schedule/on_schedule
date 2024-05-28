@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import PropTypes from 'prop-types';
-
-const { func, element, shape, string } = PropTypes;
+import { func, element, shape, string } from 'prop-types';
 
 DragScroll.propTypes = {
   onPointerDown: func,
@@ -12,21 +10,14 @@ DragScroll.propTypes = {
   className: string,
 };
 
-DragScroll.defaultProps = {
-  onPointerDown: () => {},
-  onPointerUp: () => {},
-  onPointerMove: () => {},
-  className: ""
-};
-
 export default function DragScroll(props) {
   const {
-    onPointerDown,
-    onPointerUp,
-    onPointerMove,
+    onPointerDown = ()=>{},
+    onPointerUp = ()=>{},
+    onPointerMove = ()=>{},
     children,
-    style,
-    className,
+    style = {},
+    className = "",
     scrollElementRef
   } = props
 

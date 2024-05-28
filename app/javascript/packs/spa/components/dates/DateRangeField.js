@@ -18,14 +18,6 @@ DateRangeField.propTypes = {
   dateFieldStyle: shape({}),
 };
 
-DateRangeField.defaultProps = {
-  labels: true,
-  label1: "Dates",
-  label2: "",
-  dateFieldClass: "",
-  dateFieldStyle: {},
-}
-
 export default function DateRangeField(props) {
   const {
     startDateValue,
@@ -33,11 +25,11 @@ export default function DateRangeField(props) {
     onDatesChange,
     dateRangeMin,
     dateRangeMax,
-    labels,
-    label1,
-    label2,
-    dateFieldClass,
-    dateFieldStyle,
+    labels = true,
+    label1 = "Dates",
+    label2 = "",
+    dateFieldClass = "",
+    dateFieldStyle = {},
   } = props
 
   const dateRangeRef = useRef(null);
