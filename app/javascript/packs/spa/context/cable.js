@@ -12,4 +12,17 @@ function CableProvider({ children }) {
   return <CableContext.Provider value={CableApp}>{children}</CableContext.Provider>;
 }
 
-export { CableContext, CableProvider };
+const handleReceived = (data) => {
+    switch (data.type) {
+    case "task":
+      dispatch({type: "task/received", task: data.content})
+      break
+    case "project":
+      dispatch({type: "project/received", project: data.content})
+      break
+    default:
+      break
+  }
+}
+
+export { CableContext, CableProvider, handleReceived };
