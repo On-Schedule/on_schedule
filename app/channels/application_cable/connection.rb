@@ -15,7 +15,7 @@ module ApplicationCable
     end
 
     def report_error error
-      SomeExternalBugtrackingService.notify(error)
+      puts "\n\n\n\n\n############### ERROR ###############\n\n#{error}\n\n############### ERROR ###############\n\n\n\n\n"
     end
   end
 end

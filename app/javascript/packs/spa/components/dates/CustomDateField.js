@@ -1,22 +1,18 @@
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { DateTime } from "luxon";
 import { StartDateContext, EndDateContext } from "./DateUtils";
-import { func, object, string, oneOfType } from "prop-types"
+import { func, object, string, oneOfType, shape } from "prop-types"
 
 CustomDateField.propTypes = {
   sendDate: func,
-  recivedDate: oneOfType([object, string]),
-  dateType: string
-}
-
-CustomDateField.defaultProps = {
-  sendDate: ()=>{},
-  recivedDate: "",
-  dateType: ""
+  receivedDate: oneOfType([object, string]),
+  dateType: string,
+  dateFieldClass: string,
+  dateFieldStyle: shape({}),
 }
 
 export default function CustomDateField(props) {
-  const {sendDate, receivedDate, dateType} = props
+  const {sendDate=()=>{}, receivedDate="", dateType="", dateFieldClass="", dateFieldStyle={}} = props
   const [date, setDate] = useState({month: "", day: "", year: ""})
   const day = createRef()
   const month = createRef()
@@ -77,7 +73,7 @@ export default function CustomDateField(props) {
     }
   }
 
-  return <div className="form-control form-control-sm custom-date-field">
+  return <div className={`form-control form-control-sm custom-date-field ${dateFieldClass}`} style={dateFieldStyle}>
     <input
       ref={month}
       className="custom-date-form-element month"

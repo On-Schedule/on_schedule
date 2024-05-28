@@ -5,6 +5,7 @@ import { DateTime } from "luxon"
 import SearchBar from '../common/SearchBar';
 import DragScroll from "../common/DragScroll";
 import TaskItem from "./TaskItem";
+import NewTaskFormV2 from "./NewTaskFormV2";
 
 const projectScale = {
   "day": 35,
@@ -69,7 +70,7 @@ export default function TaskList() {
   return <div className="card-body" >
       <div  ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
         <DragScroll scrollElementRef={scrollElementRef} style={{gridColumn: "2", gridRow: "2", zIndex: "600"}} />
-        <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1024"}}>
+        <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1025"}}>
           <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
         </div>
         <div className="sticky-top sticky-left task-items-search-box">
@@ -86,8 +87,15 @@ export default function TaskList() {
           style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
         />
         <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
+          {(project?.template && Object.keys(project.template).length > 0) && <div className="card sticky-left" style={{maxWidth: "85vw", width: "1075px", padding: "10px", zIndex: "1024"}}>
+            {_.map(project?.template, (task, key) => (
+              <div key={key}>
+                <NewTaskFormV2 labels={false} task={task} templateKey={key} projectID={project?.id} style={{maxWidth: "85vw", width:"1075px"}} />
+              </div>
+            ))}
+          </div>}
           {tasks?.length > 0 && (
-            _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
+            _.map(_.sortBy(searchedTasks, "start_date"), (task) => (
               <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
             ))
           )}

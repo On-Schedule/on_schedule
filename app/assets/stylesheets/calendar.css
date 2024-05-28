@@ -75,10 +75,11 @@
   border: none;
   text-align: center;
   padding: 0px;
+  background-color: #ffffff00;
 }
 
 .custom-date-form-element:focus {
-  background-color: #fff;
+  background-color: #ffffff00;
 }
 
 .custom-date-field .day {

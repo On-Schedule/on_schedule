@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newProject } from 'actions/projects'
 import AddUsersFormSection from './newProjectForm/AddUsersFormSection';
 import DateRangeField from './dates/DateRangeField';
+import { getTemplates } from '../actions/templates';
 
 const fiveEights = {
   days: ["monday", "tuesday", "wednesday", "thursday", "friday"],
@@ -33,6 +34,8 @@ export default function NewProjectForm({project=defaultProject}) {
   const [details, setDetails] = useState(project)
   const [schedule, setSchedule] = useState(details.schedule)
   const [custom, setCustom] = useState(false)
+  const templates = useSelector((state) => state.templates)
+  const [template, setTemplate] = useState("")
 
   const updateDetail = (field) => (e) => {
     setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
@@ -41,6 +44,10 @@ export default function NewProjectForm({project=defaultProject}) {
   useEffect(() => {
     setDetails({...details, schedule: schedule})
   }, [schedule])
+
+  useEffect(() => {
+    dispatch(getTemplates())
+  }, [])
 
   const updateDetails = (projectUsers) => {
     setDetails({...details, project_users: projectUsers})
@@ -87,7 +94,7 @@ export default function NewProjectForm({project=defaultProject}) {
       return;
     }
 
-    project = await dispatch(newProject(details));
+    project = await dispatch(newProject(details, template?.id));
     navigate(`/projects/${project.id}`)
   }
 
@@ -135,6 +142,11 @@ export default function NewProjectForm({project=defaultProject}) {
     return false
   }
 
+  const selectTemplate = (e) => {
+    const template = _.find(templates, {name: e.target.value})
+    setTemplate(template)
+  }
+
   return <div className="card bg-primary mb-3 primary-card-wrapper">
     <div className="card-header navbar">Create A New Project</div>
     <form>
@@ -149,14 +161,25 @@ export default function NewProjectForm({project=defaultProject}) {
             onChange={updateDetail('name')}
           />
         </div>
-        <div className="list-inline-item">
-          <label className="form-label mt-4">Dates</label>
-          <DateRangeField
-            labels={false}
-            startDateValue={details.start_date}
-            endDateValue={details.end_date}
-            onDatesChange={updateDates}
-          />
+        <div style={{display: "flex"}}>
+          <div>
+            <label className="form-label mt-4">Dates</label>
+            <DateRangeField
+              labels={false}
+              startDateValue={details.start_date}
+              endDateValue={details.end_date}
+              onDatesChange={updateDates}
+            />
+          </div>
+          <div style={{marginLeft: "auto", width: "49%"}} >
+            <label className='form-label mt-4'>Project from Template</label>
+            <select className="dropdown form-select form-select-sm" onChange={selectTemplate} value={template?.name || "none"}>
+              <option key="none">None</option>
+              {_.map(templates, (template) => (
+              <option key={template.id}>{template.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
         <div onChange={updateSchedule()}> <label className="form-label mt-4 ">Work Week</label><br/>
           {_.map(["5x8 (M-F)", "4x10 (M-Th)", "4x10 (Tu-F)", "Custom schedule"], (preSet) => (

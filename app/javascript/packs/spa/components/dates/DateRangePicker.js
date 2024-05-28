@@ -12,12 +12,8 @@ DateRangePicker.propTypes = {
   setFocus: func.isRequired
 }
 
-DateRangePicker.defaultProps = {
-  initialDate: DateTime.now(),
-}
-
 export default function DateRangePicker(props) {
-  const {initialDate, focus, setFocus} = props
+  const {initialDate=DateTime.now(), focus, setFocus} = props
   const [date, setDate] = useState(initialDate.startOf("month"))
   const [controlDates, setControlDates] = useState({})
   const {startDate, dateRangeMin, setStartDate} = useContext(StartDateContext)

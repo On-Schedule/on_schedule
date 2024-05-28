@@ -5,9 +5,9 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 
 const Modal = forwardRef(function Modal(props, ref) {
   const {
-    className,
-    style,
-    headerText,
+    className = "",
+    style = {},
+    headerText = "",
     closeModal,
     children,
   } = props
@@ -29,14 +29,8 @@ Modal.propTypes = {
   className: string,
   style: shape({}),
   children: element,
-  closeModal: func,
+  closeModal: func.isRequired,
   headerText: string
-};
-
-Modal.defaultProps = {
-  className: "",
-  headerText: "",
-  closeModal: () => {},
 };
 
 export default Modal

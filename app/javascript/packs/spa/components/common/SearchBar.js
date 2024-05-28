@@ -1,7 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
-
-const { func, shape, string, array } = PropTypes;
+import { func, shape, string, array } from 'prop-types';
 
 SearchBar.propTypes = {
   setFilteredArray: func.isRequired,

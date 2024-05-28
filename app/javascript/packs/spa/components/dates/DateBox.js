@@ -7,12 +7,8 @@ DateBox.propTypes = {
   controlDates: object
 }
 
-DateBox.defaultProps = {
-  controlDates: {}
-}
-
 export default function DateBox(props) {
-  const {date, controlDates} = props
+  const {date, controlDates = {}} = props
   const {startDate, endDate, handleClick, isHovering} = useContext(CalendarContext)
   const {dateRangeMin} = useContext(StartDateContext)
   const {dateRangeMax} = useContext(EndDateContext)

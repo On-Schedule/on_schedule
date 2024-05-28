@@ -4,8 +4,7 @@ import TaskList from './projectPage/TaskList';
 import NewTaskForm from './projectPage/NewTaskForm';
 import { useParams } from 'react-router-dom';
 import { getProject } from 'actions/projects'
-import { CableContext } from '../context/cable';
-
+import { CableContext, handleReceived } from '../context/cable';
 
 export default function ProjectPage({initialEdit=false}) {
   const cableContext = useContext(CableContext)
@@ -25,7 +24,7 @@ export default function ProjectPage({initialEdit=false}) {
         channel: "ProjectChannel",
         project_id: project_id
       },
-      {received: (data) => console.log(data)}
+      {received: (data) => handleReceived(data)}
     )
 
     return () => {
