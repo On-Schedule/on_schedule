@@ -38,6 +38,7 @@ export default function TaskList() {
   }
   const mainGridTemplate = {
     gridTemplateColumns: `${taskCardWidth}px ${duration * cellSize}px`,
+    gridTemplateRows: "max-content auto"
   }
 
   const changeScale = (newScale) => {
@@ -67,41 +68,61 @@ export default function TaskList() {
     setSearchedTasks(tasks)
   }, [tasks])
 
-  return <div className="card-body" >
-      <div  ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
-        <DragScroll scrollElementRef={scrollElementRef} style={{gridColumn: "2", gridRow: "2", zIndex: "600"}} />
-        <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1025"}}>
-          <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
-        </div>
-        <div className="sticky-top sticky-left task-items-search-box">
-          <SearchBar
-            unfilteredArray={tasks}
-            searchKey={"name"}
-            setFilteredArray={setSearchedTasks}
-            className={"form-control-sm"}
-            style={{marginBottom: "10px"}}
-          />
-        </div>
-        <div
-          className="project-grid-background"
-          style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
-        />
-        <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
-          {(project?.template && Object.keys(project.template).length > 0) && <div className="card sticky-left" style={{maxWidth: "85vw", width: "1075px", padding: "10px", zIndex: "1024"}}>
-            {_.map(project?.template, (task, key) => (
-              <div key={key}>
-                <NewTaskFormV2 labels={false} task={task} templateKey={key} projectID={project?.id} style={{maxWidth: "85vw", width:"1075px"}} />
-              </div>
-            ))}
-          </div>}
-          {tasks?.length > 0 && (
-            _.map(_.sortBy(searchedTasks, "start_date"), (task) => (
-              <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
-            ))
-          )}
-        </div>
+  return <div style={{height: "100%"}}>
+    <div  ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
+      <DragScroll scrollElementRef={scrollElementRef} style={{gridColumn: "2", gridRow: "2", zIndex: "600"}} />
+      <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1025"}}>
+        <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
       </div>
-    <div className="card-body text-center">
+      <div className="sticky-top sticky-left task-items-search-box">
+        <SearchBar
+          unfilteredArray={tasks}
+          searchKey={"name"}
+          setFilteredArray={setSearchedTasks}
+          className={"form-control-sm"}
+          style={{marginBottom: "10px"}}
+        />
+      </div>
+      <div
+        className="project-grid-background"
+        style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
+      />
+      <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
+        {tasks?.length > 0 && (
+          _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
+            <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
+          ))
+        )}
+      </div>
+      <div className="sticky-top sticky-left task-items-search-box">
+        <SearchBar
+          unfilteredArray={tasks}
+          searchKey={"name"}
+          setFilteredArray={setSearchedTasks}
+          className={"form-control-sm"}
+          style={{marginBottom: "10px"}}
+        />
+      </div>
+      <div
+        className="project-grid-background"
+        style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
+      />
+      <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
+        {(project?.template && Object.keys(project.template).length > 0) && <div className="card sticky-left" style={{maxWidth: "85vw", width: "1075px", padding: "10px", zIndex: "1024"}}>
+          {_.map(project?.template, (task, key) => (
+            <div key={key}>
+              <NewTaskFormV2 labels={false} task={task} templateKey={key} projectID={project?.id} style={{maxWidth: "85vw", width:"1075px"}} />
+            </div>
+          ))}
+        </div>}
+        {tasks?.length > 0 && (
+          _.map(_.sortBy(searchedTasks, "start_date"), (task) => (
+            <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
+          ))
+        )}
+      </div>
+    </div>
+    <div className="card-body text-center card-footer">
       <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("day"))} > Day </button>
       <button className="btn btn-sm btn-outline-info" onClick={() => (changeScale("month"))} > Month </button>
     </div>

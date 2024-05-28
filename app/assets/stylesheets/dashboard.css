@@ -2,5 +2,6 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  padding: .5%;
+  padding: .5em;
+  height: calc(98vh - 60px - 1em);
 }
