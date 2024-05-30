@@ -35,7 +35,6 @@ export default function ProjectPage({initialEdit=false}) {
 
 
   const handleReceived = (data) => {
-    console.log('data', data);
     switch (data.type) {
       case "task":
         dispatch({type: "task/received", task: data.content})
@@ -48,7 +47,7 @@ export default function ProjectPage({initialEdit=false}) {
     }
   }
 
-  return <div className='dashboard-wrapper'>
+  return <div className='project-page-wrapper'>
     <div className={`card mb-3 ${edit ? "border-warning" : "border-primary"}`}>
       <div className="card-header navbar">
         {project?.name} Schedule
@@ -58,7 +57,7 @@ export default function ProjectPage({initialEdit=false}) {
         </span>
       </div>
       {edit && <NewTaskForm projectID={project_id} />}
-      <TaskList />
+      <TaskList edit={edit} />
     </div>
   </div>
 }
