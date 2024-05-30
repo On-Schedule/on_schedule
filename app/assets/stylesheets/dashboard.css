@@ -3,5 +3,16 @@
   width: 100%;
   flex-direction: row;
   padding: .5em;
-  height: calc(98vh - 60px - 1em);
+}
+
+.dashboard-card-body {
+  flex: 1 1 445px;
+  overflow: auto;
+}
+
+.dashboard-card {
+  flex-grow: 1;
+  flex-basis: 500px;
+  max-width: 500px;
+  height: 500px;
 }

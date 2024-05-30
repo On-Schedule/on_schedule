@@ -4,7 +4,7 @@ import TaskList from './projectPage/TaskList';
 import NewTaskForm from './projectPage/NewTaskForm';
 import { useParams } from 'react-router-dom';
 import { getProject } from 'actions/projects'
-import { CableContext, handleReceived } from '../context/cable';
+import { CableContext } from '../context/cable';
 
 export default function ProjectPage({initialEdit=false}) {
   const cableContext = useContext(CableContext)
@@ -17,6 +17,7 @@ export default function ProjectPage({initialEdit=false}) {
     dispatch(getProject(project_id));
     setEdit(initialEdit)
   }, [project_id]);
+
 
   useEffect(() => {
     const newChannel = cableContext.cable.subscriptions.create(
@@ -32,7 +33,21 @@ export default function ProjectPage({initialEdit=false}) {
     }
   }, [project_id])
 
-  return <div className='dashboard-wrapper'>
+
+  const handleReceived = (data) => {
+    switch (data.type) {
+      case "task":
+        dispatch({type: "task/received", task: data.content})
+        break
+      case "project":
+        dispatch({type: "project/received", project: data.content})
+        break
+      default:
+        break
+    }
+  }
+
+  return <div className='project-page-wrapper'>
     <div className={`card mb-3 ${edit ? "border-warning" : "border-primary"}`}>
       <div className="card-header navbar">
         {project?.name} Schedule
@@ -42,7 +57,7 @@ export default function ProjectPage({initialEdit=false}) {
         </span>
       </div>
       {edit && <NewTaskForm projectID={project_id} />}
-      <TaskList />
+      <TaskList edit={edit} />
     </div>
   </div>
 }

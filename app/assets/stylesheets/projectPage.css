@@ -1,0 +1,102 @@
+.project-page-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  padding: .5em;
+  height: calc(100vh - 50px);
+}
+
+.project-grid-background {
+  --scale: 40px;
+  --day0: transparent;
+  --day1: transparent;
+  --day2: transparent;
+  --day3: transparent;
+  --day4: transparent;
+  --day5: transparent;
+  --day6: transparent;
+  background:
+    repeating-linear-gradient(0.25turn,
+      #99999925 0 1px,
+      var(--day0) 1px calc(var(--scale) - 1px),
+      #99999925 calc(var(--scale) - 1px) calc(var(--scale) + 1px),
+      var(--day1) calc(var(--scale) + 1px) calc(calc(2 * var(--scale)) - 1px),
+      #99999925 calc(calc(2 * var(--scale)) - 1px) calc(calc(2 * var(--scale)) + 1px),
+      var(--day2) calc(calc(2 * var(--scale)) + 1px) calc(calc(3 * var(--scale)) - 1px),
+      #99999925 calc(calc(3 * var(--scale)) - 1px) calc(calc(3 * var(--scale)) + 1px),
+      var(--day3) calc(calc(3 * var(--scale)) + 1px) calc(calc(4 * var(--scale)) - 1px),
+      #99999925 calc(calc(4 * var(--scale)) - 1px) calc(calc(4 * var(--scale)) + 1px),
+      var(--day4) calc(calc(4 * var(--scale)) + 1px) calc(calc(5 * var(--scale)) - 1px),
+      #99999925 calc(calc(5 * var(--scale)) - 1px) calc(calc(5 * var(--scale)) + 1px),
+      var(--day5) calc(calc(5 * var(--scale)) + 1px) calc(calc(6 * var(--scale)) - 1px),
+      #99999925 calc(calc(6 * var(--scale)) - 1px) calc(calc(6 * var(--scale)) + 1px),
+      var(--day6) calc(calc(6 * var(--scale)) + 1px) calc(calc(7 * var(--scale)) - 1px),
+      #99999925 calc(calc(7 * var(--scale)) - 1px) calc(calc(7 * var(--scale))));
+}
+
+.task-items {
+  background:
+    linear-gradient(270deg, #272b30 0%, transparent 10px),
+    linear-gradient(180deg, #ffffff26 1px, transparent 1px);
+  background-color: var(--bs-card-bg);
+}
+
+.task-items-expand {
+  background:
+    linear-gradient(270deg, #272b30 0%, transparent 10px),
+    linear-gradient(0deg, #ffffff26 1px, transparent 1px);
+  background-color: var(--bs-card-bg);
+}
+
+.schedule-body {
+  width: auto;
+  height: calc(100% - 44px);
+  overflow: auto;
+  margin: 0px .5em;
+}
+
+.schedule-wrapper {
+  --add-task-form: 0px;
+  height: calc(100% - 48px - var(--add-task-form));
+}
+
+.open-task-item {
+  max-height: 12em;
+  width: var(--open-item-width);
+}
+
+.close-task-item {
+  max-height: 0px;
+  width: var(--closed-item-width);
+}
+
+.date-bar-bg {
+  padding-bottom: 8px;
+  background: linear-gradient(0deg, #272b30 0%, transparent 10px);
+  background-color: var(--bs-card-bg);
+}
+
+.task-items-search-box {
+  background:
+    linear-gradient(270deg, transparent 0%, var(--bs-card-bg) 10px),
+    linear-gradient(0deg, transparent 0%, var(--bs-card-bg) 10px);
+  background-color: #272b30;
+  grid-column: 1;
+  grid-row: 1;
+  z-index: 1026;
+  padding-right: 10px;
+  align-content: center;
+  vertical-align: center;
+}
+
+.schedule-bar {
+  --bar-color: var(--bs-secondary);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  grid-column: var(--start) / span var(--stop);
+  background-color: var(--bar-color);
+  margin: 5px 2px;
+  height: 13px;
+}

@@ -24,7 +24,7 @@ const daysOfWeek = [
   "sunday"
 ]
 
-export default function TaskList() {
+export default function TaskList({edit=false}) {
   const tasks = useSelector((state) => state.tasks)
   const [searchedTasks, setSearchedTasks] = useState([])
   const project = useSelector((state) => state.project)
@@ -68,31 +68,11 @@ export default function TaskList() {
     setSearchedTasks(tasks)
   }, [tasks])
 
-  return <div style={{height: "100%"}}>
-    <div  ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
+  return <div className="schedule-wrapper" style={{"--add-task-form": edit && "142px"}}>
+    <div ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
       <DragScroll scrollElementRef={scrollElementRef} style={{gridColumn: "2", gridRow: "2", zIndex: "600"}} />
       <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1025"}}>
         <DateBar gridTemp={gridTemp} scale={scale} taskCardOffset={taskCardWidth} />
-      </div>
-      <div className="sticky-top sticky-left task-items-search-box">
-        <SearchBar
-          unfilteredArray={tasks}
-          searchKey={"name"}
-          setFilteredArray={setSearchedTasks}
-          className={"form-control-sm"}
-          style={{marginBottom: "10px"}}
-        />
-      </div>
-      <div
-        className="project-grid-background"
-        style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
-      />
-      <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
-        {tasks?.length > 0 && (
-          _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-            <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
-          ))
-        )}
       </div>
       <div className="sticky-top sticky-left task-items-search-box">
         <SearchBar
