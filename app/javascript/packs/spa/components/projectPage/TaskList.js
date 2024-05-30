@@ -88,26 +88,6 @@ export default function TaskList() {
         style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
       />
       <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
-        {tasks?.length > 0 && (
-          _.map(_.sortBy(searchedTasks, "start_date"), (task, index) => (
-            <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
-          ))
-        )}
-      </div>
-      <div className="sticky-top sticky-left task-items-search-box">
-        <SearchBar
-          unfilteredArray={tasks}
-          searchKey={"name"}
-          setFilteredArray={setSearchedTasks}
-          className={"form-control-sm"}
-          style={{marginBottom: "10px"}}
-        />
-      </div>
-      <div
-        className="project-grid-background"
-        style={{gridColumn: 2, gridRow: 2, ...bgFormat()}}
-      />
-      <div style={{gridColumn: "1 / span 2", gridRow: 2}}>
         {(project?.template && Object.keys(project.template).length > 0) && <div className="card sticky-left" style={{maxWidth: "85vw", width: "1075px", padding: "10px", zIndex: "1024"}}>
           {_.map(project?.template, (task, key) => (
             <div key={key}>
