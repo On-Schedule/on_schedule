@@ -13,18 +13,18 @@ class Task < ApplicationRecord
   end
 
   def daily_manpower
+    ph = respond_to?(:project_hours) ? project_hours : project.schedule["hours"]
     if working_days.positive? && hours&.positive?
-      (hours.to_f / working_days / project.schedule["hours"]).round(2)
+      (hours.to_f / working_days / ph).round(2)
     else
       0
     end
   end
 
   def working_days
+    pd = respond_to?(:project_days) ? project_days : project.schedule["days"]
     start_date.upto(end_date).count do |day|
-      project.schedule["days"].any? do |project_day|
-        day.send("#{project_day}?")
-      end
+      pd.include?(day.strftime('%A').downcase)
     end
   end
 

@@ -24,8 +24,8 @@ export default function CurrentTasksCard() {
       {searchedItem?.length != 0 ? (
         _.map(searchedItem, (task) => (
           <h4 key={task.id}>
-            <Link to={`/projects/${task.project.id}`} className="btn btn-outline-success btn-sm d-flex">
-              {task.name} ({task.project.name})
+            <Link to={`/projects/${task.project_id}`} className="btn btn-outline-success btn-sm d-flex">
+              {task.name} ({task.project_name})
             </ Link>
           </h4>
         ))

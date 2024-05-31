@@ -4,11 +4,13 @@ import users from './users';
 import project from './projects';
 import tasks from './tasks';
 import templates from './templates';
+import analytics from './analytics';
 
 export default combineReducers({
   user,
   users,
   project,
   tasks,
-  templates
+  templates,
+  analytics
 });
