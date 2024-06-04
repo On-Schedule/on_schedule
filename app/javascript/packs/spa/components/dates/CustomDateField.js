@@ -1,7 +1,7 @@
 import React, { createRef, useContext, useEffect, useState } from "react";
 import { DateTime } from "luxon";
-import { StartDateContext, EndDateContext } from "./DateUtils";
-import { func, object, string, oneOfType, shape } from "prop-types"
+import { StartDateContext, EndDateContext, DateContext } from "./DateUtils";
+import { func, object, string, oneOfType, shape, bool } from "prop-types"
 
 CustomDateField.propTypes = {
   sendDate: func,
@@ -9,10 +9,11 @@ CustomDateField.propTypes = {
   dateType: string,
   dateFieldClass: string,
   dateFieldStyle: shape({}),
+  disabled: bool
 }
 
 export default function CustomDateField(props) {
-  const {sendDate=()=>{}, receivedDate="", dateType="", dateFieldClass="", dateFieldStyle={}} = props
+  const {sendDate=()=>{}, receivedDate="", dateType="", dateFieldClass="", dateFieldStyle={}, disabled=false} = props
   const [date, setDate] = useState({month: "", day: "", year: ""})
   const day = createRef()
   const month = createRef()
@@ -24,6 +25,9 @@ export default function CustomDateField(props) {
       return {dateContext, setDateContext}
     } else if (dateType === "endDate"){
       const {endDate: dateContext, setEndDate: setDateContext} = useContext(EndDateContext)
+      return {dateContext, setDateContext}
+    } else if (dateType === "date"){
+      const {date: dateContext, setDate: setDateContext} = useContext(DateContext)
       return {dateContext, setDateContext}
     } else {
       return {dateContext: receivedDate, setDateContext: sendDate}
@@ -73,7 +77,7 @@ export default function CustomDateField(props) {
     }
   }
 
-  return <div className={`form-control form-control-sm custom-date-field ${dateFieldClass}`} style={dateFieldStyle}>
+  return <div className={`form-control form-control-sm custom-date-field ${dateFieldClass} ${disabled && "custom-date-field-disabled"}`} style={dateFieldStyle}>
     <input
       ref={month}
       className="custom-date-form-element month"
@@ -82,6 +86,7 @@ export default function CustomDateField(props) {
       onChange={setDateValue(2, "month", day)}
       value={date.month}
       onFocus={handleFocus}
+      disabled={disabled}
     />/
     <input
       ref={day}
@@ -91,6 +96,7 @@ export default function CustomDateField(props) {
       onChange={setDateValue(2, "day", year)}
       value={date.day}
       onFocus={handleFocus}
+      disabled={disabled}
     />/
     <input
       ref={year}
@@ -100,6 +106,7 @@ export default function CustomDateField(props) {
       onChange={setDateValue(4, "year", null)}
       value={date.year}
       onFocus={handleFocus}
+      disabled={disabled}
     />
   </div>
 }

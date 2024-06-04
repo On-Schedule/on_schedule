@@ -82,6 +82,11 @@
   background-color: #ffffff00;
 }
 
+.custom-date-field-disabled {
+    background-color: #ccc;
+    opacity: 1;
+}
+
 .custom-date-field .day {
   width: 1.5em
 }

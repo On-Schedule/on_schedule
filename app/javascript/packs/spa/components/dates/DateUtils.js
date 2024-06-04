@@ -1,5 +1,10 @@
 import { createContext } from "react";
 
+export const DateContext = createContext({
+  date: "",
+  setDate: ()=>{}
+})
+
 export const StartDateContext = createContext({
   startDate: "",
   setStartDate: ()=>{}

@@ -16,6 +16,7 @@ DateRangeField.propTypes = {
   label2: string,
   dateFieldClass: string,
   dateFieldStyle: shape({}),
+  disabled: bool
 };
 
 export default function DateRangeField(props) {
@@ -30,6 +31,7 @@ export default function DateRangeField(props) {
     label2 = "",
     dateFieldClass = "",
     dateFieldStyle = {},
+    disabled = false
   } = props
 
   const dateRangeRef = useRef(null);
@@ -95,7 +97,7 @@ export default function DateRangeField(props) {
               openAccordion()
               setFocus("startDate")
             }}>
-            <CustomDateField dateType={"startDate"} dateFieldClass={dateFieldClass} dateFieldStyle={dateFieldStyle} />
+            <CustomDateField dateType={"startDate"} dateFieldClass={dateFieldClass} dateFieldStyle={dateFieldStyle} disabled={disabled} />
             </div>
             {focus === "startDate" && <div className="date-selector-focus" />}
           </div>
@@ -105,14 +107,14 @@ export default function DateRangeField(props) {
               openAccordion()
               setFocus("endDate")
             }}>
-            <CustomDateField dateType={"endDate"} dateFieldClass={dateFieldClass} dateFieldStyle={dateFieldStyle} />
+            <CustomDateField dateType={"endDate"} dateFieldClass={dateFieldClass} dateFieldStyle={dateFieldStyle} disabled={disabled} />
           </div>
             {focus === "endDate" && <div className="date-selector-focus" />}
           </div>
         </div>
-        <div ref={dateRangeRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")}>
+        {!disabled && <div ref={dateRangeRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")}>
           <DateRangePicker focus={focus} setFocus={setFocus} initialDate={dateConverter(startDateValue) || dateConverter(dateRangeMin) || DateTime.now()}/>
-        </div>
+        </div>}
       </EndDateContext.Provider>
     </StartDateContext.Provider>
   </div>
