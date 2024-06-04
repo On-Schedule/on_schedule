@@ -89,7 +89,7 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
         <TaskList edit={edit} />
       </div>
       <div style={openToDos()}>
-        <ToDo />
+        <ToDo to_dos={project?.to_dos} />
       </div>
       {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}>analytics go here!</div>}
     </div>
