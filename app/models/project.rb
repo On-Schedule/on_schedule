@@ -3,7 +3,7 @@ class Project < ApplicationRecord
   has_many :project_users
   has_many :users, through: :project_users
   has_many :tasks
-
+  has_many :to_dos, as: :owner
   validates_presence_of :name, :start_date, :end_date, :schedule
   validate :start_date_before_end_date
   validate :schedule_days_and_hours_are_valid
