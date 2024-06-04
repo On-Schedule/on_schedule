@@ -3,7 +3,7 @@
   width: 100%;
   flex-direction: row;
   padding: .5em;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px - .5em);
 }
 
 .project-grid-background {
@@ -99,4 +99,31 @@
   background-color: var(--bar-color);
   margin: 5px 2px;
   height: 13px;
+}
+
+.project-tab {
+  --bg-color: #515960;
+  background-color: var(--bg-color);
+  height: calc(100% - .2em);
+  padding: .5rem !important;
+  border-radius: 5px 5px 0 0;
+  margin-top: .2em;
+}
+
+.project-tab:hover {
+  --bg-color: #272b30;
+  background-color: var(--bg-color);
+}
+
+.project-tab-wrapper {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.to-do-card {
+  margin: .5em;
+}
+
+.to-do-card:not(:first-child) {
+  margin-top: 0;
 }
