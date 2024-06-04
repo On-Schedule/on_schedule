@@ -143,7 +143,7 @@ export default function NewProjectForm({project=defaultProject}) {
   }
 
   const selectTemplate = (e) => {
-    const template = _.find(templates, {name: e.target.value})
+    const template = _.find(templates, {id: e.target.value})
     setTemplate(template)
   }
 
@@ -176,12 +176,13 @@ export default function NewProjectForm({project=defaultProject}) {
             <select className="dropdown form-select form-select-sm" onChange={selectTemplate} value={template?.name || "none"}>
               <option key="none">None</option>
               {_.map(templates, (template) => (
-              <option key={template.id}>{template.name}</option>
+                <option key={template.id} value={template.id}>{template.name}</option>
               ))}
             </select>
           </div>
         </div>
-        <div onChange={updateSchedule()}> <label className="form-label mt-4 ">Work Week</label><br/>
+        <div onChange={updateSchedule()}>
+          <label className="form-label mt-4 ">Work Week</label><br/>
           {_.map(["5x8 (M-F)", "4x10 (M-Th)", "4x10 (Tu-F)", "Custom schedule"], (preSet) => (
             <div key={preSet} className="form-check form-check-inline">
               <input
@@ -241,7 +242,11 @@ export default function NewProjectForm({project=defaultProject}) {
         </div>
       </div> : ""}
       <div className="card-body text-center">
-        <button type="button" className={`btn btn-sm ${isValid() ? "btn-outline-success border-success" : "btn-outline-danger"}`} onClick={saveProject()} disabled={!isValid()}>Save</button>
+        <button
+          type="button"
+          className={`btn btn-sm ${isValid() ? "btn-outline-success border-success" : "btn-outline-danger"}`}
+          onClick={saveProject()}
+          disabled={!isValid()}>Save</button>
       </div>
     </form>
   </div>

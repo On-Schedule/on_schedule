@@ -8,7 +8,7 @@ import Tooltip from "../common/Tooltip";
 
 export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style, templateKey="", labels=true}) {
   const {name, start_date, end_date, hours, description, cost_code, responsibility, project_id} = task
-  const defaltDetails = {
+  const defaultDetails = {
     project_id: project_id || project?.id || projectID,
     name: name || "",
     start_date: start_date || "",
@@ -21,14 +21,14 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
 
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
-  const [details, setDetails] = useState(defaltDetails)
+  const [details, setDetails] = useState(defaultDetails)
   const [nameTooltip, setNameTooltip] = useState(false)
   const [datesTooltip, setDatesTooltip] = useState(false)
   const [hoursTooltip, setHoursTooltip] = useState(false)
   const [costCodeTooltip, setCostCodeTooltip] = useState(false)
 
   useEffect(() => {
-    setDetails(defaltDetails)
+    setDetails(defaultDetails)
   }, [project])
 
   const updateDetail = (field) => (e) => {
@@ -50,7 +50,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
       setEdit(false)
     } else {
       await dispatch(newTask(details, project.id, templateKey));
-      setDetails(defaltDetails)
+      setDetails(defaultDetails)
     }
   }
 

@@ -7,7 +7,7 @@ import { DateTime } from "luxon";
 
 export default function NewTaskForm({task={}, setEdit=()=>{}, projectID, style}) {
   const {name, start_date, end_date, hours, description, cost_code, responsibility, project_id} = task
-  const defaltDetails = {
+  const defaultDetails = {
     project_id: project_id || project?.id || projectID,
     name: name || "",
     start_date: start_date || "",
@@ -20,10 +20,10 @@ export default function NewTaskForm({task={}, setEdit=()=>{}, projectID, style})
 
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
-  const [details, setDetails] = useState(defaltDetails)
+  const [details, setDetails] = useState(defaultDetails)
 
   useEffect(() => {
-    setDetails(defaltDetails)
+    setDetails(defaultDetails)
   }, [project])
 
   const updateDetail = (field) => (e) => {
@@ -45,7 +45,7 @@ export default function NewTaskForm({task={}, setEdit=()=>{}, projectID, style})
       setEdit(false)
     } else {
       await dispatch(newTask(details, project.id));
-      setDetails(defaltDetails)
+      setDetails(defaultDetails)
     }
   }
 
