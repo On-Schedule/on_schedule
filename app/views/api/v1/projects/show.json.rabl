@@ -7,3 +7,7 @@ node :duration, &:duration
 child :users do
   attributes :id, :full_name
 end
+
+node :to_dos do |project|
+  project.to_dos.by_status
+end
