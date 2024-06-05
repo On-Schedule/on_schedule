@@ -4,10 +4,8 @@ class Api::V1::ToDosController < ApplicationController
   def create
     @to_do = ToDo.new(to_do_params)
 
-    if @to_do.save
-      if @to_do.owner_type == "Project"
-        ActionCable.server.broadcast("project_channel_#{@to_do.owner_id}", {type: :to_do, content: Rabl.render(@to_do, 'to_dos/show', format: :hash)})
-      end
+    if @to_do.save && @to_do.owner_type == "Project"
+      ActionCable.server.broadcast("project_channel_#{@to_do.owner_id}", {type: :to_do, content: Rabl.render(@to_do, 'to_dos/show', format: :hash)})
     end
   end
 
