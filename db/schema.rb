@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_01_041101) do
     t.string "title"
     t.string "description"
     t.date "due_date"
-    t.string "status"
+    t.string "status", default: "not_started"
     t.uuid "user_id"
     t.string "owner_type", null: false
     t.uuid "owner_id", null: false

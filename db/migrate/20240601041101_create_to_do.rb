@@ -4,7 +4,7 @@ class CreateToDo < ActiveRecord::Migration[7.0]
       t.string :title
       t.string :description
       t.date :due_date
-      t.string :status
+      t.string :status, default: "not_started"
       t.references :user, null: true, foreign_key: true, type: :uuid
       t.references :owner, null: false, polymorphic: true, type: :uuid
 
