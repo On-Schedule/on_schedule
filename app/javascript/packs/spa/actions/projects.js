@@ -14,6 +14,7 @@ export function getProject(project_id) {
     dispatch({type: 'project/received', project});
     if (project) {
       dispatch(getTasks(project_id))
+      dispatch({type: "toDos/received", toDos: project.to_dos})
     }
     return project;
   }
