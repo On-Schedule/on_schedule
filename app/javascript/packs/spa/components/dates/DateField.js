@@ -81,7 +81,7 @@ export default function DateField(props) {
           </div>
         </div>
       </div>
-      {disabled && <div ref={dateRangeRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")} style={{left: "1em"}} >
+      {!disabled && <div ref={dateRangeRef} className={"base-slide-out " + (accordion ? "date-picker-open" : "date-picker-closed")} style={{left: "1em"}} >
         <DatePicker initialDate={dateConverter(dateValue) || dateConverter(dateRangeMin) || DateTime.now()}/>
       </div>}
     </DateContext.Provider>

@@ -19,6 +19,21 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
     setEdit(initialEdit)
   }, [project_id]);
 
+  const handleReceived = (data) => {
+    switch (data.type) {
+      case "task":
+        dispatch({type: "task/received", task: data.content})
+        break
+      case "project":
+        dispatch({type: "project/received", project: data.content})
+        break
+      case "to_do":
+        dispatch({type: "toDo/received", toDo: data.content})
+        break
+      default:
+        break
+    }
+  }
 
   useEffect(() => {
     const newChannel = cableContext.cable.subscriptions.create(
@@ -33,20 +48,6 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
       newChannel.unsubscribe()
     }
   }, [project_id])
-
-
-  const handleReceived = (data) => {
-    switch (data.type) {
-      case "task":
-        dispatch({type: "task/received", task: data.content})
-        break
-      case "project":
-        dispatch({type: "project/received", project: data.content})
-        break
-      default:
-        break
-    }
-  }
 
   const tabColor = (pageFocus) => {
     if (page === pageFocus) {
@@ -89,7 +90,7 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
         <TaskList edit={edit} />
       </div>
       <div style={openToDos()}>
-        <ToDo to_dos={project?.to_dos} />
+        <ToDo />
       </div>
       {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}>analytics go here!</div>}
     </div>

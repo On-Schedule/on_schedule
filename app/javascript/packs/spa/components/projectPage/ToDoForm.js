@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DateField from "../dates/DateField";
+import { newToDo } from "../../actions/ToDos";
 
 export default function ToDoForm() {
+  const dispatch = useDispatch()
   const project = useSelector((state) => state.project)
   const defaultDetails = {
-    owner_type: "project",
+    owner_type: "Project",
     owner_id: project?.id,
     title: "",
     status: "not started",
     description: "",
     due_date: "",
-    responsible_user: ""
+    user_id: ""
   }
   const [details, setDetails] = useState(defaultDetails)
 
@@ -28,7 +30,7 @@ export default function ToDoForm() {
   }
 
   const setResponsibleUser = (e) => {
-    setDetails({...details, responsible_user: e.target.value})
+    setDetails({...details, user_id: e.target.value})
   }
 
   const nameExists = () => {
@@ -48,7 +50,7 @@ export default function ToDoForm() {
       return
     }
 
-    // TODO await dispatch(newToDo(details));
+    await dispatch(newToDo(details));
     setDetails(defaultDetails)
   }
 
