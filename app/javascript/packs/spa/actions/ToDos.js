@@ -5,9 +5,9 @@ export function newToDo(details) {
   }
 }
 
-export function updateToDo(details) {
+export function updateToDo(toDoID, details) {
   return async (_dispatch, _getState, api) => {
-    const {data:toDo} = await api.patch(`to_dos/${details.id}`, {"to_do": details});
+    const {data:toDo} = await api.patch(`to_dos/${toDoID}`, {"to_do": details});
     return toDo;
   }
 }

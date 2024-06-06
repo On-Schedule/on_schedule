@@ -3,7 +3,13 @@ export default function toDosReducer(state={}, action) {
     case "toDos/received":
       return action.toDos;
     case "toDo/received":
-      return {...state, [action.toDo.status]: _.uniqBy([action.toDo, ...state[action.toDo.status]], "id")};
+      return _.mapValues(state, (value, key) => {
+        if (key != action.toDo.status) {
+          return _.filter(value, (item) => {return item.id != action.toDo.id})
+        } else {
+          return _.uniqBy([action.toDo, ...value], "id")
+        }
+      })
     default:
       return state;
   }
