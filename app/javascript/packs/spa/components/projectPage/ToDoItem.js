@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DateTime } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
@@ -11,8 +11,21 @@ export default function ToDoItem({toDo}) {
   const dueDate = DateTime.fromISO(due_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   const [dropDown, setDropDown] = useState(false)
 
+  const getUsers = () => {
+    if (toDo.owner_type === "Project") {
+      return useSelector((state) => state.project?.users)
+    } else {
+      return [useSelector((state) => state.user)]
+    }
+  }
+  const users = getUsers()
+
   const changeStatus = (status) => {
     dispatch(updateToDo(toDo.id, {status: status}))
+  }
+
+  const setResponsibleUser = (e) => {
+    dispatch(updateToDo(toDo.id, {user_id: e.target.value}))
   }
 
   return <div className="card to-do-card">
@@ -35,11 +48,11 @@ export default function ToDoItem({toDo}) {
       <div style={{paddingBottom: ".5em"}}>{description}</div>
       <div>
         {/* TODO fill in responsibility selector */}
-        Responsibility: <select className="">
-          <option> Sam Hill</option>
-          <option> Gray Woods</option>
-          <option> Jacob Seas</option>
-          <option> Alic Creek</option>
+        Responsibility: <select className="" value={toDo.user_id || ""} onChange={setResponsibleUser}>
+          <option key="none">None</option>
+            {_.map(users, (user) => (
+              <option key={user.id} value={user.id}>{user.full_name}</option>
+            ))}
         </select>
       </div>
     </div>
