@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DateField from "../dates/DateField";
 import { newToDo } from "../../actions/ToDos";
@@ -17,20 +17,16 @@ export default function ToDoForm() {
   }
   const [details, setDetails] = useState(defaultDetails)
 
-  const setTitle = (e) => {
-    setDetails({...details, title: e.target.value})
+  useEffect(() => {
+    setDetails(defaultDetails)
+  }, [project])
+
+  const updateDetail = (field) => (e) => {
+    setDetails({...details, [field]: e.target.value})
   }
 
   const setDueDate = (date) => {
     setDetails({...details, due_date: date})
-  }
-
-  const setDescription = (e) => {
-    setDetails({...details, description: e.target.value})
-  }
-
-  const setResponsibleUser = (e) => {
-    setDetails({...details, user_id: e.target.value})
   }
 
   const nameExists = () => {
@@ -62,7 +58,7 @@ export default function ToDoForm() {
         name="title"
         value={details.title}
         placeholder="New To Do Title"
-        onChange={setTitle}
+        onChange={updateDetail("title")}
       />
     </div>
     <div className="base-slide-out" style={nameExists() ? {maxHeight: "500px"} : {maxHeight: "0"}}>
@@ -78,12 +74,12 @@ export default function ToDoForm() {
             name="description"
             value={details.description}
             placeholder="Description"
-            onChange={setDescription}
+            onChange={updateDetail("description")}
           />
         </div>
         <span>Responsibility: </span>
         <div className="list-inline-item" style={{paddingBottom: ".5em"}}>
-          <select disabled={!nameExists()} className="dropdown form-select form-select-sm" value={details.user_id} onChange={setResponsibleUser}>
+          <select disabled={!nameExists()} className="dropdown form-select form-select-sm" value={details.user_id} onChange={updateDetail("user_id")}>
             <option key="none">None</option>
             {_.map(project?.users, (user) => (
               <option key={user.id} value={user.id}>{user.full_name}</option>
