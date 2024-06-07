@@ -10,7 +10,8 @@ class ToDo < ApplicationRecord
     }
 
     select(:status).group(:status).each do |to_do|
-      to_dos[to_do.status.capitalize] = where(status: to_do.status)
+      @to_dos = where(status: to_do.status)
+      to_dos[to_do.status.capitalize] = Rabl.render(@to_dos, 'to_dos/index', format: :hash)
     end
 
     to_dos
