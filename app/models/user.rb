@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :project_users
   has_many :projects, through: :project_users
   has_many :tasks, through: :projects
+  has_many :to_dos, as: :owner
   validates_presence_of :first_name, :last_name
 
   def full_name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_23_043659) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_01_041101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -66,6 +66,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_23_043659) do
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
+  create_table "to_dos", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.date "due_date"
+    t.string "status", default: "not_started"
+    t.uuid "user_id"
+    t.string "owner_type", null: false
+    t.uuid "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_to_dos_on_owner"
+    t.index ["user_id"], name: "index_to_dos_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -88,5 +102,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_23_043659) do
   add_foreign_key "project_users", "users"
   add_foreign_key "projects", "companies"
   add_foreign_key "tasks", "projects"
+  add_foreign_key "to_dos", "users"
   add_foreign_key "users", "companies"
 end

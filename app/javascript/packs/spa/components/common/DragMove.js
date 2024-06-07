@@ -61,3 +61,24 @@ export default function DragMove(props) {
     </div>
   );
 }
+
+// const [translate, setTranslate] = useState({
+//   x: 0,
+//   y: 0
+// });
+
+// const handleDragMove = (e) => {
+//   setTranslate({
+//     x: translate.x + e.movementX,
+//     y: translate.y + e.movementY
+//   });
+// };
+
+// <DragMove onDragMove={handleDragMove}>
+//   <div
+//     style={{
+//       transform: `translateX(${translate.x}px) translateY(${translate.y}px)`
+//     }}
+//   >
+//   </div>
+// </DragMove>

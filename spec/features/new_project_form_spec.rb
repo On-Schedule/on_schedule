@@ -39,7 +39,7 @@ describe "New Project Form", :js do
     expect(page).to have_button('Save')
 
     click_button("Save")
-    expect(page).to have_content("Glacier park Schedule")
+    expect(page).to have_content("Glacier park")
 
     project = Project.select(:id).find_by(name: "Glacier park")
     expect(page).to have_current_path("/projects/#{project.id}")
@@ -65,7 +65,7 @@ describe "New Project Form", :js do
     it "uses prebuilt 5x8 (M-F) by default" do
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
 
       project = Project.select(:schedule).find_by(name: "Glacier park")
       expect(project.schedule).to eq({"days" => ["monday", "tuesday", "wednesday", "thursday", "friday"], "hours" => 8})
@@ -75,7 +75,7 @@ describe "New Project Form", :js do
       choose("4x10 (M-Th)")
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
 
       project = Project.select(:schedule).find_by(name: "Glacier park")
       expect(project.schedule).to eq({"days" => ["monday", "tuesday", "wednesday", "thursday"], "hours" => 10})
@@ -85,7 +85,7 @@ describe "New Project Form", :js do
       choose("4x10 (Tu-F)")
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
 
       project = Project.select(:schedule).find_by(name: "Glacier park")
       expect(project.schedule).to eq({"days" => ["tuesday", "wednesday", "thursday", "friday"], "hours" => 10})
@@ -105,7 +105,7 @@ describe "New Project Form", :js do
       fill_in "hours", with: 10
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
 
       project = Project.select(:schedule).find_by(name: "Glacier park")
       expect(project.schedule).to eq({"days" => ["wednesday", "friday", "sunday"], "hours" => 20})
@@ -159,7 +159,7 @@ describe "New Project Form", :js do
     it "adds current user as a full user by default" do
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
       project_user = Project.find_by(name: "Glacier park").project_users.first
 
       expect(project_user.user).to eq(user)
@@ -175,7 +175,7 @@ describe "New Project Form", :js do
       click_button alice.full_name
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
       users = Project.find_by(name: "Glacier park").users
 
       expect(users).to eq([user, alice])
@@ -191,7 +191,7 @@ describe "New Project Form", :js do
 
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
       project = Project.find_by(name: "Glacier park")
       users = project.users
 
@@ -213,7 +213,7 @@ describe "New Project Form", :js do
 
       click_button("Save")
 
-      expect(page).to have_content("Glacier park Schedule")
+      expect(page).to have_content("Glacier park")
       project = Project.find_by(name: "Glacier park")
       users = project.users
 

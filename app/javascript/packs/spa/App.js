@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from 'actions/user'
@@ -43,7 +43,7 @@ function App() {
                   onMouseLeave={() => {setOpen(false)}}
                 >
                   <a className="nav-link dropdown">Projects</a>
-                  {open ? <div className="dropdown-menu" >
+                  {open ? <div className="dropdown-menu" style={{zIndex: "3000"}}>
                     <div className="card-body" style={{margin: "0px 10px"}} >
                       {_.map(user?.projects, (project, index) => (
                         <Link to={`/projects/${project.id}`} className="btn btn-outline-info btn-sm d-flex" key={index} >{project.name}</Link>
@@ -74,6 +74,10 @@ function App() {
         <Route index element={<UserDashboard />} />
         <Route path="/projects/new" element={<NewProjectForm />} />
         <Route path="/projects/:id" element={<ProjectPage />} />
+        <Route path="/projects/:id/schedule" element={<ProjectPage page="schedule" />} />
+        <Route path="/projects/:id/to-dos" element={<ProjectPage page="to-dos" />} />
+        <Route path="/projects/:id/analytics" element={<ProjectPage page="analytics" />} />
+        <Route path="/projects/:id/settings" element={<ProjectPage page="settings" />} />
         <Route path="/company/admin" element={<CompanyAdminPage />} />
       </Routes>
     </div>

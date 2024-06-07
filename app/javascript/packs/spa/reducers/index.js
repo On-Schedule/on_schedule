@@ -5,6 +5,7 @@ import project from './projects';
 import tasks from './tasks';
 import templates from './templates';
 import analytics from './analytics';
+import toDos from './toDos';
 
 export default combineReducers({
   user,
@@ -12,5 +13,6 @@ export default combineReducers({
   project,
   tasks,
   templates,
-  analytics
+  analytics,
+  toDos
 });

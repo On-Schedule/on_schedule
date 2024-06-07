@@ -3,7 +3,7 @@
   width: 100%;
   flex-direction: row;
   padding: .5em;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 50px - .5em);
 }
 
 .project-grid-background {
@@ -99,4 +99,86 @@
   background-color: var(--bar-color);
   margin: 5px 2px;
   height: 13px;
+}
+
+.project-tab {
+  --bg-color: #515960;
+  background-color: var(--bg-color);
+  height: calc(100% - .2em);
+  padding: .5rem !important;
+  border-radius: 5px 5px 0 0;
+  margin-top: .2em;
+}
+
+.project-tab:hover {
+  --bg-color: #272b30;
+  background-color: var(--bg-color);
+}
+
+.project-tab-wrapper {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.to-do-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  height: 100%;
+  overflow: auto;
+}
+
+.to-do-column {
+  margin: .5em;
+  background-color: var(--bs-dark);
+  flex-grow: 1;
+  flex-basis: 20%;
+  min-width: 365px;
+}
+
+.to-do-column-inner {
+  overflow-x: auto;
+  overflow-y: visible;
+  min-height: 75%;
+}
+
+.to-do-card {
+  margin: .5em;
+}
+
+.to-do-card:not(:first-child) {
+  margin-top: 0;
+}
+
+.to-do-status-dropdown-wrapper {
+  position: absolute;
+  background-color: var(--bs-gray-700);
+  min-width: 100px;
+  right: 1em;
+  border-radius: 5px;
+  z-index: 50;
+  padding: .5em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.to-do-status-dropdown-header {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 10pt;
+  padding: 0 .25em;
+  border-bottom: 1px solid var(--bs-gray-400)
+}
+
+.to-do-status-dropdown {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 10pt;
+  padding: 0 .25em;
+}
+
+.to-do-status-dropdown:hover {
+  background-color: var(--bs-gray-800);
 }

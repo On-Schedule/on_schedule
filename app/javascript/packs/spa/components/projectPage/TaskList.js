@@ -68,7 +68,7 @@ export default function TaskList({edit=false}) {
     setSearchedTasks(tasks)
   }, [tasks])
 
-  return <div className="schedule-wrapper" style={{"--add-task-form": edit && "142px"}}>
+  return <div style={{height: "100%"}}>
     <div ref={scrollElementRef} className="schedule-body grid" style={mainGridTemplate}>
       <DragScroll scrollElementRef={scrollElementRef} style={{gridColumn: "2", gridRow: "2", zIndex: "600"}} />
       <div className="sticky-top date-bar-bg" style={{gridColumn: 2, gridRow: 1, zIndex: "1025"}}>
