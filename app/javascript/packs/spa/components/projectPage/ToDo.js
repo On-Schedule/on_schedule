@@ -10,7 +10,7 @@ export default function ToDo() {
     {_.map(toDos, (toDoGroup, key) => (
       <div key={key} className="card" style={{margin: ".5em", backgroundColor: "var(--bs-dark)", flexGrow: "1", flexBasis: "20%", minWidth: "365px"}}>
         <div className="card-header" >{key}</div>
-        <div style={{overflowX: "auto", overflowY: "visible"}}>
+        <div style={{overflowX: "auto", overflowY: "visible", minHeight: "75%"}}>
           {key === "Not started" && <ToDoForm />}
             {_.map(toDoGroup, (toDo) => (
               <div key={toDo.id}>

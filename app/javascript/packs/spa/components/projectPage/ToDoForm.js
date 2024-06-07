@@ -83,7 +83,7 @@ export default function ToDoForm() {
         </div>
         <span>Responsibility: </span>
         <div className="list-inline-item" style={{paddingBottom: ".5em"}}>
-          <select disabled={!nameExists()} className="dropdown form-select form-select-sm" value={details.responsible_user} onChange={setResponsibleUser}>
+          <select disabled={!nameExists()} className="dropdown form-select form-select-sm" value={details.user_id} onChange={setResponsibleUser}>
             <option key="none">None</option>
             {_.map(project?.users, (user) => (
               <option key={user.id} value={user.id}>{user.full_name}</option>

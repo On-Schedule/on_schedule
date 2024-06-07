@@ -47,7 +47,6 @@ export default function ToDoItem({toDo}) {
       <div style={{paddingBottom: ".5em"}}>Due by: {dueDate}</div>
       <div style={{paddingBottom: ".5em"}}>{description}</div>
       <div>
-        {/* TODO fill in responsibility selector */}
         Responsibility: <select className="" value={toDo.user_id || ""} onChange={setResponsibleUser}>
           <option key="none">None</option>
             {_.map(users, (user) => (
