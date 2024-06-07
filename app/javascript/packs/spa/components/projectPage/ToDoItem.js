@@ -32,14 +32,14 @@ export default function ToDoItem({toDo}) {
     <div className="card-header" style={{display: "flex"}}>
       <div>{title}</div>
       <div onMouseEnter={() => {setDropDown(true)}} onMouseLeave={() => {setDropDown(false)}} style={{marginLeft: "auto"}}>
-        <div style={{padding: " 0 .5em", backgroundColor: "var(--bs-gray-800)", borderRadius: "5px"}}>
+        <div className="options-button">
           <FontAwesomeIcon icon={faEllipsis} />
         </div>
-        {dropDown && <div style={{position: "absolute", backgroundColor: "var(--bs-gray-700)", minWidth: "100px", right: "1em", borderRadius: "5px", zIndex: "50", padding: ".5em", display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
-          <div style={{fontVariant: "small-caps", fontWeight: "bold", fontSize: "10pt", borderBottom: "1px solid var(--bs-gray-400)"}}>change status</div>
-          <div style={{fontVariant: "small-caps", fontWeight: "bold", fontSize: "10pt"}} onClick={() => {changeStatus("not started")}}>not started</div>
-          <div style={{fontVariant: "small-caps", fontWeight: "bold", fontSize: "10pt"}} onClick={() => {changeStatus("in process")}}>in process</div>
-          <div style={{fontVariant: "small-caps", fontWeight: "bold", fontSize: "10pt"}} onClick={() => {changeStatus("completed")}}>completed</div>
+        {dropDown && <div className="to-do-status-dropdown-wrapper">
+          <div className="to-do-status-dropdown-header">change status</div>
+          <div className="to-do-status-dropdown" onClick={() => {changeStatus("not started")}}>not started</div>
+          <div className="to-do-status-dropdown" onClick={() => {changeStatus("in process")}}>in process</div>
+          <div className="to-do-status-dropdown" onClick={() => {changeStatus("completed")}}>completed</div>
         </div>}
       </div>
     </div>

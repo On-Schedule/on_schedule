@@ -103,6 +103,12 @@
   border-color: var(--border-color) !important;
 }
 
+.options-button {
+  padding: " 0 .5em";
+  background-color: "var(--bs-gray-800)";
+  border-radius: "5px";
+}
+
 /* boot strap changes (in case of style change) */
 
 /* #### Modified #### */
