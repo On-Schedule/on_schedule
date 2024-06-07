@@ -77,6 +77,7 @@ function App() {
         <Route path="/projects/:id/schedule" element={<ProjectPage page="schedule" />} />
         <Route path="/projects/:id/to-dos" element={<ProjectPage page="to-dos" />} />
         <Route path="/projects/:id/analytics" element={<ProjectPage page="analytics" />} />
+        <Route path="/projects/:id/settings" element={<ProjectPage page="settings" />} />
         <Route path="/company/admin" element={<CompanyAdminPage />} />
       </Routes>
     </div>

@@ -80,6 +80,7 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
           <Link to={`/projects/${project?.id}/schedule`} className="project-tab-wrapper"><div className="project-tab" style={tabColor("schedule")} >Schedule</div></Link>
           <Link to={`/projects/${project?.id}/to-dos`} className="project-tab-wrapper"><div className="project-tab" style={tabColor("to-dos")} >To-dos</div></Link>
           <Link to={`/projects/${project?.id}/analytics`} className="project-tab-wrapper"><div className="project-tab" style={tabColor("analytics")} >Analytics</div></Link>
+          <Link to={`/projects/${project?.id}/settings`} className="project-tab-wrapper"><div className="project-tab" style={tabColor("settings")} >Settings</div></Link>
         <span className="form-check form-switch" style={{marginLeft: "auto"}}>
           <input className="form-check-input" type="checkbox" onClick={() => {setEdit(!edit)}}/>
           <label className="form-check-label">Edit</label>
@@ -93,6 +94,7 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
         <ToDo />
       </div>
       {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}>analytics go here!</div>}
+      {page === "settings" && <div style={{width: "calc(100vw - 1.5em)"}}>settings go here!</div>}
     </div>
   </div>
 }
