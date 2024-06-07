@@ -120,6 +120,29 @@
   text-decoration: none !important;
 }
 
+.to-do-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: row;
+  height: 100%;
+  overflow: auto;
+}
+
+.to-do-column {
+  margin: .5em;
+  background-color: var(--bs-dark);
+  flex-grow: 1;
+  flex-basis: 20%;
+  min-width: 365px;
+}
+
+.to-do-column-inner {
+  overflow-x: auto;
+  overflow-y: visible;
+  min-height: 75%;
+}
+
 .to-do-card {
   margin: .5em;
 }

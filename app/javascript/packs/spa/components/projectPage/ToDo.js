@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 export default function ToDo() {
   const toDos = useSelector((state) => state.toDos)
 
-  return <div style={{width: "100%", display: "flex", alignItems: "stretch", flexDirection: "row", height: "100%", overflow: "auto"}}>
+  return <div className="to-do-wrapper">
     {_.map(toDos, (toDoGroup, key) => (
-      <div key={key} className="card" style={{margin: ".5em", backgroundColor: "var(--bs-dark)", flexGrow: "1", flexBasis: "20%", minWidth: "365px"}}>
+      <div key={key} className="card to-do-column">
         <div className="card-header" >{key}</div>
-        <div style={{overflowX: "auto", overflowY: "visible", minHeight: "75%"}}>
+        <div className="to-do-column-inner">
           {key === "Not started" && <ToDoForm />}
             {_.map(toDoGroup, (toDo) => (
               <div key={toDo.id}>
