@@ -38,7 +38,7 @@ export default function NewProjectForm({project=defaultProject}) {
   const [template, setTemplate] = useState("")
 
   const updateDetail = (field) => (e) => {
-    setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
+    setDetails({...details, [field]: e.target.value})
   }
 
   useEffect(() => {

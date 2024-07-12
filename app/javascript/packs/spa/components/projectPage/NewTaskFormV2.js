@@ -32,7 +32,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
   }, [project])
 
   const updateDetail = (field) => (e) => {
-    setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
+    setDetails({...details, [field]: e.target.value})
   }
 
   const updateDates = (dates) => {
