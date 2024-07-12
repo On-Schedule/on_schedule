@@ -97,7 +97,7 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
       <div style={openToDos()}>
         <ToDo />
       </div>
-      {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}>analytics go here!</div>}
+      {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}><AnalyticsPage/> </div>}
       {page === "settings" && <div style={{width: "calc(100vw - 1.5em)"}}>settings go here!</div>}
     </div>
   </div>
