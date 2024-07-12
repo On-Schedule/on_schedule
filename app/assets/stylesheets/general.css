@@ -109,6 +109,18 @@
   border-radius: 5px;
 }
 
+.trash-can {
+  color: #ee5f5b
+}
+
+.trash-can:hover {
+  color: #762c2a
+}
+
+.exit-modal:hover {
+  color: var(--bs-dark)
+}
+
 /* boot strap changes (in case of style change) */
 
 /* #### Modified #### */

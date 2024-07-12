@@ -14,6 +14,13 @@ export function updateTask(details, projectID, taskID) {
   }
 }
 
+export function deleteTask(projectID, taskID) {
+  return async (_dispatch, _getState, api) => {
+    const {data:task} = await api.delete(`projects/${projectID}/tasks/${taskID}`);
+    return task;
+  }
+}
+
 export function getTasks(projectID) {
   return async (dispatch, _getState, api) => {
     const {data:tasks} = await api.get(`projects/${projectID}/tasks`);

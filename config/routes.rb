@@ -13,7 +13,7 @@ Rails.application.routes.draw do
         resources :users, only: [:index]
       end
       resources :projects, only: [:create, :show] do
-        resources :tasks, only: [:index, :create, :update]
+        resources :tasks, only: [:index, :create, :update, :destroy]
       end
       resources :to_dos, only: [:create, :update]
       get "analytics/week_overview", to: "analytics#week_overview"

@@ -1,5 +1,5 @@
 import React, { forwardRef } from "react";
-import { func, element, shape, string } from 'prop-types';
+import { func, element, shape, string, array, oneOfType } from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from '@fortawesome/free-solid-svg-icons'
 
@@ -15,7 +15,7 @@ const Modal = forwardRef(function Modal(props, ref) {
   return <div ref={ref} className={`${className} card modal`} style={style}>
     <div className="card-header" style={{display: "flex"}}>
       {headerText}
-      <span style={{marginLeft: "auto"}} onClick={closeModal}>
+      <span className="exit-modal" style={{marginLeft: "auto"}} onClick={closeModal}>
         <FontAwesomeIcon icon={faX} />
       </span>
     </div>
@@ -28,7 +28,7 @@ const Modal = forwardRef(function Modal(props, ref) {
 Modal.propTypes = {
   className: string,
   style: shape({}),
-  children: element,
+  children: oneOfType([element, array]),
   closeModal: func.isRequired,
   headerText: string
 };

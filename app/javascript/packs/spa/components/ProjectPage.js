@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import { getProject } from 'actions/projects'
 import { CableContext } from '../context/cable';
 import ToDo from './projectPage/ToDo';
+import AnalyticsPage from './projectPage/analyticsPage/AnalyticsPage';
 
 export default function ProjectPage({initialEdit=false, page="schedule"}) {
   const cableContext = useContext(CableContext)
@@ -23,6 +24,9 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
     switch (data.type) {
       case "task":
         dispatch({type: "task/received", task: data.content})
+        break
+      case "task_deleted":
+        dispatch({type: "task/deleted", task: data.content})
         break
       case "project":
         dispatch({type: "project/received", project: data.content})
