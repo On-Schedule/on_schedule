@@ -123,7 +123,7 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
       closeModal={closeEditModal}
       ref={modalRef}
     >
-      <div className="trash-can" style={{position: "fixed", top: "5px", right: "40px"}} onClick={() => {setDeleteItemModal(true)}}><FontAwesomeIcon icon={faTrashCan}/></div>
+      <div className="trash-can" style={{position: "fixed", top: "7px", right: "40px"}} onClick={() => {setDeleteItemModal(true)}}><FontAwesomeIcon icon={faTrashCan}/></div>
       <NewTaskForm task={task} setEdit={setEdit}/>
     </Modal>}
 
@@ -132,6 +132,7 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
       headerText={`Delete ${task.name}?`}
       closeModal={closeDeleteModal}
       ref={modalRef}
+      requiredModal={true}
     >
       <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
         <div>Are you sure you want to delete this task?</div>
