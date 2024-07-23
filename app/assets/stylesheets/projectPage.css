@@ -168,7 +168,6 @@
   font-variant: small-caps;
   font-weight: bold;
   font-size: 10pt;
-  padding: 0 .25em;
   border-bottom: 1px solid var(--bs-gray-400)
 }
 
@@ -176,7 +175,7 @@
   font-variant: small-caps;
   font-weight: bold;
   font-size: 10pt;
-  padding: 0 .25em;
+  padding: 0 .40em;
 }
 
 .to-do-status-dropdown:hover {
