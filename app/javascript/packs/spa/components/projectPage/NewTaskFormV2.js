@@ -146,7 +146,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
     return true
   }
 
-  const buttonStyle = () => {
+  const saveButtonStyle = () => {
     if (!isValid()) {
       return "btn-outline-danger"
     } else if (!noWarnings()) {
@@ -289,7 +289,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
       <div className="list-inline-item task-form-element" style={{maxWidth: "10em", "--base-width": `${task.id ? "7em" : "3.1"}`, display: "flex"}}>
         <button
           type="button"
-          className={`btn btn-sm ${buttonStyle()}`}
+          className={`btn btn-sm ${saveButtonStyle()}`}
           style={{flexBasis: "1", flexGrow: "1", marginTop: ".5em"}}
           onClick={saveTask()}
           disabled={!isValid()}
