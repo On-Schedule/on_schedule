@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { DateTime } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { updateToDo } from "../../actions/ToDos";
+import { deleteToDo, updateToDo } from "../../actions/ToDos";
+import Modal from "../common/Modal";
 
 export default function ToDoItem({toDo}) {
   const dispatch = useDispatch()
+  const [deleteItemModal, setDeleteItemModal] = useState(false)
   const {title, due_date, description} = toDo
   const dueDate = DateTime.fromISO(due_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   const [dropDown, setDropDown] = useState(false)
@@ -28,6 +30,17 @@ export default function ToDoItem({toDo}) {
     dispatch(updateToDo(toDo.id, {user_id: e.target.value}))
   }
 
+  const closeDeleteModal = () => {
+    setDeleteItemModal(false)
+  }
+
+  const deleteItem = () => async () => {
+    if (toDo.id) {
+      await dispatch(deleteToDo(toDo.id));
+      setDeleteItemModal(false)
+    }
+  }
+
   return <div className="card to-do-card">
     <div className="card-header" style={{display: "flex"}}>
       <div>{title}</div>
@@ -40,6 +53,8 @@ export default function ToDoItem({toDo}) {
           <div className="to-do-status-dropdown" onClick={() => {changeStatus("not started")}}>not started</div>
           <div className="to-do-status-dropdown" onClick={() => {changeStatus("in process")}}>in process</div>
           <div className="to-do-status-dropdown" onClick={() => {changeStatus("completed")}}>completed</div>
+          <div className="to-do-status-dropdown-header">other actions</div>
+          <div className="to-do-status-dropdown" onClick={() => {setDeleteItemModal(true)}} >delete</div>
         </div>}
       </div>
     </div>
@@ -55,5 +70,21 @@ export default function ToDoItem({toDo}) {
         </select>
       </div>
     </div>
+
+    {deleteItemModal && <Modal
+      className="delete-item-modal"
+      headerText={`Delete ${toDo.title}?`}
+      closeModal={closeDeleteModal}
+      requiredModal={true}
+    >
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <div>Are you sure you want to delete this to-do?</div>
+        <div>This action cannot be undone.</div>
+        <div style={{paddingTop: "10px"}}>
+          <button className="btn btn-sm btn-outline-danger"  onClick={deleteItem()}>Yes (delete)</button>
+          <button className="btn btn-sm btn-outline-light"  onClick={() => {setDeleteItemModal(false)}}>Cancel</button>
+        </div>
+      </div>
+    </Modal>}
   </div>
 }

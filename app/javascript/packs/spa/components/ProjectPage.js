@@ -34,6 +34,9 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
       case "to_do":
         dispatch({type: "toDo/received", toDo: data.content})
         break
+      case "to_do_deleted":
+        dispatch({type: "toDo/deleted", toDo: data.content})
+        break
       default:
         break
     }

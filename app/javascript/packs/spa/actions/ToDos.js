@@ -11,3 +11,10 @@ export function updateToDo(toDoID, details) {
     return toDo;
   }
 }
+
+export function deleteToDo(toDoID) {
+  return async (_dispatch, _getState, api) => {
+    const {data:toDo} = await api.delete(`to_dos/${toDoID}`);
+    return toDo;
+  }
+}
