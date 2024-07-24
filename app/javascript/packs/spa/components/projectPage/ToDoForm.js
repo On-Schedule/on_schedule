@@ -50,6 +50,14 @@ export default function ToDoForm() {
     setDetails(defaultDetails)
   }
 
+  const saveButtonStyle = () => {
+    if (!isValid()) {
+      return "btn-outline-danger"
+    } else {
+      return "btn-outline-success border-success"
+    }
+  }
+
   return <div className="card to-do-card">
     <div className="card-header" style={nameExists() ? {} : {borderRadius: "var(--bs-card-inner-border-radius)"}}>
       <input
@@ -86,8 +94,16 @@ export default function ToDoForm() {
             ))}
           </select>
         </div>
-        <div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
-          <button disabled={!isValid()} className="btn btn-sm btn-outline-success border-success" onClick={saveToDo()}>Save</button>
+        <div style={{display: "flex", justifyContent: "center", flexDirection: "row", gap: "5px"}}>
+          <button
+            disabled={!isValid()}
+            className={`btn btn-sm ${saveButtonStyle()}`}
+            onClick={saveToDo()}
+          > Save </button>
+          <button
+            className="btn btn-sm btn-outline-light"
+            onClick={()=>{setDetails(defaultDetails)}}
+          > Cancel </button>
         </div>
       </div>}
     </div>
