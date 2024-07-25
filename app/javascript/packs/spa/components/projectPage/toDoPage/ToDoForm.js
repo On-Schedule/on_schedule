@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DateField from "../../dates/DateField";
+import DateField from "../../common/dates/DateField";
 import { newToDo, updateToDo } from "../../../actions/ToDos";
 
 export default function ToDoForm({cancelAction=()=>{}, toDo={}}) {

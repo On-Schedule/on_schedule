@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newProject } from 'actions/projects'
 import AddUsersFormSection from './newProjectForm/AddUsersFormSection';
-import DateRangeField from './dates/DateRangeField';
+import DateRangeField from './common/dates/DateRangeField';
 import { getTemplates } from '../actions/templates';
 
 const fiveEights = {
