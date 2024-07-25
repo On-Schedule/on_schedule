@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { DateTime } from "luxon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { deleteToDo, updateToDo } from "../../actions/ToDos";
-import Modal from "../common/Modal";
+import { deleteToDo, updateToDo } from "../../../actions/ToDos";
+import Modal from "../../common/Modal";
 import ToDoForm from "./ToDoForm";
 
 export default function ToDoItem({toDo}) {

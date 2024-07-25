@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { newTask, updateTask } from 'actions/tasks'
-import DateRangeField from "../dates/DateRangeField";
+import DateRangeField from "../../dates/DateRangeField";
 import { DateTime } from "luxon";
-import Tooltip from "../common/Tooltip";
+import Tooltip from "../../common/Tooltip";
 
 export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style, templateKey="", labels=true}) {
   const {name, start_date, end_date, hours, description, cost_code, responsibility, project_id} = task

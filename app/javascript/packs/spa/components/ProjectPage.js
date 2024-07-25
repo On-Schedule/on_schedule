@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import TaskList from './projectPage/TaskList';
-import NewTaskForm from './projectPage/NewTaskForm';
+import TaskList from './projectPage/schedulePage/TaskList';
+import NewTaskForm from './projectPage/schedulePage/NewTaskForm';
 import { Link, useParams } from 'react-router-dom';
 import { getProject } from 'actions/projects'
 import { CableContext } from '../context/cable';
-import ToDo from './projectPage/ToDo';
+import ToDo from './projectPage/toDoPage/ToDo';
 import AnalyticsPage from './projectPage/analyticsPage/AnalyticsPage';
 
 export default function ProjectPage({initialEdit=false, page="schedule"}) {

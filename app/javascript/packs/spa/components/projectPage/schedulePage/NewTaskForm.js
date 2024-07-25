@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { newTask, updateTask } from 'actions/tasks'
-import DateRangeField from "../dates/DateRangeField";
+import DateRangeField from "../../dates/DateRangeField";
 import { DateTime } from "luxon";
 
 export default function NewTaskForm({task={}, setEdit=()=>{}, projectID, style}) {

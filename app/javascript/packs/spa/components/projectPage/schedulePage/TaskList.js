@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 import { DateTime } from "luxon"
-import SearchBar from '../common/SearchBar';
-import DragScroll from "../common/DragScroll";
+import SearchBar from '../../common/SearchBar';
+import DragScroll from "../../common/DragScroll";
 import TaskItem from "./TaskItem";
 import NewTaskFormV2 from "./NewTaskFormV2";
 

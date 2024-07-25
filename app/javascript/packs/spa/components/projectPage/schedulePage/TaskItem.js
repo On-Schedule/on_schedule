@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { DateTime } from "luxon";
 import NewTaskForm from "./NewTaskForm";
-import Modal from "../common/Modal";
+import Modal from "../../common/Modal";
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../../actions/tasks";
+import { deleteTask } from "../../../actions/tasks";
 
 export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidth}) {
   const dispatch = useDispatch()
