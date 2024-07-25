@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DateField from "../dates/DateField";
-import { newToDo } from "../../actions/ToDos";
+import { newToDo, updateToDo } from "../../actions/ToDos";
 
-export default function ToDoForm() {
+export default function ToDoForm({cancelAction=()=>{}, toDo={}}) {
   const dispatch = useDispatch()
   const project = useSelector((state) => state.project)
   const defaultDetails = {
@@ -18,7 +18,11 @@ export default function ToDoForm() {
   const [details, setDetails] = useState(defaultDetails)
 
   useEffect(() => {
-    setDetails(defaultDetails)
+    if(!toDo){
+      setDetails(defaultDetails)
+    } else {
+      setDetails({...defaultDetails, ..._.omitBy(toDo, _.isNull)})
+    }
   }, [project])
 
   const updateDetail = (field) => (e) => {
@@ -46,8 +50,14 @@ export default function ToDoForm() {
       return
     }
 
-    await dispatch(newToDo(details));
-    setDetails(defaultDetails)
+    if(toDo.id) {
+      dispatch(updateToDo(toDo.id, details))
+      cancelAction()
+    } else {
+      await dispatch(newToDo(details));
+      setDetails(defaultDetails)
+    }
+
   }
 
   const saveButtonStyle = () => {
@@ -56,6 +66,11 @@ export default function ToDoForm() {
     } else {
       return "btn-outline-success border-success"
     }
+  }
+
+  const cancelButton = () => {
+    cancelAction()
+    setDetails(defaultDetails)
   }
 
   return <div className="card to-do-card">
@@ -102,7 +117,7 @@ export default function ToDoForm() {
           > Save </button>
           <button
             className="btn btn-sm btn-outline-light"
-            onClick={()=>{setDetails(defaultDetails)}}
+            onClick={cancelButton}
           > Cancel </button>
         </div>
       </div>}
