@@ -57,6 +57,7 @@ export default function UpdateProjectUsersForm({updateDetails=()=>{}, projectID}
             {selectedUser.user_level === "full" && <button
               className="btn btn-outline-info btn-sm list-inline-item user-select"
               onClick={() => addToList(selectedUser, "read")}
+              disabled={selectedUser.id === currentUser.id}
             >
               <FontAwesomeIcon icon={faSquarePlus} /> Read only
             </button>}
