@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UpdateProjectUsersForm from "./UpdateProjectUsersForm";
 import { useDispatch } from "react-redux";
 import { updateProjectUsers } from "../../../actions/projects";
@@ -13,6 +13,12 @@ export default function ProjectUsers({project}) {
     setAddUser(selectedUsers)
     setRemoveUsers(usersToRemove)
   }
+
+  useEffect(() => {
+    if (!edit) {
+      cancelEdit()
+    }
+  }, [edit])
 
   const saveUsers = () => {
     dispatch(updateProjectUsers(project.id, {update: addUsers, remove: removeUsers}))
