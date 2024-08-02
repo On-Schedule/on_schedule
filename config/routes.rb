@@ -14,6 +14,8 @@ Rails.application.routes.draw do
       end
       resources :projects, only: [:create, :show] do
         resources :tasks, only: [:index, :create, :update, :destroy]
+        get "project_users", to: "users#project_users"
+        patch "update_users", to: "projects#update_users"
       end
       resources :to_dos, only: [:create, :update, :destroy]
       get "analytics/week_overview", to: "analytics#week_overview"

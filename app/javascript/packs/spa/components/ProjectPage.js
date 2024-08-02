@@ -7,6 +7,7 @@ import { getProject } from 'actions/projects'
 import { CableContext } from '../context/cable';
 import ToDo from './projectPage/toDoPage/ToDo';
 import AnalyticsPage from './projectPage/analyticsPage/AnalyticsPage';
+import ProjectSettingsPage from './projectPage/settingsPage/ProjectSettingsPage';
 
 export default function ProjectPage({initialEdit=false, page="schedule"}) {
   const cableContext = useContext(CableContext)
@@ -22,6 +23,9 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
 
   const handleReceived = (data) => {
     switch (data.type) {
+      case "project":
+        dispatch({type: "project/received", project: data.content})
+        break
       case "task":
         dispatch({type: "task/received", task: data.content})
         break
@@ -100,8 +104,8 @@ export default function ProjectPage({initialEdit=false, page="schedule"}) {
       <div style={openToDos()}>
         <ToDo />
       </div>
-      {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}><AnalyticsPage/> </div>}
-      {page === "settings" && <div style={{width: "calc(100vw - 1.5em)"}}>settings go here!</div>}
+      {page === "analytics" && <div style={{width: "calc(100vw - 1.5em)"}}><AnalyticsPage /></div>}
+      {page === "settings" && <div style={{width: "calc(100vw - 1.5em)"}}><ProjectSettingsPage project={project} /></div>}
     </div>
   </div>
 }

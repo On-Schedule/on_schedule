@@ -22,6 +22,22 @@ class Api::V1::ProjectsController < ApplicationController
     render :show
   end
 
+  def update_users
+    project = Project.find(params[:project_id])
+    ProjectUser.destroy_by(id: params[:users][:remove].map { |user| user["project_user_id"] })
+
+    serialize_project_users(params[:users][:update]).each do |user|
+      if user[:id]
+        ProjectUser.find(user[:id]).update({user_level: user[:user_level]})
+      else
+        ProjectUser.create(user)
+      end
+    end
+
+    ActionCable.server.broadcast("project_channel_#{project.id}",
+      {type: :project, content: Rabl.render(project, 'projects/show', format: :hash)})
+  end
+
   private
 
   def project_params
@@ -31,5 +47,11 @@ class Api::V1::ProjectsController < ApplicationController
       :end_date,
       schedule: {}
     ).merge(company: current_company)
+  end
+
+  def serialize_project_users users
+    users.map do |user|
+      {id: user["project_user_id"], user_id: user["id"], user_level: user["user_level"], project_id: params[:project_id]}.compact
+    end
   end
 end

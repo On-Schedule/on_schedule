@@ -4,7 +4,7 @@ import { getUsers } from "../../actions/users";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquarePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
-export default function AddUsersFormSection(details) {
+export default function AddUsersFormSection({updateDetails=()=>{}}) {
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users)
   const currentUser = useSelector((state) => state.user)
@@ -17,7 +17,7 @@ export default function AddUsersFormSection(details) {
 
   useEffect(() => {
     if (currentUser) {
-      setSelectedUsers([...selectedUsers, {id: currentUser?.id, full_name: currentUser?.full_name, read_only: false}])
+      setSelectedUsers(_.uniqBy([...selectedUsers, {id: currentUser?.id, full_name: currentUser?.full_name, read_only: false}], "id"))
     }
   }, [currentUser])
 
@@ -27,7 +27,7 @@ export default function AddUsersFormSection(details) {
   }, [users])
 
   useEffect(() => {
-    details.updateDetails(selectedUsers)
+    updateDetails(selectedUsers)
   }, [selectedUsers, nonSelectedUsers])
 
   const addToList = (user, read_only) => {

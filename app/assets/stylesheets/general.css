@@ -121,6 +121,10 @@
   color: var(--bs-dark)
 }
 
+.user-select {
+  width: 7em;
+}
+
 /* boot strap changes (in case of style change) */
 
 /* #### Modified #### */
