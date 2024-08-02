@@ -161,7 +161,7 @@ export default function NewProjectForm({project=defaultProject}) {
             onChange={updateDetail('name')}
           />
         </div>
-        <div style={{display: "flex"}}>
+        <div className="display-flex">
           <div>
             <label className="form-label mt-4">Dates</label>
             <DateRangeField

@@ -71,7 +71,7 @@ export default function DateField(props) {
       setDate: setDate,
       closeAccordion: closeAccordion
     }}>
-      <div style={{display: "flex"}}>
+      <div className="display-flex">
         <div className="list-inline-item" style={{width: "100%"}} >
           {labels && <label>{label1}</label>}
           <div ref={dateRef} id="date" onClick={() => {

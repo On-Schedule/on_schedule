@@ -90,7 +90,7 @@ export default function DateRangeField(props) {
         setEndDate: setDates,
         closeAccordion: closeAccordion
       }}>
-        <div style={{display: "flex"}}>
+        <div className="display-flex">
           <div className="list-inline-item" style={{width: "50%"}} >
             {labels && <label>{label1}</label>}
             <div ref={startRef} id="startDate" onClick={() => {

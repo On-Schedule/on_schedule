@@ -125,6 +125,10 @@
   width: 7em;
 }
 
+.display-flex {
+  display: flex
+}
+
 /* boot strap changes (in case of style change) */
 
 /* #### Modified #### */

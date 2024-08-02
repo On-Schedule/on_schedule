@@ -50,7 +50,7 @@ export default function ToDoItem({toDo}) {
 
   return <>
     {!editItem && <div className="card to-do-card">
-      <div className="card-header" style={{display: "flex"}}>
+      <div className="card-header display-flex">
         <div>{title}</div>
         <div onMouseEnter={() => {setDropDown(true)}} onMouseLeave={() => {setDropDown(false)}} style={{marginLeft: "auto"}}>
           <div className="options-button">

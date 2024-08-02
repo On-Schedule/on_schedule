@@ -50,7 +50,7 @@ export default function ProjectTemplateForm({closeModal}) {
       accept='.csv'
       onChange={addFile}
     />
-    <div style={{display: "flex"}}>
+    <div className="display-flex">
       <button
         className={`btn btn-sm ${isValid() ? "btn-outline-success border-success" : "btn-outline-danger"}`}
         onClick={submitForm()}
