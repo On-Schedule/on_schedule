@@ -15,10 +15,6 @@ class AnalyticsService
       }
     end
 
-    def get_project_daily_manpower project, options={}
-      manpower_by_day project.tasks, project.start_date, project.end_date
-    end
-
     def manpower_by_day tasks, start_date, end_date
       start_date.upto(end_date).map do |date|
         tasks
