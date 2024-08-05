@@ -73,8 +73,8 @@ export default function ToDoItem({toDo}) {
         <div>
           Responsibility: <select className="" value={toDo.user_id || ""} onChange={setResponsibleUser}>
             <option key="none">None</option>
-              {_.map(users, (user) => (
-                <option key={user.id} value={user.id}>{user.full_name}</option>
+              {_.map(_.orderBy(users, ['full_name'], ['desc']), (user) => (
+                user.user_level === "full" && <option key={user.id} value={user.id}>{user.full_name}</option>
               ))}
           </select>
         </div>

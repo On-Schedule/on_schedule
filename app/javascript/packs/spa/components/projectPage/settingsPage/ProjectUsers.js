@@ -56,7 +56,7 @@ export default function ProjectUsers({project}) {
             </tr>
           </thead>
           <tbody>
-            {_.map(users, (user) => (
+            {_.map(_.orderBy(users, ['full_name'], ['desc']), (user) => (
               <tr key={user.id} className="table-active">
                 <td>{user.full_name}</td>
                 <td>{user.user_level.replace("_", " ")}</td>

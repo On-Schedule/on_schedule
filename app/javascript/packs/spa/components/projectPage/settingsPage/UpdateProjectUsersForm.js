@@ -45,7 +45,7 @@ export default function UpdateProjectUsersForm({updateDetails=()=>{}, projectID}
     <div className="list-inline-item ">
       <label className="form-label">Remove Users</label>
       <div className="card-body bg-dark project-form-user-card">
-        {_.map(_.orderBy(selectedUsers, ['user', 'full_name'], ['desc']), (selectedUser) => (
+        {_.map(_.orderBy(selectedUsers, ['full_name'], ['desc']), (selectedUser) => (
           <div className="display-flex" key={selectedUser.id}>
             <button
               className="btn btn-outline-danger btn-sm list-inline-item user-btn"
@@ -74,7 +74,7 @@ export default function UpdateProjectUsersForm({updateDetails=()=>{}, projectID}
     <div className="list-inline-item">
       <label className="form-label">Add Additional Users</label>
       <div className="card-body bg-dark project-form-user-card">
-        {_.map(_.orderBy(nonSelectedUsers, ['user', 'full_name'], ['desc']), (user) => (
+        {_.map(_.orderBy(nonSelectedUsers, ['full_name'], ['desc']), (user) => (
           <div className="display-flex" key={user.id} id={`${user.full_name.replace(' ', "-")}`}>
             <button
               className="btn btn-outline-success btn-sm list-inline-item user-btn"

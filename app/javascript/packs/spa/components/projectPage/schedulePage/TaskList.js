@@ -96,7 +96,7 @@ export default function TaskList({edit=false}) {
           ))}
         </div>}
         {tasks?.length > 0 && (
-          _.map(_.sortBy(searchedTasks, "start_date"), (task) => (
+          _.map(_.orderBy(searchedTasks, ['start_date'], ['desc']), (task) => (
             <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
           ))
         )}
