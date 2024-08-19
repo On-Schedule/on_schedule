@@ -173,7 +173,7 @@ export default function NewProjectForm({project=defaultProject}) {
           </div>
           <div style={{marginLeft: "auto", width: "49%"}} >
             <label className='form-label mt-4'>Project from Template</label>
-            <select className="dropdown form-select form-select-sm" onChange={selectTemplate} value={template?.name || "none"}>
+            <select className="dropdown form-select form-select-sm" onChange={selectTemplate} >
               <option key="none">None</option>
               {_.map(templates, (template) => (
                 <option key={template.id} value={template.id}>{template.name}</option>
