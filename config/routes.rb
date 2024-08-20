@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       resource :company, only: [] do
         resources :users, only: [:index]
       end
-      resources :projects, only: [:create, :show] do
+      resources :projects, only: [:create, :show, :destroy] do
+        delete "archive", to: "projects#archive"
         resources :tasks, only: [:index, :create, :update, :destroy]
         get "project_users", to: "users#project_users"
         patch "update_users", to: "projects#update_users"

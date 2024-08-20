@@ -22,6 +22,23 @@ class Api::V1::ProjectsController < ApplicationController
     render :show
   end
 
+  def destroy; end
+
+  def archive
+    project = Project.find(params[:project_id])
+
+    tasks = project.tasks
+    to_dos = project.to_dos
+    project_users = project.project_users
+
+    time = Time.now
+
+    project.update(deleted_at: time)
+    tasks.update_all(deleted_at: time)
+    to_dos.update_all(deleted_at: time)
+    project_users.update_all(deleted_at: time)
+  end
+
   def update_users
     project = Project.find(params[:project_id])
     ProjectUser.destroy_by(id: params[:users][:remove].map { |user| user["project_user_id"] })

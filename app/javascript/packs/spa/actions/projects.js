@@ -20,6 +20,13 @@ export function getProject(projectID) {
   }
 }
 
+export function archiveProject(projectID) {
+  return async (_dispatch, _getState, api) => {
+    const {data:project} = await api.delete(`projects/${projectID}/archive`);
+    return project;
+  }
+}
+
 export function updateProjectUsers(projectID, users) {
   return async (_dispatch, _getState, api) => {
     const {data:project} = await api.patch(`projects/${projectID}/update_users`, {'users': users})

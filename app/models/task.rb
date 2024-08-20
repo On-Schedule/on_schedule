@@ -8,6 +8,10 @@ class Task < ApplicationRecord
 
   enum responsibility: {internal: "internal", external: "external", subcontractor: "subcontractor"}
 
+  default_scope { where(deleted_at: nil) }
+  scope :only_deleted, -> { unscope(where: :deleted_at).where.not(deleted_at: nil) }
+  scope :with_deleted, -> { unscope(where: :deleted_at) }
+
   def date_index
     {start: (start_date - project.start_date).to_i + 1, stop: (end_date - start_date).to_i + 1}
   end
