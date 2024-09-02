@@ -12,7 +12,9 @@ Rails.application.routes.draw do
       resource :company, only: [] do
         resources :users, only: [:index]
       end
+      get "projects/archived", to: "projects#archived_projects"
       resources :projects, only: [:create, :show, :destroy] do
+        patch "restore", to: "projects#restore"
         delete "archive", to: "projects#archive"
         resources :tasks, only: [:index, :create, :update, :destroy]
         get "project_users", to: "users#project_users"

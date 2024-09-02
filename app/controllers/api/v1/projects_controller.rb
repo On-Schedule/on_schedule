@@ -39,6 +39,28 @@ class Api::V1::ProjectsController < ApplicationController
     project_users.update_all(deleted_at: time)
   end
 
+  # TODO: - finish building out and testing
+  def restore
+    project = Project.only_deleted.find(params[:project_id])
+
+    tasks = project.tasks
+    to_dos = project.to_dos
+    project_users = project.project_users
+
+    project.update(deleted_at: nil)
+    tasks.update_all(deleted_at: nil)
+    to_dos.update_all(deleted_at: nil)
+    project_users.update_all(deleted_at: nil)
+
+    ActionCable.server.broadcast("company_admin_channel_#{current_company.id}",
+      {type: :project_restored, content: {project_id: project.id}})
+  end
+
+  def archived_projects
+    @projects = Project.only_deleted
+    respond_with @projects
+  end
+
   def update_users
     project = Project.find(params[:project_id])
     ProjectUser.destroy_by(id: params[:users][:remove].map { |user| user["project_user_id"] })

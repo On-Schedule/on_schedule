@@ -33,3 +33,20 @@ export function updateProjectUsers(projectID, users) {
     return project
   }
 }
+
+// ARCHIVED PROJECT ACTIONS
+
+export function getArchivedProjects() {
+  return async (dispatch, _getState, api) => {
+    const {data:projects} = await api.get(`projects/archived`);
+    dispatch({type: 'archivedProjects/received', projects});
+    return projects;
+  }
+}
+
+export function restoreProject(projectID) {
+  return async (_dispatch, _getState, api) => {
+    const {data:project} = await api.patch(`projects/${projectID}/restore`);
+    return project;
+  }
+}
