@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from 'actions/user'
@@ -20,6 +20,31 @@ function App() {
   const companyAdmin = () => {
     return (user?.role === "super_admin" ||user?.role === "admin")
   }
+
+  console.log('user', user);
+  const handleReceived = (data) => {
+    // switch (data.type) {
+    //   case "project_restored":
+    //     dispatch({type: "archivedProjects/restored", project: data.content})
+    //     break
+    //   default:
+    //     break
+    // }
+  }
+
+  useEffect(() => {
+    const newChannel = cableContext.cable.subscriptions.create(
+      {
+        channel: "userChannel",
+        company_id: user?.id
+      },
+      {received: (data) => handleReceived(data)}
+    )
+
+    return () => {
+      newChannel.unsubscribe()
+    }
+  }, [user])
 
   return (
     <div>
