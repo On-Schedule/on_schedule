@@ -1,41 +1,23 @@
 import React, { useContext, useEffect } from "react";
 import ProjectTemplates from "./companyAdminPage/ProjectTemplates";
 import ArchivedProjects from "./companyAdminPage/ArchivedProjects";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CableContext } from "../context/cable";
 
 export default function CompanyAdminPage() {
   const cableContext = useContext(CableContext)
-  // const company_id = useSelector((state) => state.user)
   const company_id = useSelector((state) => state.user?.company.id)
+  const dispatch = useDispatch()
 
     const handleReceived = (data) => {
-      console.log('data', data);
-    // switch (data.type) {
-    //   case "project":
-    //     dispatch({type: "project/received", project: data.content})
-    //     break
-    //   case "task":
-    //     dispatch({type: "task/received", task: data.content})
-    //     break
-    //   case "task_deleted":
-    //     dispatch({type: "task/deleted", task: data.content})
-    //     break
-    //   case "project":
-    //     dispatch({type: "project/received", project: data.content})
-    //     break
-    //   case "to_do":
-    //     dispatch({type: "toDo/received", toDo: data.content})
-    //     break
-    //   case "to_do_deleted":
-    //     dispatch({type: "toDo/deleted", toDo: data.content})
-    //     break
-    //   default:
-    //     break
-    // }
+    switch (data.type) {
+      case "project_restored":
+        dispatch({type: "archivedProjects/restored", project: data.content})
+        break
+      default:
+        break
+    }
   }
-
-  // console.log('company_id', company_id);
 
   useEffect(() => {
     const newChannel = cableContext.cable.subscriptions.create(

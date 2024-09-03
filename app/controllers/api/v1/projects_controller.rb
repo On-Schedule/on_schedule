@@ -39,13 +39,12 @@ class Api::V1::ProjectsController < ApplicationController
     project_users.update_all(deleted_at: time)
   end
 
-  # TODO: - finish building out and testing
   def restore
     project = Project.only_deleted.find(params[:project_id])
 
-    tasks = project.tasks
-    to_dos = project.to_dos
-    project_users = project.project_users
+    tasks = project.tasks.only_deleted
+    to_dos = project.to_dos.only_deleted
+    project_users = project.project_users.only_deleted
 
     project.update(deleted_at: nil)
     tasks.update_all(deleted_at: nil)
