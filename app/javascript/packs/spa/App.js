@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from 'actions/user'
@@ -6,9 +6,11 @@ import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
 import ProjectPage from './components/ProjectPage';
 import CompanyAdminPage from './components/CompanyAdminPage';
+import { CableContext } from './context/cable';
 
 function App() {
   const dispatch = useDispatch();
+  const cableContext = useContext(CableContext)
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false)
 
@@ -21,7 +23,6 @@ function App() {
     return (user?.role === "super_admin" ||user?.role === "admin")
   }
 
-  console.log('user', user);
   const handleReceived = (data) => {
     // switch (data.type) {
     //   case "project_restored":
