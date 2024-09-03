@@ -9,7 +9,7 @@ export default function CompanyAdminPage() {
   const company_id = useSelector((state) => state.user?.company.id)
   const dispatch = useDispatch()
 
-    const handleReceived = (data) => {
+  const handleReceived = (data) => {
     switch (data.type) {
       case "project_restored":
         dispatch({type: "archivedProjects/restored", project: data.content})
