@@ -13,6 +13,10 @@ class Api::V1::ProjectsController < ApplicationController
       params[:project][:project_users].each do |user|
         ProjectUser.create({project: @project, user_id: user[:id], user_level: user[:read_only] ? "read" : "full"})
       end
+      @project.users.each do |user|
+        ActionCable.server.broadcast("user_channel_#{user.id}",
+          {type: :project_added, content: {id: @project.id, name: @project.name}})
+      end
       render :show, status: :created
     end
   end
@@ -26,6 +30,11 @@ class Api::V1::ProjectsController < ApplicationController
 
   def archive
     project = Project.find(params[:project_id])
+
+    project.users.each do |user|
+      ActionCable.server.broadcast("user_channel_#{user.id}",
+        {type: :project_deleted, content: {project_id: project.id}})
+    end
 
     tasks = project.tasks
     to_dos = project.to_dos
@@ -53,6 +62,11 @@ class Api::V1::ProjectsController < ApplicationController
 
     ActionCable.server.broadcast("company_admin_channel_#{current_company.id}",
       {type: :project_restored, content: {project_id: project.id}})
+
+    project.users.each do |user|
+      ActionCable.server.broadcast("user_channel_#{user.id}",
+        {type: :project_added, content: {id: project.id, name: project.name}})
+    end
   end
 
   def archived_projects

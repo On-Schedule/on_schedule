@@ -24,20 +24,22 @@ function App() {
   }
 
   const handleReceived = (data) => {
-    // switch (data.type) {
-    //   case "project_restored":
-    //     dispatch({type: "archivedProjects/restored", project: data.content})
-    //     break
-    //   default:
-    //     break
-    // }
+    switch (data.type) {
+      case "project_added":
+        dispatch({type: "user/project_added", project: data.content})
+      case "project_deleted":
+        dispatch({type: "user/project_deleted", project: data.content})
+        break
+      default:
+        break
+    }
   }
 
   useEffect(() => {
     const newChannel = cableContext.cable.subscriptions.create(
       {
-        channel: "userChannel",
-        company_id: user?.id
+        channel: "UserChannel",
+        user_id: user?.id
       },
       {received: (data) => handleReceived(data)}
     )
@@ -45,7 +47,7 @@ function App() {
     return () => {
       newChannel.unsubscribe()
     }
-  }, [user])
+  }, [user?.id])
 
   return (
     <div>
