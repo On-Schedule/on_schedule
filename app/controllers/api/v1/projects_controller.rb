@@ -78,11 +78,11 @@ class Api::V1::ProjectsController < ApplicationController
     project = Project.find(params[:project_id])
     ProjectUser.destroy_by(id: params[:users][:remove].map { |user| user["project_user_id"] })
 
-    serialize_project_users(params[:users][:update]).each do |user|
-      if user[:id]
-        ProjectUser.find(user[:id]).update({user_level: user[:user_level]})
+    serialize_project_users(params[:users][:update]).each do |project_user|
+      if project_user[:id]
+        ProjectUser.find(user[:id]).update({user_level: project_user[:user_level]})
       else
-        ProjectUser.create(user)
+        ProjectUser.create(project_user)
       end
     end
 
@@ -101,9 +101,14 @@ class Api::V1::ProjectsController < ApplicationController
     ).merge(company: current_company)
   end
 
-  def serialize_project_users users
-    users.map do |user|
-      {id: user["project_user_id"], user_id: user["id"], user_level: user["user_level"], project_id: params[:project_id]}.compact
+  def serialize_project_users project_users
+    project_users.map do |project_user|
+      {
+        id: project_user["project_user_id"],
+        user_id: project_user["id"],
+        user_level: project_user["user_level"],
+        project_id: params[:project_id]
+      }.compact
     end
   end
 end
