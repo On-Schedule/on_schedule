@@ -20,7 +20,7 @@ function App() {
   };
 
   const companyAdmin = () => {
-    return (user?.role === "super_admin" ||user?.role === "admin")
+    return (user?.role === "super_admin" || user?.role === "admin")
   }
 
   const handleReceived = (data) => {
