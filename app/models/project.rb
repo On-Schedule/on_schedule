@@ -8,6 +8,10 @@ class Project < ApplicationRecord
   validate :start_date_before_end_date
   validate :schedule_days_and_hours_are_valid
 
+  default_scope { where(deleted_at: nil) }
+  scope :only_deleted, -> { unscope(where: :deleted_at).where.not(deleted_at: nil) }
+  scope :with_deleted, -> { unscope(where: :deleted_at) }
+
   def duration
     (end_date - start_date).to_i + 1
   end

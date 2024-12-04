@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from 'react-redux';
 import DateBar from "./DateBar";
 import { DateTime } from "luxon"
-import SearchBar from '../common/SearchBar';
-import DragScroll from "../common/DragScroll";
+import SearchBar from '../../common/SearchBar';
+import DragScroll from "../../common/DragScroll";
 import TaskItem from "./TaskItem";
 import NewTaskFormV2 from "./NewTaskFormV2";
 
@@ -96,7 +96,7 @@ export default function TaskList({edit=false}) {
           ))}
         </div>}
         {tasks?.length > 0 && (
-          _.map(_.sortBy(searchedTasks, "start_date"), (task) => (
+          _.map(_.orderBy(searchedTasks, ['start_date'], ['asc']), (task) => (
             <TaskItem task={task} mainGridTemplate={mainGridTemplate} gridTemp={gridTemp} taskCardWidth={taskCardWidth} key={task.id}/>
           ))
         )}

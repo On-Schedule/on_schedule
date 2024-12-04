@@ -57,7 +57,7 @@ export default function DatePicker(props) {
       onMouseEnter={disableScroll}
       onMouseLeave={enableScroll}
     >
-      <div className="card-header" style={{display: "flex"}}>
+      <div className="card-header display-flex">
         <FontAwesomeIcon
           icon={faChevronUp}
           onClick={() => setMonth(month.minus({month: 1}))}
@@ -70,7 +70,7 @@ export default function DatePicker(props) {
         />
       </div>
       <div className="card-body">
-        <div style={{display: "flex"}}>
+        <div className="display-flex">
           <CalendarContext.Provider value={{
             controlDates: controlDates,
             startDate: date,

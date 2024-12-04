@@ -1,4 +1,4 @@
-object @project
+collection @projects
 
 attributes :id, :name, :start_date, :end_date, :schedule, :template
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import DateField from "../dates/DateField";
-import { newToDo } from "../../actions/ToDos";
+import DateField from "../../common/dates/DateField";
+import { newToDo, updateToDo } from "../../../actions/ToDos";
 
-export default function ToDoForm() {
+export default function ToDoForm({cancelAction=()=>{}, toDo={}}) {
   const dispatch = useDispatch()
   const project = useSelector((state) => state.project)
   const defaultDetails = {
@@ -18,7 +18,11 @@ export default function ToDoForm() {
   const [details, setDetails] = useState(defaultDetails)
 
   useEffect(() => {
-    setDetails(defaultDetails)
+    if(!toDo){
+      setDetails(defaultDetails)
+    } else {
+      setDetails({...defaultDetails, ..._.omitBy(toDo, _.isNull)})
+    }
   }, [project])
 
   const updateDetail = (field) => (e) => {
@@ -46,7 +50,26 @@ export default function ToDoForm() {
       return
     }
 
-    await dispatch(newToDo(details));
+    if(toDo.id) {
+      dispatch(updateToDo(toDo.id, details))
+      cancelAction()
+    } else {
+      await dispatch(newToDo(details));
+      setDetails(defaultDetails)
+    }
+
+  }
+
+  const saveButtonStyle = () => {
+    if (!isValid()) {
+      return "btn-outline-danger"
+    } else {
+      return "btn-outline-success border-success"
+    }
+  }
+
+  const cancelButton = () => {
+    cancelAction()
     setDetails(defaultDetails)
   }
 
@@ -86,8 +109,16 @@ export default function ToDoForm() {
             ))}
           </select>
         </div>
-        <div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
-          <button disabled={!isValid()} className="btn btn-sm btn-outline-success border-success" onClick={saveToDo()}>Save</button>
+        <div style={{display: "flex", justifyContent: "center", flexDirection: "row", gap: "5px"}}>
+          <button
+            disabled={!isValid()}
+            className={`btn btn-sm ${saveButtonStyle()}`}
+            onClick={saveToDo()}
+          > Save </button>
+          <button
+            className="btn btn-sm btn-outline-light"
+            onClick={cancelButton}
+          > Cancel </button>
         </div>
       </div>}
     </div>

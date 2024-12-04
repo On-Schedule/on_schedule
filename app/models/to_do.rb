@@ -2,6 +2,10 @@ class ToDo < ApplicationRecord
   belongs_to :owner, polymorphic: true
   belongs_to :responsible_user, class_name: :user, optional: true
 
+  default_scope { where(deleted_at: nil) }
+  scope :only_deleted, -> { unscope(where: :deleted_at).where.not(deleted_at: nil) }
+  scope :with_deleted, -> { unscope(where: :deleted_at) }
+
   def self.by_status
     to_dos = {
       'Not started': [],

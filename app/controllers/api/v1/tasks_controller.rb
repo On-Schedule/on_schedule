@@ -34,6 +34,14 @@ class Api::V1::TasksController < ApplicationController
     end
   end
 
+  def destroy
+    task = Task.find(params[:id])
+
+    if task.destroy
+      ActionCable.server.broadcast("project_channel_#{task.project_id}", {type: :task_deleted, content: {id: task.id}})
+    end
+  end
+
   private
 
   def task_params

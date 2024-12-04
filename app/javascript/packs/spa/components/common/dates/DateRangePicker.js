@@ -73,7 +73,7 @@ export default function DateRangePicker(props) {
       onMouseEnter={disableScroll}
       onMouseLeave={enableScroll}
     >
-      <div className="card-header" style={{display: "flex"}}>
+      <div className="card-header display-flex">
         <FontAwesomeIcon
           icon={faChevronUp}
           onClick={() => setDate(date.minus({month: 1}))}
@@ -96,7 +96,7 @@ export default function DateRangePicker(props) {
         >End date</h4>
       </div>
       <div className="card-body">
-        <div style={{display: "flex"}}>
+        <div className="display-flex">
           <CalendarContext.Provider value={{
             controlDates: controlDates,
             startDate: startDate,

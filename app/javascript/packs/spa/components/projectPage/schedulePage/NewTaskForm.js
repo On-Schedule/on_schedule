@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useSelector } from "react-redux";
 import { newTask, updateTask } from 'actions/tasks'
-import DateRangeField from "../dates/DateRangeField";
+import DateRangeField from "../../common/dates/DateRangeField";
 import { DateTime } from "luxon";
-import Tooltip from "../common/Tooltip";
 
-export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style, templateKey="", labels=true}) {
+export default function NewTaskForm({task={}, setEdit=()=>{}, projectID, style}) {
   const {name, start_date, end_date, hours, description, cost_code, responsibility, project_id} = task
   const defaultDetails = {
     project_id: project_id || project?.id || projectID,
@@ -22,17 +21,13 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
   const dispatch = useDispatch();
   const project = useSelector((state) => state.project)
   const [details, setDetails] = useState(defaultDetails)
-  const [nameTooltip, setNameTooltip] = useState(false)
-  const [datesTooltip, setDatesTooltip] = useState(false)
-  const [hoursTooltip, setHoursTooltip] = useState(false)
-  const [costCodeTooltip, setCostCodeTooltip] = useState(false)
 
   useEffect(() => {
     setDetails(defaultDetails)
   }, [project])
 
   const updateDetail = (field) => (e) => {
-    setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
+    setDetails({...details, [field]: e.target.value})
   }
 
   const updateDates = (dates) => {
@@ -49,7 +44,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
       await dispatch(updateTask(details, project.id, task.id));
       setEdit(false)
     } else {
-      await dispatch(newTask(details, project.id, templateKey));
+      await dispatch(newTask(details, project.id));
       setDetails(defaultDetails)
     }
   }
@@ -65,16 +60,12 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
 
   const noWarnings = () => {
     if (details.responsibility === "internal") {
-      return (hoursExist() && hasWorkingDays() && costCodeExist())
+      return (hoursExist() && hasWorkingDays())
     } else if (details.responsibility === "external") {
       return true
     } else if (details.responsibility === "subcontractor") {
       return true
     }
-  }
-
-  const costCodeExist = () => {
-    return !!details.cost_code
   }
 
   const hoursExist = () => {
@@ -146,7 +137,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
     return true
   }
 
-  const buttonStyle = () => {
+  const saveButtonStyle = () => {
     if (!isValid()) {
       return "btn-outline-danger"
     } else if (!noWarnings()) {
@@ -156,128 +147,61 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
     }
   }
 
-  const bgcolors = {
-    success: {backgroundColor:"#ccf8cc", borderColor: "#62c462"},
-    warning: {backgroundColor:"#fcce8e", borderColor: "#f89406"},
-    danger: {backgroundColor:"#fcc2c0", borderColor: "#ee5f5b"}
-  }
-
-  const hoursColor = () => {
-    if (details.responsibility != "internal") {
-      return {};
-    } else if (hoursExist()) {
-      return bgcolors.success
-    } else {
-      return bgcolors.warning
-    }
-  }
-
-  const costCodeColor = () => {
-    if (details.responsibility != "internal") {
-      return {};
-    } else if (costCodeExist()) {
-      return bgcolors.success
-    } else {
-      return bgcolors.warning
-    }
-  }
-
-  const datesColor = () => {
-    if (!datesExsist() || !datesAreValid()) {
-      return bgcolors.danger;
-    } else if (!hasWorkingDays()) {
-      return bgcolors.warning
-    } else {
-      return bgcolors.success
-    }
-  }
-
   return <form style={{display: "flex", flexWrap: "wrap"}}>
-    <div className="card-body task-form-flex" style={{...style, padding: "0px"}}>
-      <div className="list-inline-item task-form-element" onMouseEnter={() => {setNameTooltip(true)}} onMouseLeave={() => {setNameTooltip(false)}}>
-        {labels && <label>New Task</label>}
+    <div className="card-body task-form-flex" style={style}>
+      <div className="list-inline-item task-form-element" >
+        <label>New Task</label>
         <input
           className="form-control form-control-sm"
-          style={nameIsValid() ? bgcolors.success : bgcolors.danger}
           name="name"
           placeholder="Task"
           value={details?.name}
           onChange={updateDetail('name')}
         />
-        {(!nameIsValid() && nameTooltip) && <Tooltip>
-          <div className="text-danger">Name is required.</div>
-        </Tooltip>}
       </div>
       <div className="list-inline-item task-form-element" style={{"--base-width": "16.25em"}}>
-        <div onMouseEnter={() => {setDatesTooltip(true)}} onMouseLeave={() => {setDatesTooltip(false)}}>
-          <DateRangeField
-            startDateValue={details.start_date}
-            endDateValue={details.end_date}
-            onDatesChange={updateDates}
-            dateRangeMin={project?.start_date}
-            dateRangeMax={project?.end_date}
-            labels={labels}
-            dateFieldStyle={datesColor()}
-          />
-        </div>
-        {((!datesExsist() ||
-          !datesAreValid() ||
-          !datesInsideProjectDates() ||
-          !hasWorkingDays()) &&
-        datesTooltip) && <Tooltip>
-          {!datesExsist() && <div className="text-danger">Start and end dates are required.</div>}
-          {!datesAreValid() && <div className="text-danger">Start date must be before end date.</div>}
-          {!datesInsideProjectDates() && <div className="text-danger">Dates must be inside of project Dates</div>}
-          {(!hasWorkingDays() && !noWarnings()) && <div className="text-warning">Dates selected do not include any working days.</div>}
-        </Tooltip>}
+        <DateRangeField
+          startDateValue={details.start_date}
+          endDateValue={details.end_date}
+          onDatesChange={updateDates}
+          dateRangeMin={project?.start_date}
+          dateRangeMax={project?.end_date}
+        />
       </div>
       <div className="list-inline-item task-form-element" >
-        {labels && <label>Responsibility</label>}
-        <select className="dropdown form-select form-select-sm" onChange={setResponsibility} value={details?.responsibility}>
-          {_.map(["internal", "external", "subcontractor"], (item, index) => (
-            <option key={index}>{item}</option>
-          ))}
+        <label>Responsibility</label>
+        <select className="dropdown form-select form-select-sm" onChange={setResponsibility} value={details?.responsibility} >
+            {_.map(["internal", "external", "subcontractor"], (item, index) => (
+              <option key={index}>{item}</option>
+            ))}
         </select>
       </div>
-      <div className="list-inline-item task-form-element" style={{"--base-width": "5.25em"}}  onMouseEnter={() => {setHoursTooltip(true)}} onMouseLeave={() => {setHoursTooltip(false)}}>
-        {labels && <label>Hours</label>}
+      {details.responsibility === "internal" && <div className="list-inline-item task-form-element" style={{"--base-width": "5.25em"}} >
+        <label>Hours</label>
         <input
           className="form-control form-control-sm"
-          style={hoursColor()}
           placeholder="Hours"
           name="hours"
           type="number"
           lable="Hours"
           value={details?.hours}
           onChange={updateDetail('hours')}
-          disabled={details.responsibility != "internal"}
-          onMouseEnter={() => {setHoursTooltip(true)}}
-          onMouseLeave={() => {setHoursTooltip(false)}}
         />
-        {((!hoursExist() && !noWarnings()) && hoursTooltip) && <Tooltip>
-          <div className="text-warning">Tasks without hours may not be included in some analytics.</div>
-        </Tooltip>}
-      </div>
-      <div className="list-inline-item task-form-element" style={{"--base-width": "7em"}}   onMouseEnter={() => {setCostCodeTooltip(true)}} onMouseLeave={() => {setCostCodeTooltip(false)}}>
-        {labels && <label>Cost Code</label>}
+      </div>}
+      {details.responsibility === "internal" && <div className="list-inline-item task-form-element" style={{"--base-width": "7em"}} >
+        <label>Cost Code</label>
         <input
           className="form-control form-control-sm"
-          style={costCodeColor()}
           name="costCode"
           placeholder="Cost code"
           value={details?.cost_code}
           onChange={updateDetail('cost_code')}
-          disabled={details.responsibility != "internal"}
         />
-        {((!costCodeExist() && !noWarnings()) && costCodeTooltip) && <Tooltip>
-          <div className="text-warning">Tasks without cost codes may not be included in some analytics.</div>
-        </Tooltip>}
-      </div>
+      </div>}
       <div className="list-inline-item task-form-element" style={{"--grow-rate": "2"}} >
-        {labels && <label>Description</label>}
+        <label>Description</label>
         <input
           className="form-control form-control-sm"
-          style={details.description ? bgcolors.success : {}}
           placeholder="Description"
           name="description"
           type="textarea"
@@ -289,7 +213,7 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
       <div className="list-inline-item task-form-element" style={{maxWidth: "10em", "--base-width": `${task.id ? "7em" : "3.1"}`, display: "flex"}}>
         <button
           type="button"
-          className={`btn btn-sm ${buttonStyle()}`}
+          className={`btn btn-sm ${saveButtonStyle()}`}
           style={{flexBasis: "1", flexGrow: "1", marginTop: ".5em"}}
           onClick={saveTask()}
           disabled={!isValid()}
@@ -298,8 +222,19 @@ export default function NewTaskFormV2({task={}, setEdit=()=>{}, projectID, style
           className="btn btn-sm btn-outline-light"
           style={{flexBasis: "1", flexGrow: "1", marginTop: ".5em", marginLeft: ".5em"}}
           onClick={()=>{setEdit(false)}}> Cancel </button>}
+        {/* {task.id && <button
+          className="btn btn-sm btn-outline-light"
+          style={{flexBasis: "1", marginTop: ".5em"}}
+          onClick={()=>{setEdit(false)}}> Delete </button>} */}
       </div>
       <div></div>
     </div>
+    {(!isValid() || !noWarnings()) && <div className="card-body task-form-validations-box">
+      {!nameIsValid() && <div className="text-danger">- Name is required.</div>}
+      {!datesExsist() && <div className="text-danger">- Start and end dates are required.</div>}
+      {!datesAreValid() && <div className="text-danger">- Start date must be before end date.</div>}
+      {(!hoursExist() && !noWarnings()) && <div className="text-warning">- Tasks without hours may not be included in some analytics.</div>}
+      {(!hasWorkingDays() && !noWarnings()) && <div className="text-warning">- Dates selected do not include any working days.</div>}
+    </div>}
   </form>
 }

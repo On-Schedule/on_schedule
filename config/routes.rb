@@ -12,10 +12,15 @@ Rails.application.routes.draw do
       resource :company, only: [] do
         resources :users, only: [:index]
       end
-      resources :projects, only: [:create, :show] do
-        resources :tasks, only: [:index, :create, :update]
+      get "projects/archived", to: "projects#archived_projects"
+      resources :projects, only: [:create, :show, :destroy] do
+        patch "restore", to: "projects#restore"
+        delete "archive", to: "projects#archive"
+        resources :tasks, only: [:index, :create, :update, :destroy]
+        get "project_users", to: "users#project_users"
+        patch "update_users", to: "projects#update_users"
       end
-      resources :to_dos, only: [:create, :update]
+      resources :to_dos, only: [:create, :update, :destroy]
       get "analytics/week_overview", to: "analytics#week_overview"
     end
   end

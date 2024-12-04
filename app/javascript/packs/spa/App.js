@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Routes, Route, Outlet, Navigate, Link, useMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from 'actions/user'
@@ -6,9 +6,11 @@ import UserDashboard from './components/UserDashboard';
 import NewProjectForm from './components/NewProjectForm';
 import ProjectPage from './components/ProjectPage';
 import CompanyAdminPage from './components/CompanyAdminPage';
+import { CableContext } from './context/cable';
 
 function App() {
   const dispatch = useDispatch();
+  const cableContext = useContext(CableContext)
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false)
 
@@ -18,8 +20,34 @@ function App() {
   };
 
   const companyAdmin = () => {
-    return (user?.role === "super_admin" ||user?.role === "admin")
+    return (user?.role === "super_admin" || user?.role === "admin")
   }
+
+  const handleReceived = (data) => {
+    switch (data.type) {
+      case "project_added":
+        dispatch({type: "user/project_added", project: data.content})
+      case "project_deleted":
+        dispatch({type: "user/project_deleted", project: data.content})
+        break
+      default:
+        break
+    }
+  }
+
+  useEffect(() => {
+    const newChannel = cableContext.cable.subscriptions.create(
+      {
+        channel: "UserChannel",
+        user_id: user?.id
+      },
+      {received: (data) => handleReceived(data)}
+    )
+
+    return () => {
+      newChannel.unsubscribe()
+    }
+  }, [user?.id])
 
   return (
     <div>

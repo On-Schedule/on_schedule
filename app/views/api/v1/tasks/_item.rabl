@@ -1,4 +1,4 @@
-attributes :id, :name, :start_date, :end_date, :hours, :cost_code, :description, :responsibility
+attributes :id, :name, :start_date, :end_date, :hours, :cost_code, :description, :responsibility, :project_id
 
 node :date_index, &:date_index
 node :daily_manpower, &:daily_manpower

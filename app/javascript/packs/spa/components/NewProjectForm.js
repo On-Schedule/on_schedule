@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { newProject } from 'actions/projects'
 import AddUsersFormSection from './newProjectForm/AddUsersFormSection';
-import DateRangeField from './dates/DateRangeField';
+import DateRangeField from './common/dates/DateRangeField';
 import { getTemplates } from '../actions/templates';
 
 const fiveEights = {
@@ -38,7 +38,7 @@ export default function NewProjectForm({project=defaultProject}) {
   const [template, setTemplate] = useState("")
 
   const updateDetail = (field) => (e) => {
-    setDetails((details) => ({...details, [field]: _.get(e, 'target.value', e)}))
+    setDetails({...details, [field]: e.target.value})
   }
 
   useEffect(() => {
@@ -161,7 +161,7 @@ export default function NewProjectForm({project=defaultProject}) {
             onChange={updateDetail('name')}
           />
         </div>
-        <div style={{display: "flex"}}>
+        <div className="display-flex">
           <div>
             <label className="form-label mt-4">Dates</label>
             <DateRangeField
@@ -173,7 +173,7 @@ export default function NewProjectForm({project=defaultProject}) {
           </div>
           <div style={{marginLeft: "auto", width: "49%"}} >
             <label className='form-label mt-4'>Project from Template</label>
-            <select className="dropdown form-select form-select-sm" onChange={selectTemplate} value={template?.name || "none"}>
+            <select className="dropdown form-select form-select-sm" onChange={selectTemplate} >
               <option key="none">None</option>
               {_.map(templates, (template) => (
                 <option key={template.id} value={template.id}>{template.name}</option>

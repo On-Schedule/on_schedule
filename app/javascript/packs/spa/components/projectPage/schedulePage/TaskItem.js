@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faChevronUp, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { DateTime } from "luxon";
 import NewTaskForm from "./NewTaskForm";
-import Modal from "../common/Modal";
+import Modal from "../../common/Modal";
+import { useDispatch } from "react-redux";
+import { deleteTask } from "../../../actions/tasks";
 
 export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidth}) {
+  const dispatch = useDispatch()
   const [accordion, setAccordion] = useState(false)
   const taskItemRef = useRef(null);
   const modalRef = useRef(null);
@@ -14,6 +17,7 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
   const start_date = DateTime.fromISO(task.start_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   const end_date = DateTime.fromISO(task.end_date).toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)
   const [edit, setEdit] = useState(false)
+  const [deleteItemModal, setDeleteItemModal] = useState(false)
   const itemWidths = {
     "--open-item-width": `${openTaskItemWidth}px`,
     "--closed-item-width": `${taskCardWidth}px`
@@ -65,8 +69,19 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
     }
   }
 
-  const closeModal = () => {
+  const closeEditModal = () => {
     setEdit(false)
+  }
+
+  const closeDeleteModal = () => {
+    setDeleteItemModal(false)
+  }
+
+  const deleteItem = () => async () => {
+    if (task.id && task.project_id) {
+      await dispatch(deleteTask(task.project_id, task.id));
+      setEdit(false)
+    }
   }
 
   return <div className="grid" style={mainGridTemplate}>
@@ -105,10 +120,28 @@ export default function TaskItem({task, mainGridTemplate, gridTemp, taskCardWidt
     {edit && <Modal
       className="edit-task-modal"
       headerText={task.name}
-      closeModal={closeModal}
+      closeModal={closeEditModal}
       ref={modalRef}
     >
+      <div className="trash-can" style={{position: "fixed", top: "7px", right: "40px"}} onClick={() => {setDeleteItemModal(true)}}><FontAwesomeIcon icon={faTrashCan}/></div>
       <NewTaskForm task={task} setEdit={setEdit}/>
+    </Modal>}
+
+    {deleteItemModal && <Modal
+      className="delete-item-modal"
+      headerText={`Delete ${task.name}?`}
+      closeModal={closeDeleteModal}
+      ref={modalRef}
+      requiredModal={true}
+    >
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <div>Are you sure you want to delete this task?</div>
+        <div>This action cannot be undone.</div>
+        <div style={{paddingTop: "10px"}}>
+          <button className="btn btn-sm btn-outline-danger"  onClick={deleteItem()}>Yes (delete)</button>
+          <button className="btn btn-sm btn-outline-light"  onClick={() => {setDeleteItemModal(false)}}>Cancel</button>
+        </div>
+      </div>
     </Modal>}
   </div>
 }

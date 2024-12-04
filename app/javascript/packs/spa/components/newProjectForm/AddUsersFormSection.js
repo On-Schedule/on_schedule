@@ -4,7 +4,7 @@ import { getUsers } from "../../actions/users";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquarePlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
-export default function AddUsersFormSection(details) {
+export default function AddUsersFormSection({updateDetails=()=>{}}) {
   const dispatch = useDispatch()
   const users = useSelector((state) => state.users)
   const currentUser = useSelector((state) => state.user)
@@ -17,7 +17,7 @@ export default function AddUsersFormSection(details) {
 
   useEffect(() => {
     if (currentUser) {
-      setSelectedUsers([...selectedUsers, {id: currentUser?.id, full_name: currentUser?.full_name, read_only: false}])
+      setSelectedUsers(_.uniqBy([...selectedUsers, {id: currentUser?.id, full_name: currentUser?.full_name, read_only: false}], "id"))
     }
   }, [currentUser])
 
@@ -27,7 +27,7 @@ export default function AddUsersFormSection(details) {
   }, [users])
 
   useEffect(() => {
-    details.updateDetails(selectedUsers)
+    updateDetails(selectedUsers)
   }, [selectedUsers, nonSelectedUsers])
 
   const addToList = (user, read_only) => {
@@ -45,7 +45,7 @@ export default function AddUsersFormSection(details) {
       <label className="form-label">Remove Users</label>
       <div className="card-body bg-dark project-form-user-card">
         {_.map(selectedUsers, (selectedUser) => (
-          <div key={selectedUser.id} style={{display: "flex"}}>
+          <div className="display-flex" key={selectedUser.id}>
             <button
               className="btn btn-outline-danger btn-sm list-inline-item user-btn"
               onClick={() => removeFromList(selectedUser)}
@@ -61,7 +61,7 @@ export default function AddUsersFormSection(details) {
       <label className="form-label">Add Additional Users</label>
       <div className="card-body bg-dark project-form-user-card">
         {_.map(nonSelectedUsers, (user) => (
-          <div key={user.id} style={{display: "flex"}} id={`${user.full_name.replace(' ', "-")}`}>
+          <div className="display-flex" key={user.id} id={`${user.full_name.replace(' ', "-")}`}>
             <button
               className="btn btn-outline-success btn-sm list-inline-item user-btn"
               onClick={() => addToList(user, false)}

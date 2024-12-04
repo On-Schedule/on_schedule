@@ -17,6 +17,14 @@ class Api::V1::ToDosController < ApplicationController
     end
   end
 
+  def destroy
+    @to_do = ToDo.find(params[:id])
+
+    if @to_do.destroy && @to_do.owner_type == "Project"
+      ActionCable.server.broadcast("project_channel_#{@to_do.owner_id}", {type: :to_do_deleted, content: {id: @to_do.id, status: @to_do.status}})
+    end
+  end
+
   def to_do_params
     params.require(:to_do).permit(
       :title,

@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import user from './user';
 import users from './users';
-import project from './projects';
+import project from './project';
+import archivedProjects from './archivedProjects';
 import tasks from './tasks';
 import templates from './templates';
 import analytics from './analytics';
@@ -11,6 +12,7 @@ export default combineReducers({
   user,
   users,
   project,
+  archivedProjects,
   tasks,
   templates,
   analytics,
