@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Modal from '../common/Modal';
 import { getArchivedProjects, restoreProject } from '../../actions/projects';
 
 export default function ArchivedProjects() {
@@ -10,10 +9,6 @@ export default function ArchivedProjects() {
   useEffect(() => {
     dispatch(getArchivedProjects())
   }, [])
-
-  // const closeModal = () => {
-  //   setFromCSVModal(false)
-  // }
 
   const restore = (projectID) => {
     dispatch(restoreProject(projectID))
@@ -30,8 +25,5 @@ export default function ArchivedProjects() {
         </div>
       ))}
     </div>
-    {/* {fromCSVModal && <Modal closeModal={closeModal} headerText="New template from CSV">
-      <ProjectTemplateForm closeModal={closeModal} />
-    </Modal>} */}
   </div>
 }
